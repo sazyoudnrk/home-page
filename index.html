@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>砂上拠点電力発電所</title>
+<meta name="description" content="砂上電力のホームページ">
+<meta property="og:title" content="砂上拠点電力発電所">
+<meta property="og:image" content="images/top/top1.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#333;--sub:#777;--link:#3f86d6;--red:#d9382b;--line:#ddd;--btn:#1a1a1a;--grey:#8c8c8c}
+*{box-sizing:border-box}
+html{scroll-padding-top:20px}
+body{margin:0;background:#fff;color:var(--ink);font:16px/1.9 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;padding-top:env(safe-area-inset-top)}
+a{color:var(--link)}
+header{background:#fff}
+header .in{max-width:860px;margin:auto;padding:18px 16px 10px;display:flex;align-items:center;justify-content:center;position:relative;min-height:84px}
+.logo{font:900 28px/1.3 "Noto Sans JP",sans-serif;color:#000;text-decoration:none;text-align:center}
+.logo b{color:var(--red);font-weight:900}
+#menu{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:48px;height:48px;border:0;border-radius:6px;background:#2b2b2b;cursor:pointer;padding:0}
+#menu i{display:block;width:26px;height:3px;background:#fff;margin:5px auto}
+nav{display:none;flex-direction:column;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+nav.open{display:flex}
+nav a{padding:14px 20px;color:#000;text-decoration:none;font-weight:700;border-bottom:1px solid var(--line)}
+nav a:last-child{border-bottom:0}
+nav a.on{color:var(--red)}
+@media (min-width:700px){#menu{display:none}nav,nav.open{display:flex;flex-direction:row;justify-content:center;border-top:0}nav a{border:0;padding:8px 16px}}
+main{max-width:860px;margin:auto;padding:12px 16px 60px}
+h1,h2{font-weight:400;line-height:1.5;margin:32px 0 8px}
+h1{font-size:26px;margin-top:8px}
+h2{font-size:24px}
+h3{font-size:17px;margin:20px 0 4px}
+.lead{color:var(--sub);margin:0 0 20px}
+.hero{position:relative;margin:0 0 24px}
+.slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.slides::-webkit-scrollbar{display:none}
+.slides img,.slides .ph{flex:none;width:100%;aspect-ratio:1.4;object-fit:cover;scroll-snap-align:start;background:#eee}
+.arr{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:52px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 1px 4px rgba(0,0,0,.45))}
+.arr.l{left:8%}.arr.r{right:8%}
+.arr svg{width:100%;height:100%;stroke:#fff;stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:20px 0}
+.btn{display:inline-block;padding:14px 22px;border:5px solid var(--btn);border-radius:999px;color:var(--btn);text-decoration:none;font:700 17px/1.2 "Noto Sans JP",sans-serif;text-align:center}
+.btn.sub{border-color:var(--grey);color:var(--grey)}
+.notice{color:var(--link);margin:24px 0}
+.box{border:1px solid var(--line);padding:14px 16px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.grid img,.grid .ph{width:100%;aspect-ratio:1;object-fit:cover;background:#f3f3f3;display:block}
+.masonry{columns:2 150px;column-gap:8px}
+.masonry img,.masonry .ph{width:100%;margin-bottom:8px;display:block;background:#f3f3f3}
+.ph{display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--sub);padding:6px;text-align:center;word-break:break-all;min-height:90px}
+.card{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center}
+.card img,.card .ph{width:96px;height:96px;object-fit:cover}
+.card h3{margin:0;font-size:16px}.card p{margin:0;font-size:14px;color:var(--sub)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.tags a{font-size:13px;padding:2px 10px;border:1px solid var(--line);text-decoration:none}
+.log{margin:0;padding:0;list-style:none}
+.log li{display:grid;grid-template-columns:72px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.log time{color:var(--sub);font-variant-numeric:tabular-nums}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:9;padding:12px}
+#lb.open{display:flex}#lb img{max-width:100%;max-height:100%}
+footer{text-align:center;color:var(--sub);font-size:12px;padding:20px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="in"><a class="logo" href="#home"><b>砂上</b>拠点<b>電力</b>発電場</a><button id="menu" aria-label="メニュー" aria-expanded="false"><i></i><i></i><i></i></button></div><nav id="nav"></nav></header>
+<main id="main"></main>
+<div id="lb" role="dialog" aria-label="拡大表示"><img alt=""></div>
+<footer>© 砂上電力</footer>
+
+<script>
+/* ============ データ（ここだけ編集すれば更新できます） ============ */
+const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
+const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['comic','COMIC'],['about','ABOUT'],['contact','CONTACT']];
+
+const HOME = {
+  top: ['top1','top2','top3'],               // images/top/top1.(jpg|png|webp)
+  about: '砂上電力の大体のコンテンツが載っているwebサイトです。',
+  links: [
+    ['ギャラリー','#gallery'],['キャラクター','#character'],
+    ['skeb','https://skeb.jp/@sazyou_dnrk'],
+    ['クソ俳句同好会に入ろう','https://x.com/i/communities/1595752674171162625/about'],
+    ['みんなのステッカー屋さん','https://stickershop.shopselect.net/search?q=%E7%A0%82%E4%B8%8A%E9%9B%BB%E5%8A%9B']
+  ],
+  log: [
+    ['25/05/03','URLの見直し、スマホ版のレイアウト崩れ、リンク切れの解消。テストしきれてないので不備があるかも。気が付いたらマシュマロへ。直します。'],
+    ['25/04/30','久々に更新。すべてのページを更新、追加、削除。サイトの画像容量の関係で古い絵と漫画を削除。pixivにまとめ直すことを検討中。新しい創作キャラのページ追加。contactページ更新。'],
+    ['23/01/21','noteを作りました'],
+    ['22/12/19','work 追加'],
+    ['22/10/28','少々更新。サイトの細かな修正だけ'],
+    ['22/09/29','UTAUのDL先を記載し忘れていました。MYCOEIROINKも作ったので砂上天獄で配布します。'],
+    ['22/09/28','ギャラリーのコンテンツ差し替え。主に動画など'],
+    ['22/08/23','細かな修正。世界観の追記。キャラクターページの画像の削除'],
+    ['22/08/21','TRPGをやらせていただいて嬉しかったので探索者のページを作りました。'],
+    ['22/05/05','イベント参加記録とCONTACTページを更新。suzuriのリンク追加。BLOG→ABOUTに変更し整理。'],
+    ['22/03/28','サンクラに音楽を投げました'],
+    ['21/12/12','コミティア出ます']
+    /* TODO: 21/11/30 以前の更新記録は続けてここへ */
+  ]
+};
+
+const DOWNLOADS = [
+  {img:'dl-mmd',t:'MMDモデル',d:'踊る3D　pmx形式',l:[['リンク','https://drive.google.com/drive/folders/1cbzTjooetluhdnm_QOA1q_7p0aAVKPtE?usp=sharing'],['プレビュー','https://www.youtube.com/watch?v=lU8e8-WyCCc']]},
+  {img:'dl-vroid',t:'VRoid',d:'幅広く利用可能　vrm形式',l:[['リンク＆プレビュー','https://hub.vroid.com/users/26307709']]},
+  {img:'dl-mc',t:'マイクラスキン',d:'創作キャラのマイクラスキン',l:[['リンク','https://drive.google.com/drive/folders/1mTeCl1b0tELd1-9j_5r5RUzwezheWhUC?usp=sharing']]},
+  {img:'dl-stamp',t:'インターネットやめろ（スタンプ）',d:'discordに最適',l:[['リンク','https://drive.google.com/file/d/1e0ENYm544KC37OoJh9hOznrqTAHQ2_MX/view?usp=sharing'],['参考サイト','https://language-and-engineering.hatenablog.jp/entry/20111024/p1']]},
+  {img:'dl-karaoke',t:'カラオケ音源',d:'誰か歌ってくれるかと思って',l:[['リンク','https://drive.google.com/drive/folders/11OCcpkoJ5etcGZjEz3keEBk05l1Hi6TF?usp=sharing']]},
+  {img:'dl-utau',t:'UTAU　MYCOE',d:'歌うし喋るよ　サイト内を一読してください',l:[['砂上天獄','https://nanashie.wixsite.com/sazyouutau']]}
+];
+const TERMS_URL = 'https://nanashie.wixsite.com/sazyou/blank-27'; /* TODO: 利用規約ページを移行したら '#terms' 等に */
+
+const CHARS = [['でんでん','denden'],['佐藤一花','satouichika'],['所長','syotyo'],['裏目シオン','urameshion'],['メイドちゃん','pinkmeido'],['めいどちゃん','mizuiromeido'],['注寝ととと','tototo'],['注与とと','toto']];
+const CHAR_TABS = [['創作キャラ','#character'],['LoopBackDream','https://nanashie.wixsite.com/sazyou/character-lbd'],['探索者','https://nanashie.wixsite.com/sazyou/character-trpg'],['魔法創作','https://nanashie.wixsite.com/sazyou/character-dol']]; /* TODO: 移行したら内部リンクに */
+
+const ART = 23, CRAFT = 16;                   // images/gallery/art01…, craft01…
+const MADE = [
+  {img:'made-picrew',t:'picrew',d:'着せ替えさせるやつです。2019ごろに作成したため出来は良くない',u:'https://picrew.me/image_maker/19046'},
+  {img:'made-vroid',t:'VRoid',d:'Vroid',u:'https://hub.vroid.com/characters/7727200837242838157/models/6460593563660743426'},
+  {img:'made-mmd',t:'MMDモデル',d:'ゆゆゆのMMD　調整の余地アリ',u:'https://drive.google.com/file/d/1Qq5j1th4TA3wGAp9Y4zZIF_FITUA5SX3/view?usp=sharing'},
+  {img:'made-utau',t:'UTAU MYCOE',d:'注寝ととと（UTAU）／注夜とと（MYCOE）　喋るし歌うよ',u:'https://nanashie.wixsite.com/sazyouutau'}
+];
+/* 動画・音楽の埋め込み（TODO: YouTube等のIDを入れる）例 ['タイトル','動画ID'] */
+const VIDEOS = {original:[],cover:[],misc:[]};
+const MUSIC_URL = 'https://soundcloud.com/sazyoudenryoku';
+
+const COMIC = [
+  ['2291（PIXIV）','昔出した同人誌　めちゃくちゃ漫画集','https://poipiku.com/11604195/'],
+  ['雑多（ポイピク）','まだ動かしてないけど、不可解なまんががてきたら置いとこうかな','https://poipiku.com/11604195/']
+];
+
+const ABOUT = {
+  intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。地雷も基本はないはず……','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','色のことを考えながら絵をかいたり、不穏なキャラクター設定を作ったり、キャラクターの仕草を落書きしたりするのが好き。','水彩絵具のオタクで、いろんな絵具を持っています。語りたい……','デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。'],
+  blocks: [
+    ['Work','ご依頼で描かせていただいたもの','https://nanashie.wixsite.com/sazyou/portfolio'],
+    ['Event','イベント参加記録','https://nanashie.wixsite.com/sazyou/about'],
+    ['Award','受賞記録','https://nanashie.wixsite.com/sazyou/%E8%A4%87%E8%A3%BD-award-history'],
+    ['Fanbox','運用してない　いつか消すよてい。もらったFAを勝手に掲載するところ。','https://sazyou.fanbox.cc/']
+  ]  /* TODO: Work/Event/Award は移行したら内部ページに */
+};
+
+const CONTACT = {
+  mail: ['メール','遅くても三日以内に見ると思われます。返信の催促をTwitterのDMに送ると反応が早いかもしれません。','sazyoden●gmail.com'],
+  groups: [
+    ['ショップ・コミッション',[
+      ['skeb（デジタル）','有償でデジタルイラストのリクエストを受け付けています。','https://skeb.jp/@sazyou_dnrk'],
+      ['skeb（アナログ）','有償でアナログイラストのリクエストを受け付けています。','https://skeb.jp/@kazyou_dnrk'],
+      ['booth','グッズが買えます。本、原画、缶バッチ、アクキーなど。','https://sazyoudenryoku.booth.pm/'],
+      ['suzuri','グッズが買えます。シャツ、ステッカーなど。','https://suzuri.jp/sazyou_dnrk'],
+      ['LINEスタンプ','LINEスタンプがかえる','https://store.line.me/stickershop/product/12991484/ja'],
+      ['みんなのステッカー屋さん','びねつさん運営のステッカーショップに参加しています。デザフェス・ネットショップ・一部店舗でステッカーが買える！','https://stickershop.shopselect.net/search?q=%E7%A0%82%E4%B8%8A%E9%9B%BB%E5%8A%9B']]],
+    ['X（twitter）',[
+      ['砂上電力','メインのアカウントです。絵を書きます','https://x.com/sazyou_dnrk'],
+      ['過剰電力','水彩・音楽・思想・動画・３DCG・UTAU　何でもするよ','https://x.com/kazyou_dnrk'],
+      ['蟹有','スプラトゥーンにハマった','https://x.com/kaniari_dnrk'],
+      ['キャラクターシート','','https://nanashie.wixsite.com/sazyou/character-spl'],
+      ['ねくとえるどらう','アメイジングデジタルサーカスにハマった','https://x.com/ncteldrw']]],
+    ['動画・音楽',[
+      ['youtube','音楽とかの動画、UTAUカバー動画など載せてます。','https://www.youtube.com/channel/UC98V2ow4DnlU5SzxHodJ2Bw'],
+      ['niconico','youtubeに載せてるものよりも少ない。','https://www.nicovideo.jp/user/26487442'],
+      ['soundcloud','音楽ぶん投げどころです。','https://soundcloud.com/sazyoudenryoku']]],
+    ['SNS・その他',[
+      ['マシュマロ','感想、要望、質問、リクエスト等　直接言いにくい方はこちらへ。読んでにこにこして返信しないことが多い。感想とか嬉しすぎて印刷してノートに貼ってます。','https://marshmallow-qa.com/sazyou_dnrk'],
+      ['砂上天獄','別サイト　UTAUとMYCOE配布所','https://nanashie.wixsite.com/sazyouutau'],
+      ['note','文具・画材・備忘録','https://note.com/sazyou_dnrk'],
+      ['jimdo','休止','https://nozomarenai.jimdofree.com/'],
+      ['PIXIV','あまりつかってない','https://www.pixiv.net/member.php?id=42903019'],
+      ['VRoid hub','3Dモデルが見れるぞ','https://hub.vroid.com/users/26307709'],
+      ['instagram','そのうちpixivより更新するようになるかも','https://www.instagram.com/sazyoudnrk/'],
+      ['misskey','Twitter滅亡後退避先１　ほぼつかってない','https://misskey.io/@sazyou_dnrk'],
+      ['Bluesky','Twitter滅亡後退避先２　割とつかってる','https://www.pixiv.net/member.php?id=42903019' /* TODO: 元サイトではpixivのURLになっていた。BlueskyのURLに差し替え */]]]
+  ]
+};
+
+/* ============ 描画 ============ */
+const $ = s => document.querySelector(s);
+const ext = u => /^https?:/.test(u);
+const A = (t,u,c='') => `<a class="${c}" href="${u}"${ext(u)?' target="_blank" rel="noopener"':''}>${t}</a>`;
+// 画像: images/<dir>/<name>.(jpg|png|webp) を順に試し、無ければファイル名入りの枠を出す
+const IMG = (dir,name,alt='') => `<img src="images/${dir}/${name}.${EXTS[0]}" alt="${alt}" loading="lazy" data-d="${dir}" data-n="${name}" data-i="0">`;
+document.addEventListener('error', e => {
+  const im = e.target; if (im.tagName !== 'IMG' || !im.dataset.n) return;
+  const i = +im.dataset.i + 1;
+  if (i < EXTS.length) { im.dataset.i = i; im.src = `images/${im.dataset.d}/${im.dataset.n}.${EXTS[i]}`; return; }
+  im.outerHTML = `<div class="ph">images/${im.dataset.d}/${im.dataset.n}</div>`;
+}, true);
+const nums = (p,n) => Array.from({length:n},(_,i)=>p+String(i+1).padStart(2,'0'));
+const head = (t,l) => `<h1>${t}</h1><p class="lead">${l||''}</p>`;
+const linkCard = ([t,d,u]) => `<div class="box"><strong>${A(t,u)}</strong>${d?`<br><span style="color:var(--sub);font-size:14px">${d}</span>`:''}</div>`;
+
+const VIEWS = {
+  home: () => `
+    <div class="hero"><div class="slides" id="slides">${HOME.top.map(n=>IMG('top',n)).join('')}</div>
+      <button class="arr l" data-slide="-1" aria-label="前へ"><svg viewBox="0 0 40 60"><polyline points="30,6 8,30 30,54"/></svg></button>
+      <button class="arr r" data-slide="1" aria-label="次へ"><svg viewBox="0 0 40 60"><polyline points="10,6 32,30 10,54"/></svg></button></div>
+    <div class="btns">${HOME.links.map(([t,u],i)=>A(t,u,'btn'+(i>=3?' sub':''))).join('')}</div>
+    <h2>サイト説明</h2><p>${HOME.about}</p>
+    <h2>更新記録</h2>
+    <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>`,
+  download: () => `
+    ${head('ダウンロード可能なコンテンツ','使えそうな物があればご利用ください。'+' '+A('利用規約はこちら',TERMS_URL))}
+    ${DOWNLOADS.map(x=>`<div class="box card">${IMG('download',x.img)}<div><h3>${x.t}</h3><p>${x.d}</p><p>${x.l.map(([t,u])=>A(t,u)).join(' / ')}</p></div></div>`).join('')}`,
+  character: () => `
+    ${head('CHARACTER','創作キャラクターの紹介　一部だけ立ち絵がある')}
+    <div class="tags">${CHAR_TABS.map(([t,u])=>A(t,u)).join('')}</div>
+    <h2>創作キャラ</h2>
+    ${CHARS.map(([t,id])=>`<div class="box card">${IMG('character',id,t)}<div><h3>${t}</h3><p>${A('https://nanashie.wixsite.com/sazyou/character/'+id,'https://nanashie.wixsite.com/sazyou/character/'+id)}</p></div></div>`).join('')}
+    <p>${A('デザインのみ','https://nanashie.wixsite.com/sazyou/blank-21')}</p>
+    <!-- TODO: 各キャラの詳細ページ（CHARSに設定を足して #character/denden で表示）-->`,
+  gallery: () => `
+    ${head('GALLERY','気に入らなくなったものは定期的に削除しています。どんなものを作るか　なんとなく知ってもらえたら嬉しいな')}
+    <div class="tags">${[['絵','art'],['制作物','made'],['動画','video'],['音楽','music'],['工作','craft']].map(([t,i])=>`<a href="#gallery" data-jump="${i}">${t}</a>`).join('')}</div>
+    <h2 id="art">絵</h2><div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>
+    <h2 id="made">制作物</h2>${MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join('')}
+    <h2 id="video">動画</h2>
+    ${[['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です'],['misc','雑多','']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join('')}
+    <h2 id="music">音楽</h2><p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}
+    <h2 id="craft">工作</h2><p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`,
+  comic: () => `${head('漫画')}${COMIC.map(linkCard).join('')}`,
+  about: () => `
+    ${head('ABOUT')}<h2>自己紹介</h2>
+    ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
+    ${ABOUT.blocks.map(([t,d,u])=>`<h2>${t}</h2><p>${d}</p>${A('見る',u,'btn')}`).join('')}`,
+  contact: () => `
+    ${head('CONTACT','砂上電力の全てにつながるリンク集')}
+    <h2>${CONTACT.mail[0]}</h2><div class="box">${CONTACT.mail[1]}<br><strong>${CONTACT.mail[2]}</strong></div>
+    ${CONTACT.groups.map(([g,items])=>`<h2>${g}</h2>${items.map(linkCard).join('')}`).join('')}`
+};
+
+function route(to) {
+  const id = (to || location.hash.slice(1) || 'home').split('/')[0];
+  const key = VIEWS[id] ? id : 'home';
+  $('#main').innerHTML = VIEWS[key]();
+  $('#nav').innerHTML = PAGES.map(([k,t])=>`<a href="#${k}" class="${k===key?'on':''}">${t}</a>`).join('');
+  $('#nav').classList.remove('open'); $('#menu').setAttribute('aria-expanded','false');
+  document.title = (key==='home'?'':PAGES.find(p=>p[0]===key)[1]+' | ')+'砂上拠点電力発電所';
+  scrollTo(0,0);
+}
+addEventListener('hashchange', () => route());
+route();
+
+// ギャラリー内ジャンプ（ハッシュを壊さない）
+document.addEventListener('click', e => {
+  const lk = e.target.closest('a[href^="#"]');
+  if (lk && !lk.dataset.jump) { e.preventDefault(); const h = lk.getAttribute('href').slice(1) || 'home'; try { location.hash = h; } catch (_) {} route(h); return; }
+  const m = e.target.closest('#menu');
+  if (m) { m.setAttribute('aria-expanded', $('#nav').classList.toggle('open')); return; }
+  const sl = e.target.closest('[data-slide]');
+  if (sl) { const el = $('#slides'), w = el.clientWidth, max = el.scrollWidth - w; let x = el.scrollLeft + (+sl.dataset.slide) * w; if (x > max + 1) x = 0; if (x < 0) x = max; el.scrollTo({left:x, behavior:'smooth'}); return; }
+  const j = e.target.closest('[data-jump]');
+  if (j) { e.preventDefault(); document.getElementById(j.dataset.jump).scrollIntoView(); return; }
+  const im = e.target.closest('.zoom img');
+  if (im) { $('#lb img').src = im.src; $('#lb').classList.add('open'); return; }
+  if (e.target.closest('#lb')) $('#lb').classList.remove('open');
+});
+addEventListener('keydown', e => { if (e.key === 'Escape') $('#lb').classList.remove('open'); });
+</script>
+</body>
+</html>
