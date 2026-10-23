@@ -56,6 +56,9 @@ h3{font-size:17px;margin:20px 0 4px}
 .card h3{margin:0;font-size:16px}.card p{margin:0;font-size:14px;color:var(--sub)}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .tags a{font-size:13px;padding:2px 10px;border:1px solid var(--line);text-decoration:none}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.tabs a{padding:8px 18px;border:3px solid var(--btn);border-radius:999px;color:var(--btn);text-decoration:none;font-weight:700;font-size:15px;line-height:1.2}
+.tabs a.on{background:var(--btn);color:#fff}
 .log{margin:0;padding:0;list-style:none}
 .log li{display:grid;grid-template-columns:72px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
 .log time{color:var(--sub);font-variant-numeric:tabular-nums}
@@ -124,6 +127,9 @@ const MADE = [
   {img:'made-utau',t:'UTAU MYCOE',d:'注寝ととと（UTAU）／注夜とと（MYCOE）　喋るし歌うよ',u:'https://nanashie.wixsite.com/sazyouutau'}
 ];
 /* 動画・音楽の埋め込み（TODO: YouTube等のIDを入れる）例 ['タイトル','動画ID'] */
+const CG3D = [  /* 3DCG作品：img は images/gallery/ 内のファイル名（拡張子なし）、u はリンク（無ければ省略可） */
+  /* {img:'cg01', t:'タイトル', d:'説明', u:'https://…'} */
+];
 const VIDEOS = {original:[],cover:[],misc:[]};
 const MUSIC_URL = 'https://soundcloud.com/sazyoudenryoku';
 
@@ -210,15 +216,21 @@ const VIEWS = {
     ${CHARS.map(([t,id])=>`<div class="box card">${IMG('character',id,t)}<div><h3>${t}</h3><p>${A('https://nanashie.wixsite.com/sazyou/character/'+id,'https://nanashie.wixsite.com/sazyou/character/'+id)}</p></div></div>`).join('')}
     <p>${A('デザインのみ','https://nanashie.wixsite.com/sazyou/blank-21')}</p>
     <!-- TODO: 各キャラの詳細ページ（CHARSに設定を足して #character/denden で表示）-->`,
-  gallery: () => `
-    ${head('GALLERY','気に入らなくなったものは定期的に削除しています。どんなものを作るか　なんとなく知ってもらえたら嬉しいな')}
-    <div class="tags">${[['絵','art'],['制作物','made'],['動画','video'],['音楽','music'],['工作','craft']].map(([t,i])=>`<a href="#gallery" data-jump="${i}">${t}</a>`).join('')}</div>
-    <h2 id="art">絵</h2><div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>
-    <h2 id="made">制作物</h2>${MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join('')}
-    <h2 id="video">動画</h2>
-    ${[['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です'],['misc','雑多','']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join('')}
-    <h2 id="music">音楽</h2><p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}
-    <h2 id="craft">工作</h2><p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`,
+  gallery: () => {
+    const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作']];
+    const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
+    const body = {
+      art: () => `<div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>`,
+      made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join(''),
+      cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
+      video: () => [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です'],['misc','雑多','']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join(''),
+      music: () => `<p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}`,
+      craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
+    }[cur]();
+    return `${head('GALLERY','気に入らなくなったものは定期的に削除しています。どんなものを作るか　なんとなく知ってもらえたら嬉しいな')}
+    <div class="tabs" role="tablist">${T.map(([k,t])=>`<a href="#gallery/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${t}</a>`).join('')}</div>
+    ${body}`;
+  },
   comic: () => `${head('漫画')}${COMIC.map(linkCard).join('')}`,
   about: () => `
     ${head('ABOUT')}<h2>自己紹介</h2>
@@ -230,28 +242,28 @@ const VIEWS = {
     ${CONTACT.groups.map(([g,items])=>`<h2>${g}</h2>${items.map(linkCard).join('')}`).join('')}`
 };
 
+let SUB = '', LAST = '';
 function route(to) {
-  const id = (to || location.hash.slice(1) || 'home').split('/')[0];
+  const [id, sub] = (to || location.hash.slice(1) || 'home').split('/');
+  SUB = sub || '';
+  LAST = (to || location.hash.slice(1) || 'home');
   const key = VIEWS[id] ? id : 'home';
   $('#main').innerHTML = VIEWS[key]();
   $('#nav').innerHTML = PAGES.map(([k,t])=>`<a href="#${k}" class="${k===key?'on':''}">${t}</a>`).join('');
   $('#nav').classList.remove('open'); $('#menu').setAttribute('aria-expanded','false');
   document.title = (key==='home'?'':PAGES.find(p=>p[0]===key)[1]+' | ')+'砂上拠点電力発電所';
-  scrollTo(0,0);
+  if (!route.keep) scrollTo(0,0);
 }
-addEventListener('hashchange', () => route());
+addEventListener('hashchange', () => { if (location.hash.slice(1) !== LAST) route(); });
 route();
 
-// ギャラリー内ジャンプ（ハッシュを壊さない）
 document.addEventListener('click', e => {
   const lk = e.target.closest('a[href^="#"]');
-  if (lk && !lk.dataset.jump) { e.preventDefault(); const h = lk.getAttribute('href').slice(1) || 'home'; try { location.hash = h; } catch (_) {} route(h); return; }
+  if (lk) { e.preventDefault(); const h = lk.getAttribute('href').slice(1) || 'home'; const same = h.split('/')[0] === (location.hash.slice(1) || 'home').split('/')[0]; try { location.hash = h; } catch (_) {} route.keep = same; route(h); route.keep = false; return; }
   const m = e.target.closest('#menu');
   if (m) { m.setAttribute('aria-expanded', $('#nav').classList.toggle('open')); return; }
   const sl = e.target.closest('[data-slide]');
   if (sl) { const el = $('#slides'), w = el.clientWidth, max = el.scrollWidth - w; let x = el.scrollLeft + (+sl.dataset.slide) * w; if (x > max + 1) x = 0; if (x < 0) x = max; el.scrollTo({left:x, behavior:'smooth'}); return; }
-  const j = e.target.closest('[data-jump]');
-  if (j) { e.preventDefault(); document.getElementById(j.dataset.jump).scrollIntoView(); return; }
   const im = e.target.closest('.zoom img');
   if (im) { $('#lb img').src = im.src; $('#lb').classList.add('open'); return; }
   if (e.target.closest('#lb')) $('#lb').classList.remove('open');
