@@ -130,12 +130,11 @@ const MADE = [
 const CG3D = [  /* 3DCG作品：img は images/gallery/ 内のファイル名（拡張子なし）、u はリンク（無ければ省略可） */
   /* {img:'cg01', t:'タイトル', d:'説明', u:'https://…'} */
 ];
-const VIDEOS = {original:[],cover:[],misc:[]};
+const VIDEOS = {original:[],cover:[]};
 const MUSIC_URL = 'https://soundcloud.com/sazyoudenryoku';
 
 const COMIC = [
-  ['2291（PIXIV）','昔出した同人誌　めちゃくちゃ漫画集','https://poipiku.com/11604195/'],
-  ['雑多（ポイピク）','まだ動かしてないけど、不可解なまんががてきたら置いとこうかな','https://poipiku.com/11604195/']
+  ['2291（PIXIV）','昔出した同人誌　めちゃくちゃ漫画集','' /* TODO: pixivのURLに差し替え */]
 ];
 
 const ABOUT = {
@@ -143,8 +142,7 @@ const ABOUT = {
   blocks: [
     ['Work','ご依頼で描かせていただいたもの','https://nanashie.wixsite.com/sazyou/portfolio'],
     ['Event','イベント参加記録','https://nanashie.wixsite.com/sazyou/about'],
-    ['Award','受賞記録','https://nanashie.wixsite.com/sazyou/%E8%A4%87%E8%A3%BD-award-history'],
-    ['Fanbox','運用してない　いつか消すよてい。もらったFAを勝手に掲載するところ。','https://sazyou.fanbox.cc/']
+    ['Award','受賞記録','https://nanashie.wixsite.com/sazyou/%E8%A4%87%E8%A3%BD-award-history']
   ]  /* TODO: Work/Event/Award は移行したら内部ページに */
 };
 
@@ -160,13 +158,9 @@ const CONTACT = {
       ['みんなのステッカー屋さん','びねつさん運営のステッカーショップに参加しています。デザフェス・ネットショップ・一部店舗でステッカーが買える！','https://stickershop.shopselect.net/search?q=%E7%A0%82%E4%B8%8A%E9%9B%BB%E5%8A%9B']]],
     ['X（twitter）',[
       ['砂上電力','メインのアカウントです。絵を書きます','https://x.com/sazyou_dnrk'],
-      ['過剰電力','水彩・音楽・思想・動画・３DCG・UTAU　何でもするよ','https://x.com/kazyou_dnrk'],
-      ['蟹有','スプラトゥーンにハマった','https://x.com/kaniari_dnrk'],
-      ['キャラクターシート','','https://nanashie.wixsite.com/sazyou/character-spl'],
-      ['ねくとえるどらう','アメイジングデジタルサーカスにハマった','https://x.com/ncteldrw']]],
+      ['過剰電力','水彩・音楽・思想・動画・３DCG・UTAU　何でもするよ','https://x.com/kazyou_dnrk']]],
     ['動画・音楽',[
       ['youtube','音楽とかの動画、UTAUカバー動画など載せてます。','https://www.youtube.com/channel/UC98V2ow4DnlU5SzxHodJ2Bw'],
-      ['niconico','youtubeに載せてるものよりも少ない。','https://www.nicovideo.jp/user/26487442'],
       ['soundcloud','音楽ぶん投げどころです。','https://soundcloud.com/sazyoudenryoku']]],
     ['SNS・その他',[
       ['マシュマロ','感想、要望、質問、リクエスト等　直接言いにくい方はこちらへ。読んでにこにこして返信しないことが多い。感想とか嬉しすぎて印刷してノートに貼ってます。','https://marshmallow-qa.com/sazyou_dnrk'],
@@ -175,9 +169,7 @@ const CONTACT = {
       ['jimdo','休止','https://nozomarenai.jimdofree.com/'],
       ['PIXIV','あまりつかってない','https://www.pixiv.net/member.php?id=42903019'],
       ['VRoid hub','3Dモデルが見れるぞ','https://hub.vroid.com/users/26307709'],
-      ['instagram','そのうちpixivより更新するようになるかも','https://www.instagram.com/sazyoudnrk/'],
-      ['misskey','Twitter滅亡後退避先１　ほぼつかってない','https://misskey.io/@sazyou_dnrk'],
-      ['Bluesky','Twitter滅亡後退避先２　割とつかってる','https://www.pixiv.net/member.php?id=42903019' /* TODO: 元サイトではpixivのURLになっていた。BlueskyのURLに差し替え */]]]
+      ['instagram','そのうちpixivより更新するようになるかも','https://www.instagram.com/sazyoudnrk/']]]
   ]
 };
 
@@ -195,7 +187,7 @@ document.addEventListener('error', e => {
 }, true);
 const nums = (p,n) => Array.from({length:n},(_,i)=>p+String(i+1).padStart(2,'0'));
 const head = (t,l) => `<h1>${t}</h1><p class="lead">${l||''}</p>`;
-const linkCard = ([t,d,u]) => `<div class="box"><strong>${A(t,u)}</strong>${d?`<br><span style="color:var(--sub);font-size:14px">${d}</span>`:''}</div>`;
+const linkCard = ([t,d,u]) => `<div class="box"><strong>${u?A(t,u):t}</strong>${u?'':' <span style="color:var(--sub);font-size:13px">（準備中）</span>'}${d?`<br><span style="color:var(--sub);font-size:14px">${d}</span>`:''}</div>`;
 
 const VIEWS = {
   home: () => `
@@ -223,7 +215,7 @@ const VIEWS = {
       art: () => `<div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>`,
       made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join(''),
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
-      video: () => [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です'],['misc','雑多','']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join(''),
+      video: () => [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join(''),
       music: () => `<p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}`,
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
