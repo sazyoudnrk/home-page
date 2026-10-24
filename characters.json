@@ -364,14 +364,6 @@
      "52"
     ],
     [
-     "能力値",
-     "HP 11／MP 15／SAN 61/91／STR 14／CON 11／POW 15／DEX 11／APP 11／SIZ 10／INT 11／EDU 17"
-    ],
-    [
-     "通過シナリオ",
-     "8/18-8/23 星へ至る棺（KP：颯斗／PL：自分／PC：萬屋 夕）\n10/21 芸術は今日も首を吊る（KP：颯斗／助っ人KPC：常盤 恭夜／PL：自分／PC：萬屋 夕）"
-    ],
-    [
      "キャラクターシート",
      "https://charasheet.vampire-blood.net/4570595"
     ]
@@ -382,7 +374,65 @@
     "character-gallery/yorozuyayuu/04",
     "character-gallery/yorozuyayuu/05"
    ],
-   "portrait": "character-gallery/yorozuyayuu/01"
+   "portrait": "character-gallery/yorozuyayuu/01",
+   "stats": {
+    "cols": [
+     "STR",
+     "CON",
+     "POW",
+     "DEX",
+     "APP",
+     "SIZ",
+     "INT",
+     "EDU",
+     "HP",
+     "MP",
+     "SAN"
+    ],
+    "rows": [
+     [
+      "作成時",
+      [
+       "14",
+       "11",
+       "15",
+       "11",
+       "11",
+       "10",
+       "11",
+       "17",
+       "11",
+       "15",
+       "61/91"
+      ]
+     ]
+    ]
+   },
+   "scenarios": {
+    "cols": [
+     "日付",
+     "シナリオ",
+     "KP",
+     "PL",
+     "PC"
+    ],
+    "rows": [
+     [
+      "8/18-8/23",
+      "星へ至る棺",
+      "颯斗",
+      "自分",
+      "萬屋 夕"
+     ],
+     [
+      "10/21",
+      "芸術は今日も首を吊る",
+      "颯斗（助っ人KPC：常盤 恭夜）",
+      "自分",
+      "萬屋 夕"
+     ]
+    ]
+   }
   },
   {
    "id": "yuyuyu",

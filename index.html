@@ -62,6 +62,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .gtabs a.on{opacity:1;background:#fff;color:var(--line);box-shadow:0 0 0 3px #fff,0 0 0 6px var(--line)}
 @media (min-width:700px){.gtabs{grid-template-columns:repeat(4,1fr);gap:18px}}
 .btn-back{display:inline-block;padding:7px 18px;border:1px solid #bbb;border-radius:999px;background:#f4f4f4;color:var(--ink);text-decoration:none;font-size:14px}
+.tbl{overflow-x:auto;margin:6px 0 16px}.tbl table{border-collapse:collapse;font-size:12px;width:100%}.tbl th,.tbl td{border:1px solid #ccc;padding:6px 3px;text-align:center}.tbl tbody th{white-space:nowrap;padding:6px 3px;font-size:11px}.tbl table:not(.left){font-size:11px}.tbl table:not(.left) th,.tbl table:not(.left) td{padding:6px 1px}.tbl .left td:nth-child(n+4){white-space:nowrap}.tbl th{background:#f2f2f2;font-weight:700}.tbl .left th,.tbl .left td{padding:6px 8px;text-align:left}
 .chrow>a{flex:none}
 .chrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .cnav{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--sub)}
@@ -333,7 +334,7 @@ const VIEWS = {
       body = `<h2>誕生日</h2>` + (list.length ? `<ul class="log">${list.map(c=>`<li><time>${esc(c.birthday)}</time><span>${A(esc(c.name),link(c))}</span></li>`).join('')}</ul>` : `<div class="box" style="color:var(--sub)">誕生日が登録されたキャラがここに並びます</div>`);
     } else if (one) {
       const rows = F.filter(([k])=>one[k]).map(([k,l])=>`<dt>${l}</dt><dd>${esc(one[k])}</dd>`).join('')
-        + (one.extra||[]).map(([l,v])=>`<dt>${esc(l)}</dt><dd>${/^https?:/.test(v)?A(esc(v),v):esc(v)}</dd>`).join('');
+        + (one.extra||[]).map(([l,v])=>`<dt>${esc(l)}</dt><dd>${/^https?:/.test(v)?A('開く',v):esc(v)}</dd>`).join('');
       const paras = (one.detail||'').split(/\n\s*\n/).filter(Boolean).map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('');
       const sib = chars.filter(c=>c.group===one.group && hasProfile(c)), si = sib.indexOf(one);
       const pv = sib[(si-1+sib.length)%sib.length], nx = sib[(si+1)%sib.length];
@@ -342,6 +343,8 @@ const VIEWS = {
         <h2>${esc(one.name)}</h2>
         <div class="prof zoom">${one.portrait?galImg(one.portrait).replace('data-hide','data-x'):IMG('character',one.image,one.name)}<dl>${rows}</dl></div>
         ${paras?`<h3>詳細</h3>${paras}`:''}
+        ${one.stats?`<h3>能力値</h3><div class="tbl"><table><thead><tr><th></th>${one.stats.cols.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${one.stats.rows.map(([l,v])=>`<tr><th>${esc(l)}</th>${v.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:''}
+        ${one.scenarios?`<h3>通過シナリオ</h3><div class="tbl"><table class="left"><thead><tr>${one.scenarios.cols.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${one.scenarios.rows.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:''}
         ${(one.gallery||[]).length?`<section class="gal" hidden><h3>ギャラリー</h3><div class="masonry zoom">${one.gallery.map(galImg).join('')}</div></section>`:''}`;
     } else if (SUB === 'design') {
       body = `<h2>デザインのみ</h2>
