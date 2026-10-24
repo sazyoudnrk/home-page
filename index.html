@@ -335,6 +335,57 @@ const TERMS = {
   ]
 };
 
+/* 世界観説明（旧サイトから移植。h=見出し、p=段落（\n は改行）。tail は末尾の補足） */
+const WORLD = [
+ {
+  "h": "ディレクロード",
+  "p": [
+   "学者ディレクが見つけた未知のエネルギーを魔力と呼んだ。\nこの日、世界の法則は神様に書き換えられてしまったと言われている。",
+   "ディレクを皮切りに、未知のエネルギーを”見る”ことができ”使う”事ができる者が増えていった。\nこの変化の原因がなにかわからないまま、人類は「神様からの贈り物として新たな力を与えられた」「人類が更に進化をする機会を与えられた」という信仰を始める。これまでに魔力学者が提唱した説では「宇宙の情報がエネルギーになった」「エネルギーがワームホールにより転送されている」「我々より上位の存在にもてあそばれている」「認知できなかったエネルギーを、人間に組み込まれた新たな器官により認識できる様になった」などいくつかあるが、真相は不明。\n魔力が発見され発展していった一帯はディレクの名を取りディレクロードと呼ばれている。"
+  ]
+ },
+ {
+  "h": "世界",
+  "p": [
+   "物理ルールを書き換える力を手に入れた人間は、科学よりも優れた魔法で文明を発展させていった。\n大きな魔法が使えるようになった頃、人々は言語の統一のための魔法を作り、世界中で使用した。\nそのため異国の人と話ができないということはなくなった。",
+   "魔法は便利だが、解明されていないことも多く、少しのミスでとんでもない大事故につながることも多い。\nまた、無理な魔法を使用すると、蝕まれて亡くなる事例が数多くあり、平均寿命は40歳程度まで下がっている。近年では医療魔法が発展していて、設備が整っていればどんな怪我も治せるとも言われているが、魔法での事故は即死率が高く、魔法での腐食や呪いは魔法では治せないと言われているので医療魔法があっても寿命が伸びないのが現状である。"
+  ]
+ },
+ {
+  "h": "ディレクロード学園",
+  "p": [
+   "世界に存在する12の学校の一つ。\n12の学校の中で最も規模が大きく、魔法研究の最上位機関である。\n魔法に特化した学校で、魔法に関する最先端の技術を保有している。\n半分以上の学生は寮を使っている。\n学校は半分会社のようなもので、学校運営の目的は優秀な人材の確保。\n労働力として学生とその研究に投資をしている形態なので、学生は衣食住を保証され、実績を上げると小遣いがもらえる。親は学費を払う必要はなく、子供を養う必要もないので、学園に入れたらそのまま縁が切れることが多い。"
+  ]
+ },
+ {
+  "h": "ロード教",
+  "p": [
+   "ディレクロード周辺で非常に多くの人々からの信仰を集めている宗教。\n「魂は地に帰り、新たな世界へと還元される」\n助かりそうに無い命を無理に延命してはいけない。\n死により魔力は大地へと還元され、循環していく。誰か一人の命では無い。という教え。\n一見狂った教えにも見えるが、熱狂的な信者がそこそこの数居るので\n教えに反する行動をすると処分を受けさせられる。"
+  ]
+ },
+ {
+  "h": "鬼",
+  "p": [
+   "角が生えていて恐ろしく長生きで、人を食っていると言われている。真偽は不明だが、記録は数多く残されている。"
+  ]
+ },
+ {
+  "h": "魔法",
+  "p": [
+   "魔力を使って引き起こされる現象を魔法と呼ぶ。\n魔法には幾つかの属性があるが、分類については未だ研究中である。\n人間の頭の中に、一人が蓄積できる魔力を溜め込む器官が存在する。\nその器官の魔力蓄積量によって使える魔法の最大コストがわかる。\n魔法を使った人間の瞳は普段よりも明るい色に見え、使った魔力に比例して髪の毛が伸びる。\n髪の毛が伸びることから魔力について「魔力を使うと体の時間が加速する」「魔力に細胞の活性化を促す作用がある」などの説が上がっているが。魔力と人体について解明されていないことは非常に多い。"
+  ]
+ },
+ {
+  "h": "",
+  "p": [
+   "メタ的な話をしてしまうと、倫理観おしまい魔法学園が作りたくてこんな設定になっています。\n外側だけきれいで中身は腐っている、絶妙に行きたくない感じのファンタジー世界です。",
+   "友人が亡くなっても稀によくある事。\n両親はだいぶ前に縁が切れたから知らない。\n魔法で事故が起きても仕方ない、生きているなら下半身がなくなっても治癒魔法で直せるし大丈夫。\n血は出るけど痛みは少ししか無い。痛みはきっと、旧人類にとって必要なかったんだね。",
+   "そこそこ倫理観がない人は多いけど、お陰で魔法文明は発達して、魔法は規制されずに使えてます。\nそこそこ死亡率は高いけど、教えでは人が死んでも還元されて自分の魔力になるからかなしくありません。\n誰もそれを、おかしいだなんて、思ってはいけません。"
+  ],
+  "tail": true
+ }
+];
+
 const VIEWS = {
   home: () => `
     <div class="hero"><div class="slides" id="slides">${HOME.top.map(n=>IMG('top',n)).join('')}</div>
@@ -346,6 +397,9 @@ const VIEWS = {
     <div id="counter" hidden></div>
     <h2>更新記録</h2>
     <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>`,
+  world: () => `${head('世界観説明','魔法創作（ディレクロード）の設定')}
+    <p>${A('← 戻る','#character/magic','btn-back')}</p>
+    ${WORLD.map(w=>`${w.tail?'<hr style="border:0;border-top:1px solid var(--line);margin:28px 0">':''}${w.h?`<h2>${esc(w.h)}</h2>`:''}${w.p.map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('')}`).join('')}`,
   terms: () => `${head('利用規約')}
     <p>${A('← 戻る','#download','btn-back')}</p>
     ${TERMS.intro.map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('')}
@@ -393,7 +447,7 @@ const VIEWS = {
       const items = chars.filter(c=>c.group===grp.id);
       body = `<h2${grp.color?` style="color:${grp.color}"`:''}>${esc(grp.heading)}${grp.song?` <small style="font-size:15px">${A('曲',grp.song)}</small>`:''}</h2>
       <div class="chars">${items.map(c=>A(IMG('character',c.image,c.name)+esc(c.name),link(c))).join('')}</div>
-      <div class="chlinks">${grp.id==='main'?A('デザインのみ','#character/design'):''}${grp.world?A('世界観説明',grp.world):''}</div>`;
+      <div class="chlinks">${grp.id==='main'?A('デザインのみ','#character/design'):''}${grp.world?A('世界観説明',grp.world==='#world'?'#world':grp.world):''}</div>`;
     }
     return `${head('CHARACTER','創作キャラクターの紹介　一部だけ立ち絵がある')}
     <div class="gtabs" role="tablist">${tabs}</div>${bdlink}${body}`;
@@ -451,7 +505,7 @@ function route(to) {
   $('#main').innerHTML = VIEWS[key]();
   $('#nav').innerHTML = PAGES.map(([k,t])=>`<a href="#${k}" class="${k===key?'on':''}">${t}</a>`).join('');
   $('#nav').classList.remove('open'); $('#menu').setAttribute('aria-expanded','false');
-  document.title = (key==='home'?'':(PAGES.find(p=>p[0]===key)||[0,key==='terms'?'利用規約':'受賞歴'])[1]+' | ')+'砂上拠点電力発電所';
+  document.title = (key==='home'?'':(PAGES.find(p=>p[0]===key)||[0,key==='terms'?'利用規約':key==='world'?'世界観説明':'受賞歴'])[1]+' | ')+'砂上拠点電力発電所';
   if (document.querySelector('.twitter-tweet, .twitter-timeline')) { if (window.twttr && twttr.widgets) twttr.widgets.load($('#main')); else if (!document.getElementById('twjs')) { const sc = document.createElement('script'); sc.id = 'twjs'; sc.async = true; sc.src = 'https://platform.twitter.com/widgets.js'; document.head.appendChild(sc); } }
   if (key === 'home') counter();
   if (!route.keep) scrollTo(0,0);
