@@ -154,7 +154,7 @@ const COMIC = [
 
 /* 依頼で描いたもの（GALLERY の WORK タブ）：images/gallery/work01… を置いて {img:'work01',t:'タイトル',d:'説明',u:'リンク(任意)'} を追加 */
 const WORK = [
-  {t:'Nemurimachi様　ショコラトル　絵・アニメーション',d:'2025年2月' /* TODO: YouTubeのURLが分かれば u に */},
+  {t:'Nemurimachi様　ショコラトル　絵・アニメーション',d:'2025年2月',yt:'2xsn9yGyXus'},
   {img:'work01',t:'玄武みちる様　卒業配信　サムネイル',d:'2022年12月'},
   {img:'work02',t:'SLASH様 PRイラスト',d:'2022年10月',u:'https://twitter.com/sazyou_dnrk/status/1585604269956558848'}
 ];
@@ -275,7 +275,7 @@ const VIEWS = {
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
       video: () => [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join(''),
       music: () => `<p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}`,
-      work: () => `<p class="lead">ご依頼で描かせていただいたものです。多分、skebも該当すると思います。<br>${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}</p>${WORK.length?`<div class="grid zoom">${WORK.map(x=>`<div>${x.img?IMG('gallery',x.img,x.t):''}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>`:`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
+      work: () => `<p class="lead">ご依頼で描かせていただいたものです。多分、skebも該当すると思います。<br>${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}</p>${WORK.length?`<div class="grid zoom">${WORK.map(x=>`<div${x.yt?' style="grid-column:1/-1"':''}>${x.yt?`<div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?IMG('gallery',x.img,x.t):''}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>`:`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
     return `${head('GALLERY','気に入らなくなったものは定期的に削除しています。どんなものを作るか　なんとなく知ってもらえたら嬉しいな')}
