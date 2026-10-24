@@ -93,7 +93,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
-const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT']];
+const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
 const HOME = {
   top: ['top1','top2','top3'],               // images/top/top1.(jpg|png|webp)
@@ -308,7 +308,7 @@ const VIEWS = {
     const cur = T.some(t=>t[0]===SUB) ? SUB : T[0][0];
     const row = ([t,d,u]) => `<div class="crow">${u?A(t,u,'btn'):`<span class="btn">${t}</span>`}<p>${d||''}</p></div>`;
     const m = CONTACT.mail;
-    return `${head('CONTACT','砂上電力の全てにつながるリンク集')}
+    return `${head('CONTACT・LINK','砂上電力の全てにつながるリンク集')}
     <div class="crow"><span class="btn">${m[0]}</span><p>${m[1]}<br><strong>${m[2]}</strong></p></div>
     <div class="tabs" role="tablist">${T.map(([k,t])=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${t}</a>`).join('')}</div>
     ${CONTACT.groups[T.findIndex(t=>t[0]===cur)][1].map(row).join('')}`;
