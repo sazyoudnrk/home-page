@@ -55,6 +55,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .counter{margin:34px auto 6px;text-align:center;font-size:13px;color:var(--sub)}
 .counter b{display:inline-block;margin:6px 4px;padding:4px 10px;background:#000;color:#ff2a1a;font:700 24px/1.2 "Courier New",monospace;letter-spacing:.14em;border:2px inset #888}
 .facts{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:8px 0 20px}.facts dt{color:var(--sub)}.facts dd{margin:0}
+.tl{margin:12px 0 8px;min-height:60px}
 .chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
 .cpanel{border:1px solid #ddd;border-radius:26px;padding:6px 12px;margin:2px 0 14px}
 .ctabs{display:flex;gap:3px;margin:14px 0 2px}
@@ -373,7 +374,7 @@ const VIEWS = {
     <div class="chead">${G.shop[0]}</div>
     <div class="cpanel">${G.shop[1].map(row).join('')}</div>
     <div class="ctabs" role="tablist">${T.map(k=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${G[k][0]}</a>`).join('')}</div>
-    <div class="cpanel">${G[cur][1].map(row).join('')}</div>`;
+    <div class="cpanel">${G[cur][1].map(row).join('')}${cur==='sns'?'<div class="tl"><a class="twitter-timeline" data-height="560" href="https://x.com/sazyou_dnrk?ref_src=twsrc%5Etfw">Posts by sazyou_dnrk</a></div>':''}</div>`;
   }
 };
 
@@ -387,7 +388,7 @@ function route(to) {
   $('#nav').innerHTML = PAGES.map(([k,t])=>`<a href="#${k}" class="${k===key?'on':''}">${t}</a>`).join('');
   $('#nav').classList.remove('open'); $('#menu').setAttribute('aria-expanded','false');
   document.title = (key==='home'?'':(PAGES.find(p=>p[0]===key)||[0,'受賞歴'])[1]+' | ')+'砂上拠点電力発電所';
-  if (document.querySelector('.twitter-tweet')) { if (window.twttr && twttr.widgets) twttr.widgets.load($('#main')); else if (!document.getElementById('twjs')) { const sc = document.createElement('script'); sc.id = 'twjs'; sc.async = true; sc.src = 'https://platform.twitter.com/widgets.js'; document.head.appendChild(sc); } }
+  if (document.querySelector('.twitter-tweet, .twitter-timeline')) { if (window.twttr && twttr.widgets) twttr.widgets.load($('#main')); else if (!document.getElementById('twjs')) { const sc = document.createElement('script'); sc.id = 'twjs'; sc.async = true; sc.src = 'https://platform.twitter.com/widgets.js'; document.head.appendChild(sc); } }
   if (key === 'home') counter();
   if (!route.keep) scrollTo(0,0);
 }
