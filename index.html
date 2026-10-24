@@ -108,7 +108,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 <header><div class="in"><a class="logo" href="#home"><b>砂上</b>拠点<b>電力</b>発電場</a><button id="menu" aria-label="メニュー" aria-expanded="false"><i></i><i></i><i></i></button></div><nav id="nav"></nav></header>
 <main id="main"></main>
 <div id="lb" role="dialog" aria-label="拡大表示"><img alt=""></div>
-<footer>© 砂上電力　<a href="#award" style="color:inherit">受賞歴</a></footer>
+<footer>© 砂上電力</footer>
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
@@ -123,7 +123,7 @@ const HOME = {
     ['ギャラリー','#gallery'],['キャラクター','#character'],
     ['skeb','https://skeb.jp/@sazyou_dnrk'],
     ['クソ俳句同好会に入ろう','https://x.com/i/communities/1595752674171162625/about'],
-    ['みんなのステッカー屋さん','https://stickershop.shopselect.net/search?q=%E7%A0%82%E4%B8%8A%E9%9B%BB%E5%8A%9B'],
+    ['BOOTH','https://sazyoudenryoku.booth.pm/'],
     ['プロフィールサイト','https://sazyoudnrk.github.io/profile/']
   ],
   log: [
@@ -225,8 +225,7 @@ const CONTACT = {
       ['skeb（アナログ）','有償でアナログイラストのリクエストを受け付けています。','https://skeb.jp/@kazyou_dnrk'],
       ['booth','グッズが買えます。本、原画、缶バッチ、アクキーなど。','https://sazyoudenryoku.booth.pm/'],
       ['suzuri','グッズが買えます。シャツ、ステッカーなど。','https://suzuri.jp/sazyou_dnrk'],
-      ['LINEスタンプ','LINEスタンプ販売','https://store.line.me/stickershop/product/12991484/ja'],
-      ['みんなのステッカー屋さん','びねつさん運営のステッカーショップに参加しています。デザフェス・ネットショップ・一部店舗でステッカーが買える！','https://stickershop.shopselect.net/search?q=%E7%A0%82%E4%B8%8A%E9%9B%BB%E5%8A%9B']]],
+      ['LINEスタンプ','LINEスタンプ販売','https://store.line.me/stickershop/product/12991484/ja']]],
     ['作品',[
       ['youtube','音楽、UTAUカバー、3DCG、メイキングなどの動画など載せてます。','https://www.youtube.com/channel/UC98V2ow4DnlU5SzxHodJ2Bw'],
       ['soundcloud','音楽、UTAUカバー　動画はないけど曲だけ作ったものとか載っています。','https://soundcloud.com/sazyoudenryoku'],
@@ -328,7 +327,7 @@ const VIEWS = {
       video: () => { const card = v => v.yt ? `<div class="vid"><iframe src="https://www.youtube.com/embed/${v.yt}" title="${v.t}" loading="lazy" allowfullscreen></iframe></div>` : v.x ? `<div class="vidx"><blockquote class="twitter-tweet"><a href="${v.x}"></a></blockquote></div>` : `<div class="vid ph0">${v.t}<br><small>（準備中）</small></div>`;
         return [['original','動画（オリジナル曲）','生きていれば音楽を作ることもある'],['cover','動画（カバー）','自作音源のUTAU（注寝ととと）のカバー動画です'],['cg3d','動画（3DCG）',''],['misc','動画（雑多）','']].map(([k,t,d])=>`<h2>${t}</h2>${d?`<p class="lead">${d}</p>`:''}<div class="vgrid">${VIDEOS[k].map(card).join('')}</div>`).join(''); },
       music: () => `<p class="lead">自作音源のUTAUカバーが多め　音楽が聴ける</p><iframe class="sc" title="SoundCloud" loading="lazy" allow="autoplay" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(MUSIC_URL)}&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe><p style="font-size:12px">${A('SoundCloudで開く',MUSIC_URL)}</p>`,
-      work: () => `<p class="lead">ご依頼で描かせていただいたものです。</p><p>■コミッション（リンク先に作例）<br>skeb：${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}<br>skeb：${A('https://skeb.jp/@kazyou_dnrk','https://skeb.jp/@kazyou_dnrk')}</p>${WORK.length?WORK.map(x=>`<div class="wk"><time>${x.d||''}</time><h3>■${x.u?A(x.t,x.u):x.t}</h3>${x.yt?`<div class="wkv"><iframe src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?`<div class="zoom">${IMG('gallery',x.img,x.t)}</div>`:''}</div>`).join(''):`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
+      work: () => `<p class="lead">ご依頼で描かせていただいたものです。</p><p>■コミッション（リンク先に作例）<br>skeb：${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}<br>skeb：${A('https://skeb.jp/@kazyou_dnrk','https://skeb.jp/@kazyou_dnrk')}</p>${WORK.length?WORK.map(x=>`<div class="wk"><time>${x.d||''}</time><h3>■${x.u?A(x.t,x.u):x.t}</h3>${x.yt?`<div class="wkv"><iframe src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?`<div class="zoom">${IMG('gallery',x.img,x.t)}</div>`:''}</div>`).join(''):`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}<h2>受賞歴</h2><p class="lead">うれしかったことは忘れないように記録しておきたい</p>${AWARDS.map(([d,t,pz,u,img])=>`<div class="wk"><time>${d}</time><h3>■${u?A(t,u):t}</h3>${pz?`<p>${pz}</p>`:''}<div class="zoom">${IMG('award',img,t)}</div></div>`).join('')}`,
       comic: () => COMIC.map(linkCard).join(''),
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
@@ -342,7 +341,6 @@ const VIEWS = {
     <h2>参加予定</h2>${EVENTS.upcoming.length?EVENTS.upcoming.map(row).join(''):'<div class="box" style="color:var(--sub)">（現在予定はありません）</div>'}
     <h2>参加記録</h2>${EVENTS.past.map(row).join('')}${EVENTS.flyers.length?`<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`:''}`;
   },
-  award: () => `${head('受賞歴','うれしかったことは忘れないように記録しておきたい')}${AWARDS.map(([d,t,pz,u,img])=>`<div class="wk"><time>${d}</time><h3>■${u?A(t,u):t}</h3>${pz?`<p>${pz}</p>`:''}<div class="zoom">${IMG('award',img,t)}</div></div>`).join('')}`,
   about: () => `
     ${head('ABOUT')}<h2>自己紹介</h2>
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
