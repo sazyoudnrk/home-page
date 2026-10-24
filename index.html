@@ -52,8 +52,8 @@ h3{font-size:17px;margin:20px 0 4px}
 .vid{aspect-ratio:16/9;background:#eee}.vid iframe{width:100%;height:100%;border:0;display:block}
 .vid.ph0{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--sub);font-size:13px;padding:8px}
 .vidx{min-width:0}.vidx .twitter-tweet{margin:0!important}
-.counter{margin:34px auto 6px;text-align:center;font-size:13px;color:var(--sub)}
-.counter b{display:inline-block;margin:6px 4px;padding:4px 10px;background:#000;color:#ff2a1a;font:700 24px/1.2 "Courier New",monospace;letter-spacing:.14em;border:2px inset #888}
+.counter{margin:14px 0 6px;text-align:left;font-size:13px;color:var(--sub)}
+.counter b{display:inline-block;margin:6px 4px;padding:4px 12px;background:#e8e8ec;color:#444;font:700 24px/1.2 "Courier New",monospace;letter-spacing:.14em;border:2px inset #c4c4cc;border-radius:3px}
 .facts{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:8px 0 20px}.facts dt{color:var(--sub)}.facts dd{margin:0}
 .tl{margin:12px 0 8px;min-height:60px}
 .chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
@@ -120,7 +120,7 @@ const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER']
 
 const HOME = {
   top: ['top1','top2','top3'],               // images/top/top1.(jpg|png|webp)
-  about: '砂上電力の大体のコンテンツが載っているwebサイトです。',
+  about: '砂上電力の大体のコンテンツが載っているwebサイト',
   links: [
     ['ギャラリー','#gallery'],['キャラクター','#character'],
     ['skeb','https://skeb.jp/@sazyou_dnrk'],
@@ -293,9 +293,9 @@ const VIEWS = {
     <div class="btns">${HOME.links.slice(0,3).map(([t,u])=>A(t,u,'btn')).join('')}</div>
     <div class="btns">${HOME.links.slice(3).map(([t,u])=>A(t,u,'btn sub')).join('')}</div>
     <h2>サイト説明</h2><p>${HOME.about}</p>
+    <div id="counter" hidden></div>
     <h2>更新記録</h2>
-    <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>
-    <div id="counter" hidden></div>`,
+    <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>`,
   download: () => `
     ${head('ダウンロード可能なコンテンツ','使えそうな物があればご利用ください。'+' '+A('利用規約はこちら',TERMS_URL))}
     ${DOWNLOADS.map(x=>`<div class="box card">${IMG('download',x.img)}<div><h3>${x.t}</h3><p>${x.d}</p><p>${x.l.map(([t,u])=>A(t,u)).join(' / ')}</p></div></div>`).join('')}`,
@@ -417,7 +417,7 @@ async function counter() {
   if (!n) { try { const r = await fetch(COUNTER_URL); const j = await r.json(); n = +(j.value ?? j.count) || 0; if (n) { try { localStorage.setItem('visitorNo', n); } catch (e) {} } } catch (e) {} }
   if (!n || !$('#counter')) return;
   el.className = 'counter'; el.hidden = false;
-  el.innerHTML = `あなたは<br><b>${String(n).padStart(6,'0')}</b><br>人目のお客様です`;
+  el.innerHTML = `あなたは<b>${String(n).padStart(6,'0')}</b>人目のお客様です`;
 }
 /* ホームのスライドを自動送り（触っている間と、触ってから6秒は止める） */
 let slideTouch = 0;
