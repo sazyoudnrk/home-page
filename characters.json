@@ -23,17 +23,6 @@
    "tabLine": "#f478a3"
   },
   {
-   "id": "trpg",
-   "tab": "探索者",
-   "heading": "探索者",
-   "color": "",
-   "song": "",
-   "world": "",
-   "tabBg": "#e2a135",
-   "tabFg": "#ffffff",
-   "tabLine": "#e2a135"
-  },
-  {
    "id": "magic",
    "tab": "魔法創作",
    "heading": "魔法創作",
@@ -43,6 +32,17 @@
    "tabBg": "#808080",
    "tabFg": "#ffffff",
    "tabLine": "#808080"
+  },
+  {
+   "id": "trpg",
+   "tab": "探索者",
+   "heading": "探索者",
+   "color": "",
+   "song": "",
+   "world": "",
+   "tabBg": "#e2a135",
+   "tabFg": "#ffffff",
+   "tabLine": "#e2a135"
   }
  ],
  "characters": [
@@ -93,7 +93,8 @@
     "gallery/art13",
     "character-gallery/syotyo/08"
    ],
-   "portrait": "character-gallery/syotyo/01"
+   "portrait": "character-gallery/syotyo/01",
+   "height": "169cm"
   },
   {
    "id": "pinkmeido",

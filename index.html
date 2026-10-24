@@ -33,7 +33,7 @@ h1,h2{font-weight:400;line-height:1.5;margin:32px 0 8px}
 h1{font-size:26px;margin-top:8px}
 h2{font-size:24px}
 h3{font-size:17px;margin:20px 0 4px}
-.lead{color:var(--sub);margin:0 0 20px}
+.lead{color:var(--sub);margin:0 0 20px;font-size:14px}
 .hero{position:relative;margin:0 0 24px}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
@@ -76,7 +76,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
 .cpanel{border:1px solid #ddd;border-radius:26px;padding:6px 12px;margin:2px 0 14px}
 .ctabs{display:flex;gap:3px;margin:14px 0 2px}
-.ctabs a{flex:1 1 auto;padding:12px 6px;border:2px solid #ddd;border-radius:999px;text-align:center;text-decoration:none;color:var(--btn);font-weight:700;font-size:clamp(11px,3.3vw,15px);line-height:1.25;display:flex;align-items:center;justify-content:center}
+.ctabs a{flex:1 1 auto;padding:12px 6px;border:2px solid #ddd;background:#f4f5f7;border-radius:999px;text-align:center;text-decoration:none;color:var(--btn);font-weight:700;font-size:clamp(11px,3.3vw,15px);line-height:1.25;display:flex;align-items:center;justify-content:center}
 .ctabs a.on{background:var(--btn);border-color:var(--btn);color:#fff}
 .crow{display:grid;grid-template-columns:minmax(0,42%) 1fr;gap:14px;align-items:center;margin:14px 0}
 .crow .btn{overflow-wrap:anywhere;line-height:1.25;display:flex;align-items:center;justify-content:center;padding:10px 6px;border-width:3px;font-size:clamp(12px,3.6vw,16px)}
@@ -85,6 +85,14 @@ h3{font-size:17px;margin:20px 0 4px}
 .btns .btn{flex:1 1 0;min-width:0;padding:12px 6px;border-width:4px;font-size:clamp(12px,3.6vw,17px);display:flex;align-items:center;justify-content:center}
 .btn{display:inline-block;padding:14px 22px;border:5px solid var(--btn);border-radius:999px;color:var(--btn);text-decoration:none;font:700 17px/1.2 "Noto Sans JP",sans-serif;text-align:center}
 .btn.sub{border-color:var(--grey);color:var(--grey)}
+@media (max-width:699px){   /* スマホでは大きすぎるボタンを少し小さく */
+  .btn{padding:10px 18px;border-width:3px;font-size:14px}
+  .crow .btn{padding:8px 6px;border-width:2px;font-size:clamp(11px,3.2vw,14px)}
+  .btns .btn{padding:9px 6px;border-width:3px;font-size:clamp(11px,3.1vw,14px)}
+  .btns .btn.sub{font-size:clamp(10px,2.8vw,13px)}
+  .ctabs a{padding:9px 4px;font-size:clamp(10px,3vw,13px)}
+  .crow p{font-size:12px}
+}
 .btns .btn.sub{font-size:clamp(11px,3.1vw,15px)}
 .notice{color:var(--link);margin:24px 0}
 .box{border:1px solid #e3e5e8;background:#f4f5f7;padding:14px 16px;margin:12px 0}
@@ -113,8 +121,10 @@ h3{font-size:17px;margin:20px 0 4px}
 .chlinks{display:flex;flex-wrap:wrap;gap:6px 18px;margin:28px 0 0}
 .chars img,.chars .ph{width:100%;aspect-ratio:119/303;object-fit:cover;object-position:center top;background:none;display:block;margin-bottom:8px}
 @media (max-width:420px){.chars{gap:20px 6px}.chars>*{font-size:12px}}
-.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
-.tabs a{padding:8px 18px;border:3px solid var(--btn);border-radius:999px;color:var(--btn);text-decoration:none;font-weight:700;font-size:15px;line-height:1.2}
+.tabs{display:flex;gap:8px;margin:0 -16px 20px;padding:4px 16px 8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;scroll-snap-align:center;white-space:nowrap}
+.tabs a{padding:7px 16px;border:3px solid var(--btn);border-radius:999px;color:var(--btn);text-decoration:none;font-weight:700;font-size:14px;line-height:1.2}
 .tabs a.on{background:var(--btn);color:#fff}
 .log{margin:0;padding:0;list-style:none}
 .log li{display:grid;grid-template-columns:72px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
@@ -469,7 +479,7 @@ const VIEWS = {
       comic: () => COMIC.map(linkCard).join(''),
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
-    return `${head('GALLERY','気に入らなくなったものは定期的に削除しています。どんなものを作るか　なんとなく知ってもらえたら嬉しいな')}
+    return `${head('GALLERY','私はこんなものを作ります')}
     <div class="tabs" role="tablist">${T.map(([k,t])=>`<a href="#gallery/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${t}</a>`).join('')}</div>
     ${body}`;
   },
@@ -490,7 +500,7 @@ const VIEWS = {
     const row = ([t,d,u]) => `<div class="crow">${u?A(t,u,'btn'):`<span class="btn">${t}</span>`}<p>${d||''}</p></div>`;
     const m = CONTACT.mail;
     return `${head('CONTACT・LINK','有象無象のリンク集')}
-    <div class="crow"><a class="btn" href="#" id="mailbtn">${m[0]}</a><p>${m[1]}<br><strong>${m[2]}</strong><br>${CONTACT.price[1]?A(CONTACT.price[0],CONTACT.price[1]):`<span>${CONTACT.price[0]}（準備中）</span>`}</p></div>
+    <div class="crow"><a class="btn" href="#" id="mailbtn">${m[0]}</a><p>${m[1]}<br><strong>${m[2]}</strong><br>${CONTACT.price[1]?A(CONTACT.price[0],CONTACT.price[1]):`<span>${CONTACT.price[0]}（準備中）</span>`}<br>${A('依頼実績はこちら','#gallery/work')}</p></div>
     <div class="chead">${G.shop[0]}</div>
     <div class="cpanel">${G.shop[1].map(row).join('')}</div>
     <div class="ctabs" role="tablist">${T.map(k=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${G[k][0]}</a>`).join('')}</div>
@@ -511,7 +521,7 @@ function route(to) {
   if (document.querySelector('.twitter-tweet, .twitter-timeline')) { if (window.twttr && twttr.widgets) twttr.widgets.load($('#main')); else if (!document.getElementById('twjs')) { const sc = document.createElement('script'); sc.id = 'twjs'; sc.async = true; sc.src = 'https://platform.twitter.com/widgets.js'; document.head.appendChild(sc); } }
   if (key === 'home') counter();
   if (!route.keep) scrollTo(0,0);
-  const ont = document.querySelector('.gtabs a.on'); if (ont) { const g = ont.parentElement; g.scrollLeft = ont.offsetLeft - (g.clientWidth - ont.offsetWidth) / 2; }
+  const ont = document.querySelector('.gtabs a.on, .tabs a.on'); if (ont) { const g = ont.parentElement; g.scrollLeft = ont.offsetLeft - (g.clientWidth - ont.offsetWidth) / 2; }
   prefetchNext(key);
 }
 /* 次に見そうな画像を、画面が落ち着いたあとに軽いサムネイルだけ1枚ずつ先読みする（通信量節約モードのときはしない） */
