@@ -112,7 +112,10 @@ h3{font-size:17px;margin:20px 0 4px}
 .log li{display:grid;grid-template-columns:72px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
 .log time{color:var(--sub);font-variant-numeric:tabular-nums}
 #lb{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:9;padding:12px}
-#lb.open{display:flex}#lb img{max-width:100%;max-height:100%}
+#lb.open{display:flex}#lb img{max-width:100%;max-height:100%;touch-action:pan-y}
+#lb .nv{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.22);color:#fff;font-size:26px;line-height:1;cursor:pointer;padding:0}
+#lb .nv.p{left:6px}#lb .nv.n{right:6px}#lb.one .nv,#lb.one .ct{display:none}
+#lb .ct{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:#fff;font-size:13px;text-shadow:0 0 4px #000}
 footer{text-align:center;color:var(--sub);font-size:12px;padding:20px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offset:2px}
@@ -121,7 +124,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 <body>
 <header><div class="in"><a class="logo" href="#home"><b>砂上</b>拠点<b>電力</b>発電場</a><button id="menu" aria-label="メニュー" aria-expanded="false"><i></i><i></i><i></i></button></div><nav id="nav"></nav></header>
 <main id="main"></main>
-<div id="lb" role="dialog" aria-label="拡大表示"><img alt=""></div>
+<div id="lb" role="dialog" aria-label="拡大表示"><img alt=""><button class="nv p" aria-label="前へ">‹</button><button class="nv n" aria-label="次へ">›</button><div class="ct"></div></div>
 <footer>© 砂上電力</footer>
 
 <script>
@@ -417,10 +420,35 @@ document.addEventListener('click', e => {
   if (m) { m.setAttribute('aria-expanded', $('#nav').classList.toggle('open')); return; }
   const sl = e.target.closest('[data-slide]');
   if (sl) { const el = $('#slides'), w = el.clientWidth, max = el.scrollWidth - w; let x = el.scrollLeft + (+sl.dataset.slide) * w; if (x > max + 1) x = 0; if (x < 0) x = max; el.scrollTo({left:x, behavior:'smooth'}); return; }
+  const nv = e.target.closest('#lb .nv');
+  if (nv) { lbGo(nv.classList.contains('n') ? 1 : -1); return; }
   const im = e.target.closest('.zoom img');
-  if (im) { $('#lb img').src = im.src; $('#lb').classList.add('open'); return; }
+  if (im) {
+    const scope = im.closest('.zoom').parentElement;
+    LB.list = [...scope.querySelectorAll('.zoom img')].filter(x => x.src);
+    LB.i = Math.max(0, LB.list.indexOf(im)); lbShow(); $('#lb').classList.add('open'); return;
+  }
   if (e.target.closest('#lb')) $('#lb').classList.remove('open');
 });
+/* 拡大表示：＜＞ボタン・左右スワイプ・矢印キーで同じ並びの画像を行き来 */
+const LB = {list: [], i: 0};
+function lbShow() {
+  const n = LB.list.length;
+  $('#lb img').src = LB.list[LB.i].src;
+  $('#lb').classList.toggle('one', n < 2);
+  $('#lb .ct').textContent = (LB.i + 1) + ' / ' + n;
+}
+function lbGo(d) { const n = LB.list.length; if (n < 2) return; LB.i = (LB.i + d + n) % n; lbShow(); }
+{ let sx = null, sy = 0;
+  const lb = $('#lb');
+  lb.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+  lb.addEventListener('touchend', e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { lbGo(dx < 0 ? 1 : -1); lb.dataset.sw = '1'; setTimeout(() => delete lb.dataset.sw, 400); }
+  }, {passive:true});
+  lb.addEventListener('click', e => { if (lb.dataset.sw) e.stopImmediatePropagation(); }, true);
+}
 /* アクセスカウンター（abacus.jasoncameron.dev・認証なし）。同じブラウザでは最初に付いた番号をずっと表示する */
 const COUNTER_URL = 'https://abacus.jasoncameron.dev/hit/sazyoudnrk.github.io-home-page/visits';
 async function counter() {
@@ -441,7 +469,7 @@ setInterval(() => {
   el.scrollTo({left:x, behavior:'smooth'});
 }, 4500);
 document.addEventListener('click', e => { if (e.target.closest && e.target.closest('#mailbtn')) { e.preventDefault(); e.stopPropagation(); location.href = 'mailto:' + CONTACT.mail[2].replace('●','@'); } }, true);
-addEventListener('keydown', e => { if (e.key === 'Escape') $('#lb').classList.remove('open'); });
+addEventListener('keydown', e => { const o = $('#lb').classList.contains('open'); if (e.key === 'Escape') $('#lb').classList.remove('open'); else if (o && e.key === 'ArrowRight') lbGo(1); else if (o && e.key === 'ArrowLeft') lbGo(-1); });
 </script>
 </body>
 </html>
