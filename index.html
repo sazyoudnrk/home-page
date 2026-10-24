@@ -174,7 +174,7 @@ const DOWNLOADS = [
   {img:'dl-karaoke',t:'カラオケ音源',d:'誰か歌ってくれるかと思って',l:[['リンク','https://drive.google.com/drive/folders/11OCcpkoJ5etcGZjEz3keEBk05l1Hi6TF?usp=sharing']]},
   {img:'dl-utau',t:'UTAU　MYCOE',d:'歌うし喋るよ　サイト内を一読してください',l:[['砂上天獄','https://nanashie.wixsite.com/sazyouutau']]}
 ];
-const TERMS_URL = 'https://nanashie.wixsite.com/sazyou/blank-27'; /* TODO: 利用規約ページを移行したら '#terms' 等に */
+const TERMS_URL = '#terms';
 
 /* キャラクターのデータは characters.json（groups / characters）に入っています */
 let CH = null, CHERR = false;
@@ -311,6 +311,30 @@ const nums = (p,n) => Array.from({length:n},(_,i)=>p+String(i+1).padStart(2,'0')
 const head = (t,l) => `<h1>${t}</h1><p class="lead">${l||''}</p>`;
 const linkCard = ([t,d,u]) => `<div class="box"><strong>${u?A(t,u):t}</strong>${u?'':' <span style="color:var(--sub);font-size:13px">（準備中）</span>'}${d?`<br><span style="color:var(--sub);font-size:14px">${d}</span>`:''}</div>`;
 
+/* 利用規約（旧サイトから移植。[見出し, 本文…] の並び。本文は1要素＝1段落、\n は改行） */
+const TERMS = {
+  intro: [
+    'どの製作物も著作権放棄していません。',
+    'このサイトと、ほかのサイトで掲載しているコンテンツは、無断で金銭の発生する事柄、名誉棄損やそのほか迷惑行為に利用することを許していません。',
+    '砂上式メーカー、Vroidhub、その他ダウンロードリンクの張られているもの、フリーアイコンと明記して掲載してあるものについては\nリンク先のサイト、又は同封されているReadme.txtの利用規約を読んで使用してください。\nそれがないもの、その規約に記述されていないものはこのページに書いてあることに準ずるものとします。'
+  ],
+  items: [
+    ['1.報告は不要です。(してくれると嬉しい)', '作者名やサイトへのリンクもあれば書いておいてくれると嬉しいですが、なくてもかまいません。(TwitterのDM、リプライやsazyoden@gmail.comに送ってください。)\n表記はしたい場合名前は砂上電力でお願いします。'],
+    ['2.配布物を利用して起きた問題について私は一切の責任を負いません。', '世界平和を目指してください。\n私の製作物で行われた迷惑行為、騒動、罪に関する責任は一切負いません。'],
+    ['3.人を不快にする目的での使用を禁止します。', 'やめてください。'],
+    ['4.配布物が正常に機能していない状態のものを利用することを禁止します。', '例としては\npicrewならランダムで作成したもの\n3Dモデルならポリゴンが滅茶苦茶に破綻した状態のもの', 'グリッチ表現に使ったりする分には構わないですが、明らかに意図していない形として壊れたものを利用するのはやめてください。'],
+    ['5.改変を行ったものを再配布する場合には許可を取ってください。', 'リンクに貼ってあるメールアドレスにお願いします。ツイッターのDMでもいいです。\nアイコンに使う際にコラージュするなどは許可を取る必要ありません。\n絵やモデルのトレスは悪用しないなら勝手にしていただいて構いません。'],
+    ['6.そのままの配布データを再配布することを禁止します。', 'そのままでなくても、データの本質的な部分に改変が行われていないものの再配布は禁止です。'],
+    ['7.年齢制限表現', 'ご自由にどうぞ。私が嫌がったらやめてください。'],
+    ['8.AI学習への利用を許可しません。'],
+    ['9.この利用規約は余儀なく変更される場合があります。']
+  ],
+  outro: [
+    '常識の範囲内の利用は問題ないということです。',
+    'この文書に記述されていない利用規約についての質問、記述されていても直接訊きたい点がある場合にはsazyoden@gmail.comかTwitterのDMにどうぞ。'
+  ]
+};
+
 const VIEWS = {
   home: () => `
     <div class="hero"><div class="slides" id="slides">${HOME.top.map(n=>IMG('top',n)).join('')}</div>
@@ -322,6 +346,12 @@ const VIEWS = {
     <div id="counter" hidden></div>
     <h2>更新記録</h2>
     <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>`,
+  terms: () => `${head('利用規約')}
+    <p>${A('← 戻る','#download','btn-back')}</p>
+    ${TERMS.intro.map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('')}
+    ${TERMS.items.map(([h,...b])=>`<h3 style="margin:22px 0 4px">${esc(h)}</h3>${b.map(t=>`<p style="margin:0 0 8px">${esc(t).replace(/\n/g,'<br>')}</p>`).join('')}`).join('')}
+    <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
+    ${TERMS.outro.map(t=>`<p>${esc(t)}</p>`).join('')}`,
   download: () => `
     ${head('ダウンロード可能なコンテンツ','使えそうな物があればご利用ください。'+' '+A('利用規約はこちら',TERMS_URL))}
     ${DOWNLOADS.map(x=>`<div class="box card">${IMG('download',x.img)}<div><h3>${x.t}</h3><p>${x.d}</p><p>${x.l.map(([t,u])=>A(t,u)).join(' / ')}</p></div></div>`).join('')}`,
@@ -421,7 +451,7 @@ function route(to) {
   $('#main').innerHTML = VIEWS[key]();
   $('#nav').innerHTML = PAGES.map(([k,t])=>`<a href="#${k}" class="${k===key?'on':''}">${t}</a>`).join('');
   $('#nav').classList.remove('open'); $('#menu').setAttribute('aria-expanded','false');
-  document.title = (key==='home'?'':(PAGES.find(p=>p[0]===key)||[0,'受賞歴'])[1]+' | ')+'砂上拠点電力発電所';
+  document.title = (key==='home'?'':(PAGES.find(p=>p[0]===key)||[0,key==='terms'?'利用規約':'受賞歴'])[1]+' | ')+'砂上拠点電力発電所';
   if (document.querySelector('.twitter-tweet, .twitter-timeline')) { if (window.twttr && twttr.widgets) twttr.widgets.load($('#main')); else if (!document.getElementById('twjs')) { const sc = document.createElement('script'); sc.id = 'twjs'; sc.async = true; sc.src = 'https://platform.twitter.com/widgets.js'; document.head.appendChild(sc); } }
   if (key === 'home') counter();
   if (!route.keep) scrollTo(0,0);
