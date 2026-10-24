@@ -170,8 +170,9 @@ const CG3D = [  /* 3DCG作品：img は images/gallery/ 内のファイル名（
 ];
 /* 動画：yt は YouTube の動画ID（watch?v= の後ろ11文字）、x は X(Twitter) の投稿URL。IDが空のものは「準備中」表示 */
 const VIDEOS = {
-  original: [{t:'黎明脳/IA',yt:'jeLzF_K7AUA'},{t:'bgm',yt:'rxbhb6tHXXo'},{t:'えんえん/可不【オリジナル曲】',yt:'ujW48ZPr4sI'},{t:'君の席/注寝ととと-UTAUオリジナル',yt:'F06fFl3unLE'},{t:'（X投稿の動画）',x:''}],
-  cover: [{t:'【UTAU Cover】イガク//注寝ととと',yt:''},{t:'【UTAU Cover】±0//注寝ととと ほたび',yt:''}]
+  original: [{t:'黎明脳/IA',yt:'jeLzF_K7AUA'},{t:'bgm',yt:'rxbhb6tHXXo'},{t:'えんえん/可不【オリジナル曲】',yt:'ujW48ZPr4sI'},{t:'君の席/注寝ととと-UTAUオリジナル',yt:'F06fFl3unLE'},{t:'まよいみち',x:'https://x.com/kazyou_dnrk/status/1895915125921759286'}],
+  cover: [{t:'【UTAU Cover】イガク//注寝ととと',yt:''},{t:'【UTAU Cover】±0//注寝ととと ほたび',yt:''}],
+  cg3d: [{t:'なけなしのシルバーウィーク使って作った動画',x:'https://x.com/kazyou_dnrk/status/2102702413971124407'}]
 };
 const MUSIC_URL = 'https://soundcloud.com/sazyoudenryoku';
 
@@ -307,7 +308,7 @@ const VIEWS = {
       made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join(''),
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
       video: () => { const card = v => v.yt ? `<div class="vid"><iframe src="https://www.youtube.com/embed/${v.yt}" title="${v.t}" loading="lazy" allowfullscreen></iframe></div>` : v.x ? `<div class="vidx"><blockquote class="twitter-tweet"><a href="${v.x}"></a></blockquote></div>` : `<div class="vid ph0">${v.t}<br><small>（準備中）</small></div>`;
-        return [['original','動画（オリジナル曲）','生きていれば音楽を作ることもある'],['cover','動画（カバー）','自作音源のUTAU（注寝ととと）のカバー動画です']].map(([k,t,d])=>`<h2>${t}</h2><p class="lead">${d}</p><div class="vgrid">${VIDEOS[k].map(card).join('')}</div>`).join(''); },
+        return [['original','動画（オリジナル曲）','生きていれば音楽を作ることもある'],['cover','動画（カバー）','自作音源のUTAU（注寝ととと）のカバー動画です'],['cg3d','動画（3DCG）','']].map(([k,t,d])=>`<h2>${t}</h2>${d?`<p class="lead">${d}</p>`:''}<div class="vgrid">${VIDEOS[k].map(card).join('')}</div>`).join(''); },
       music: () => `<p class="lead">自作音源のUTAUカバーが多め　音楽が聴ける</p><iframe class="sc" title="SoundCloud" loading="lazy" allow="autoplay" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(MUSIC_URL)}&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe><p style="font-size:12px">${A('SoundCloudで開く',MUSIC_URL)}</p>`,
       work: () => `<p class="lead">ご依頼で描かせていただいたものです。</p><p>■コミッション（リンク先に作例）<br>skeb：${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}<br>skeb：${A('https://skeb.jp/@kazyou_dnrk','https://skeb.jp/@kazyou_dnrk')}</p>${WORK.length?WORK.map(x=>`<div class="wk"><time>${x.d||''}</time><h3>■${x.u?A(x.t,x.u):x.t}</h3>${x.yt?`<div class="wkv"><iframe src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?`<div class="zoom">${IMG('gallery',x.img,x.t)}</div>`:''}</div>`).join(''):`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
       comic: () => COMIC.map(linkCard).join(''),
