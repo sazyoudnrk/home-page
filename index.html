@@ -316,7 +316,7 @@ const VIEWS = {
     const cur = T.includes(SUB) ? SUB : 'works';
     const row = ([t,d,u]) => `<div class="crow">${u?A(t,u,'btn'):`<span class="btn">${t}</span>`}<p>${d||''}</p></div>`;
     const m = CONTACT.mail;
-    return `${head('CONTACT・LINK','砂上電力の全てにつながるリンク集')}
+    return `${head('CONTACT・LINK','有象無象のリンク集')}
     <div class="crow"><a class="btn" href="#" id="mailbtn">${m[0]}</a><p>${m[1]}<br><strong>${m[2]}</strong></p></div>
     <div class="chead">${G.shop[0]}</div>
     <div class="cpanel">${G.shop[1].map(row).join('')}</div>
