@@ -212,7 +212,7 @@ const cdate = c => { const m = /^(\d{2,4})\s*\/\s*(\d+)\s*\/\s*(\d+)/.exec(c.cre
 const hgt = c => { const m = /(\d+(?:\.\d+)?)/.exec(c.height||''); return m ? +m[1] : 0; };
 const bd = c => { const m = /(\d+)\s*[\/月-]\s*(\d+)/.exec(c.birthday||''); return m ? +m[1]*100 + +m[2] : 0; };
 
-const DESIGN = 0;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
+const DESIGN = 9;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
 const ART_NEW = ['art26'];                    // 新しい絵はここに足すと一番上に出ます（images/gallery/art26.jpg …）
 const ART = 25, CRAFT = 13;                   // images/gallery/art01…, craft01…
 const APPS = [  /* プロフィールサイトの「WEB APPS」に載っているアプリ。u はリンク先 */
@@ -499,11 +499,12 @@ const VIEWS = {
     } else if (SUB === 'design') {
       body = `<h2>デザインのみ</h2>
       <p>${A('← 戻る','#character','btn-back')}</p>
+      <p class="lead">設定はないけどデザイン気に入ってる子達</p>
       ${DESIGN ? `<div class="masonry zoom">${nums('design',DESIGN).map(n=>IMG('character',n)).join('')}</div>` : `<div class="box" style="color:var(--sub)">（画像未設定：DESIGN に枚数を入れて images/character/design01… を置く）</div>`}`;
     } else {
       const items = chars.filter(c=>c.group===grp.id);
       body = `<h2${grp.color?` style="color:${grp.color}"`:''}>${esc(grp.heading)}</h2>
-      <div class="chars">${items.map(c=>A(IMG('character',c.image,c.name)+esc(c.name),link(c))).join('')}${grp.id==='main'?A(IMG('character','design','デザインのみ')+'デザインのみ','#character/design'):''}</div>
+      <div class="chars">${items.map(c=>A(IMG('character',c.image,c.name)+esc(c.name),link(c))).join('')}${grp.id==='main'?A(IMG('character','design01','デザインのみ')+'デザインのみ','#character/design'):''}</div>
       ${(()=>{ if (grp.noMore) return ''; POP = {曲: grp.songs || [], 動画: grp.videos || []};
         const pill = (k, always) => { const l = POP[k]; return l.length > 1 ? `<button type="button" class="btn-back" data-pop="${k}">${k} ＋</button>` : l.length === 1 ? A(k,l[0][1],'btn-back') : always ? `<span class="btn-back off">${k}（準備中）</span>` : ''; };
         const wd = grp.world ? A('世界観',grp.world,'btn-back') : `<span class="btn-back off">世界観（準備中）</span>`;   // 曲・動画が複数なら groups の songs / videos に [['名前','URL','説明（省略可）'],…] を足すと、押したときポップアップで選べる
