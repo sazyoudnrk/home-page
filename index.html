@@ -216,9 +216,22 @@ const AWARDS = [
 ];
 
 const ABOUT = {
-  intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','水彩絵具のオタクで、いろんな絵具を持っています。<br>デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。'],
-  facts: [['アレルギー','無し'],['お仕事','プログラマの一般労働者'],['連絡','平日20時以降と土日は比較的連絡が取りやすいです']]
+  facts: [
+    ['名前','砂上電力（さじょうでんりょく）'],
+    ['素性','成人済みプログラマ一般労働者。'],
+    ['好み','3L好き。なんか作るのが好き。'],
+    ['好きなもの','絵の具、カフェラテ、生ハム、つまみ'],
+    ['苦手なもの','ワイン'],
+    ['アレルギー','無し'],
+    ['連絡','平日20時以降と土日は比較的連絡が取りやすいです'],
+    ['使用ソフト','Procreate / Blender / AviUtl / GarageBand / OpenUtau']
+  ],
+  intro: [
+    '絵と音楽と動画と3DCGとUTAUなどやります。<br>ほかにもビーズリングを作ったり、レジンやミシンで遊んだり、やりたいことはたくさんある。<br>UTAUカバーなどは自作音源のカバーで、構成音声ライブラリから作っているのでぜひ聞いてみてください！',
+    '創作キャラの二次創作や交流は大歓迎です。書いていただけたらぜひFAタグ <a href="https://x.com/hashtag/sazyodenFA" target="_blank" rel="noopener">#sazyodenFA</a> をつけてXに投稿してください！<br>嗜好と時間が合えばいろんなことに参加したいです。仲良くしてくれたら嬉しいです。'
+  ]
 };
+
 
 const CONTACT = {
   price: ['料金表', '' /* 料金表のURL（または '#price' などの内部ページ）が決まったらここに */],
@@ -346,9 +359,9 @@ const VIEWS = {
     <h2>参加記録</h2>${EVENTS.past.map(row).join('')}${EVENTS.flyers.length?`<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`:''}`;
   },
   about: () => `
-    ${head('ABOUT')}<h2>自己紹介</h2>
-    ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
-    <h2>素性</h2><dl class="facts">${ABOUT.facts.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`,
+    ${head('ABOUT')}<dl class="facts">${ABOUT.facts.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+    <h2>自己紹介</h2>
+    ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}`,
   contact: () => {
     const G = Object.fromEntries(CONTACT.groups.map((g,i)=>[['shop','works','sns','other'][i],g]));
     const T = ['works','sns','other'];
