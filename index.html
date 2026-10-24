@@ -123,7 +123,8 @@ const HOME = {
     ['ギャラリー','#gallery'],['キャラクター','#character'],
     ['skeb','https://skeb.jp/@sazyou_dnrk'],
     ['クソ俳句同好会に入ろう','https://x.com/i/communities/1595752674171162625/about'],
-    ['みんなのステッカー屋さん','https://stickershop.shopselect.net/search?q=%E7%A0%82%E4%B8%8A%E9%9B%BB%E5%8A%9B']
+    ['みんなのステッカー屋さん','https://stickershop.shopselect.net/search?q=%E7%A0%82%E4%B8%8A%E9%9B%BB%E5%8A%9B'],
+    ['簡易サイト','https://sazyoudnrk.github.io/']
   ],
   log: [
     ['26/10/24','サイトの作りを根本から変更しました。旧サイトは<a href="https://nanashie.wixsite.com/sazyou" target="_blank" rel="noopener">こちら</a>。'],
@@ -162,6 +163,17 @@ const bd = c => { const m = /(\d+)\s*[\/月-]\s*(\d+)/.exec(c.birthday||''); ret
 
 const DESIGN = 0;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
 const ART = 25, CRAFT = 13;                   // images/gallery/art01…, craft01…
+const APPS = [  /* 簡易サイト（sazyoudnrk.github.io）のアプリ。u は簡易サイト内のページ */
+  ['おえかき','パレットを使ってお絵かきするアプリ','color-pallet-draw.html'],
+  ['PATTERN LAB','背景用の幾何学パターンを生成するアプリ','pattern-lab.html'],
+  ['画像リサイズ台','画像の長辺・ファイルサイズ・印刷サイズを指定してリサイズするアプリ','resizer.html'],
+  ['SHAPER','角Rの編集と、PNGの輪郭抽出をするアプリ','shaper.html'],
+  ['PP1 パンチ','画像を刺しゅうミシン用のデータに変換するアプリ','image-to-eps.html'],
+  ['Liminal Dialogue','キャラクターと会話するノベルゲーム風アプリ','index.html'],
+  ['会話JSONエディタ','Liminal Dialogueの会話データを編集するエディタ','talk-editor.html'],
+  ['GitHub Pages 公開リンク作成ツール','GitHub Pagesの公開リンクを作るツール','github-pages-link-generator.html']
+];
+const APPS_BASE = 'https://sazyoudnrk.github.io/';
 const MADE = [
   {img:'made-picrew',t:'picrew',d:'着せ替えさせるやつです。2019ごろに作成したため出来は良くない',u:'https://picrew.me/image_maker/19046'},
   {img:'made-vroid',t:'VRoid',d:'Vroid',u:'https://hub.vroid.com/characters/7727200837242838157/models/6460593563660743426'},
@@ -234,7 +246,8 @@ const CONTACT = {
     ]],
     ['その他',[
       ['マシュマロ','感想、要望、質問、リクエスト等。読んでにこにこして返信しないことが多い。感想とか嬉しすぎて印刷してノートに貼ってます。','https://marshmallow-qa.com/sazyou_dnrk'],
-      ['砂上天獄','別サイト　UTAUとMYCOE配布所','https://nanashie.wixsite.com/sazyouutau']
+      ['砂上天獄','別サイト　UTAUとMYCOE配布所','https://nanashie.wixsite.com/sazyouutau'],
+      ['簡易サイト','自作アプリケーションなどを置いている簡易サイト','https://sazyoudnrk.github.io/']
     ]]
   ]
 };
@@ -312,7 +325,7 @@ const VIEWS = {
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
     const body = {
       art: () => `<div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>`,
-      made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join(''),
+      made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join('') + `<h2 id="apps">アプリケーション</h2><p class="lead">${A('簡易サイト',APPS_BASE)}に置いているアプリです。</p>` + APPS.map(([t,d,u])=>linkCard([t,d,APPS_BASE+u])).join(''),
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
       video: () => { const card = v => v.yt ? `<div class="vid"><iframe src="https://www.youtube.com/embed/${v.yt}" title="${v.t}" loading="lazy" allowfullscreen></iframe></div>` : v.x ? `<div class="vidx"><blockquote class="twitter-tweet"><a href="${v.x}"></a></blockquote></div>` : `<div class="vid ph0">${v.t}<br><small>（準備中）</small></div>`;
         return [['original','動画（オリジナル曲）','生きていれば音楽を作ることもある'],['cover','動画（カバー）','自作音源のUTAU（注寝ととと）のカバー動画です'],['cg3d','動画（3DCG）',''],['misc','動画（雑多）','']].map(([k,t,d])=>`<h2>${t}</h2>${d?`<p class="lead">${d}</p>`:''}<div class="vgrid">${VIDEOS[k].map(card).join('')}</div>`).join(''); },
