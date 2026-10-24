@@ -5,7 +5,6 @@
    "tab": "創作キャラ",
    "heading": "創作キャラ",
    "color": "",
-   "song": "",
    "world": "",
    "tabBg": "#218ac9",
    "tabFg": "#ffffff",
@@ -16,29 +15,38 @@
    "tab": "LoopBackDream",
    "heading": "LoopBackDream",
    "color": "#f06f9d",
-   "song": "https://youtu.be/F06fFl3unLE?si=vwnrwZdy_yNKtSz8",
    "world": "#world/lbd",
    "tabBg": "#f478a3",
    "tabFg": "#ffffff",
-   "tabLine": "#f478a3"
+   "tabLine": "#f478a3",
+   "songs": [
+    [
+     "LoopBackDream",
+     "https://youtu.be/F06fFl3unLE?si=vwnrwZdy_yNKtSz8"
+    ]
+   ]
   },
   {
    "id": "magic",
    "tab": "魔法創作",
    "heading": "魔法創作",
    "color": "#a0386a",
-   "song": "https://soundcloud.com/sazyoudenryoku/6e8gmqv7wooe",
    "world": "#world/magic",
    "tabBg": "#808080",
    "tabFg": "#ffffff",
-   "tabLine": "#808080"
+   "tabLine": "#808080",
+   "songs": [
+    [
+     "魔法創作",
+     "https://soundcloud.com/sazyoudenryoku/6e8gmqv7wooe"
+    ]
+   ]
   },
   {
    "id": "trpg",
    "tab": "探索者",
    "heading": "探索者",
    "color": "",
-   "song": "",
    "world": "",
    "tabBg": "#e2a135",
    "tabFg": "#ffffff",
