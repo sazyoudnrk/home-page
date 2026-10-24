@@ -192,13 +192,16 @@ const $ = s => document.querySelector(s);
 const ext = u => /^https?:/.test(u);
 const A = (t,u,c='') => `<a class="${c}" href="${u}"${ext(u)?' target="_blank" rel="noopener"':''}>${t}</a>`;
 // 画像: images/<dir>/<name>.(jpg|png|webp) を順に試し、無ければファイル名入りの枠を出す
-const IMG = (dir,name,alt='') => `<img src="images/${dir}/${name}.${EXTS[0]}" alt="${alt}" loading="lazy" data-d="${dir}" data-n="${name}" data-i="0">`;
+const IMG = (dir,name,alt='',hide=false) => `<img src="images/${dir}/${name}.${EXTS[0]}" alt="${alt}" loading="lazy" data-d="${dir}" data-n="${name}" data-i="0"${hide?' data-hide="1"':''}>`;
+const galImg = p => { const i = p.lastIndexOf('/'); return IMG(p.slice(0,i), p.slice(i+1), '', true); };
 document.addEventListener('error', e => {
   const im = e.target; if (im.tagName !== 'IMG' || !im.dataset.n) return;
   const i = +im.dataset.i + 1;
   if (i < EXTS.length) { im.dataset.i = i; im.src = `images/${im.dataset.d}/${im.dataset.n}.${EXTS[i]}`; return; }
+  if (im.dataset.hide) { im.remove(); return; }
   im.outerHTML = `<div class="ph">images/${im.dataset.d}/${im.dataset.n}</div>`;
 }, true);
+document.addEventListener('load', e => { const g = e.target.closest && e.target.closest('.gal'); if (g) g.hidden = false; }, true);
 const nums = (p,n) => Array.from({length:n},(_,i)=>p+String(i+1).padStart(2,'0'));
 const head = (t,l) => `<h1>${t}</h1><p class="lead">${l||''}</p>`;
 const linkCard = ([t,d,u]) => `<div class="box"><strong>${u?A(t,u):t}</strong>${u?'':' <span style="color:var(--sub);font-size:13px">（準備中）</span>'}${d?`<br><span style="color:var(--sub);font-size:14px">${d}</span>`:''}</div>`;
@@ -235,7 +238,8 @@ const VIEWS = {
       body = `<p>${A('← '+grp.tab+'に戻る','#character/'+(grp.id==='main'?'':grp.id))}</p>
         <h2>${esc(one.name)}</h2>
         <div class="prof">${IMG('character',one.image,one.name)}<dl>${rows}</dl></div>
-        ${paras?`<h3>詳細</h3>${paras}`:''}`;
+        ${paras?`<h3>詳細</h3>${paras}`:''}
+        ${(one.gallery||[]).length?`<section class="gal" hidden><h3>ギャラリー</h3><div class="masonry zoom">${one.gallery.map(galImg).join('')}</div></section>`:''}`;
     } else if (SUB === 'design') {
       body = `<h2>デザインのみ</h2>
       <p>${A('← 創作キャラに戻る','#character')}</p>

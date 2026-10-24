@@ -48,7 +48,13 @@
    "dislikes": "不条理",
    "birthday": "7/27",
    "created": "2020/2/6",
-   "detail": "元々は女子高生化する診断メーカーで作った子\n\n何かしら嘆いたり苦しんだり悲しんだりしている。\n大体自身の愚かさによるもの。\nフォロワーさんに描いてもらったイラストで初めてドーナツを食べることができたので、ドーナツが大好き。\n\n自分では気づいていないようだが人ではない。"
+   "detail": "元々は女子高生化する診断メーカーで作った子\n\n何かしら嘆いたり苦しんだり悲しんだりしている。\n大体自身の愚かさによるもの。\nフォロワーさんに描いてもらったイラストで初めてドーナツを食べることができたので、ドーナツが大好き。\n\n自分では気づいていないようだが人ではない。",
+   "gallery": [
+    "character-gallery/denden/01",
+    "character-gallery/denden/02",
+    "character-gallery/denden/03",
+    "gallery/art11"
+   ]
   },
   {
    "id": "syotyo",
@@ -64,7 +70,19 @@
    "dislikes": "不明",
    "birthday": "不明",
    "created": "2020/11/26",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/syotyo/01",
+    "character-gallery/syotyo/02",
+    "character-gallery/syotyo/03",
+    "character-gallery/syotyo/04",
+    "character-gallery/syotyo/05",
+    "gallery/art05",
+    "character-gallery/syotyo/06",
+    "character-gallery/syotyo/07",
+    "gallery/art13",
+    "character-gallery/syotyo/08"
+   ]
   },
   {
    "id": "pinkmeido",
@@ -80,7 +98,16 @@
    "dislikes": "インターネットやめろ",
    "birthday": "インターネットやめろ",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/pinkmeido/01",
+    "character-gallery/pinkmeido/02",
+    "character-gallery/pinkmeido/03",
+    "gallery/art20",
+    "character-gallery/pinkmeido/04",
+    "character-gallery/pinkmeido/05",
+    "character-gallery/pinkmeido/06"
+   ]
   },
   {
    "id": "mizuiromeido",
@@ -96,7 +123,11 @@
    "dislikes": "しっかりすること",
    "birthday": "不明",
    "created": "2022/7/23",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/mizuiromeido/01",
+    "character-gallery/mizuiromeido/02"
+   ]
   },
   {
    "id": "tototo",
@@ -112,7 +143,11 @@
    "dislikes": "",
    "birthday": "3/10",
    "created": "2021/3/10",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/tototo/01",
+    "character-gallery/tototo/02"
+   ]
   },
   {
    "id": "toto",
@@ -128,7 +163,10 @@
    "dislikes": "銃",
    "birthday": "9/29",
    "created": "2022/9/29",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/toto/01"
+   ]
   },
   {
    "id": "satouichika",
@@ -144,7 +182,17 @@
    "dislikes": "た〇のこの里過激派",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/satouichika/01",
+    "character-gallery/satouichika/02",
+    "character-gallery/satouichika/03",
+    "character-gallery/satouichika/04",
+    "character-gallery/satouichika/05",
+    "character-gallery/satouichika/06",
+    "character-gallery/satouichika/07",
+    "character-gallery/satouichika/08"
+   ]
   },
   {
    "id": "urameshion",
@@ -160,7 +208,14 @@
    "dislikes": "無し",
    "birthday": "unknown",
    "created": "2020/6/6",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/urameshion/01",
+    "gallery/art07",
+    "character-gallery/urameshion/02",
+    "gallery/art09",
+    "character-gallery/urameshion/03"
+   ]
   },
   {
    "id": "nagisa",
@@ -176,7 +231,10 @@
    "dislikes": "労働、あのひと",
    "birthday": "",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/nagisa/01"
+   ]
   },
   {
    "id": "ninini",
@@ -192,7 +250,12 @@
    "dislikes": "",
    "birthday": "",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/ninini/01",
+    "gallery/art01",
+    "character-gallery/ninini/02"
+   ]
   },
   {
    "id": "king",
@@ -208,7 +271,8 @@
    "dislikes": "",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": []
   },
   {
    "id": "nitoro",
@@ -224,7 +288,10 @@
    "dislikes": "たくさんある",
    "birthday": "",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/nitoro/01"
+   ]
   },
   {
    "id": "beneko",
@@ -240,7 +307,10 @@
    "dislikes": "",
    "birthday": "",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/beneko/01"
+   ]
   },
   {
    "id": "yorozuyayuu",
@@ -298,6 +368,13 @@
      "キャラクターシート",
      "https://charasheet.vampire-blood.net/4570595"
     ]
+   ],
+   "gallery": [
+    "character-gallery/yorozuyayuu/01",
+    "character-gallery/yorozuyayuu/02",
+    "character-gallery/yorozuyayuu/03",
+    "character-gallery/yorozuyayuu/04",
+    "character-gallery/yorozuyayuu/05"
    ]
   },
   {
@@ -314,7 +391,28 @@
    "dislikes": "破壊してしまうこと",
    "birthday": "unknown",
    "created": "2017/8/22",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/yuyuyu/01",
+    "character-gallery/yuyuyu/02",
+    "character-gallery/yuyuyu/03",
+    "character-gallery/yuyuyu/04",
+    "character-gallery/yuyuyu/05",
+    "gallery/art15",
+    "character-gallery/yuyuyu/06",
+    "character-gallery/yuyuyu/07",
+    "character-gallery/yuyuyu/08",
+    "character-gallery/yuyuyu/09",
+    "character-gallery/yuyuyu/10",
+    "character-gallery/yuyuyu/11",
+    "character-gallery/yuyuyu/12",
+    "character-gallery/yuyuyu/13",
+    "character-gallery/yuyuyu/14",
+    "character-gallery/yuyuyu/15",
+    "character-gallery/yuyuyu/16",
+    "character-gallery/yuyuyu/17",
+    "character-gallery/yuyuyu/18"
+   ]
   },
   {
    "id": "alice",
@@ -330,7 +428,15 @@
    "dislikes": "集合体",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/alice/01",
+    "gallery/art08",
+    "character-gallery/yuyuyu/08",
+    "character-gallery/alice/02",
+    "character-gallery/alice/03",
+    "character-gallery/yuyuyu/02"
+   ]
   },
   {
    "id": "memo",
@@ -346,7 +452,15 @@
    "dislikes": "カエル",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/memo/01",
+    "character-gallery/memo/02",
+    "character-gallery/memo/03",
+    "character-gallery/memo/04",
+    "character-gallery/memo/05",
+    "character-gallery/yuyuyu/02"
+   ]
   },
   {
    "id": "ruido",
@@ -362,7 +476,15 @@
    "dislikes": "人混み",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/ruido/01",
+    "character-gallery/ruido/02",
+    "character-gallery/alice/02",
+    "character-gallery/ruido/03",
+    "character-gallery/yuyuyu/02",
+    "character-gallery/ruido/04"
+   ]
   },
   {
    "id": "rito",
@@ -378,7 +500,12 @@
    "dislikes": "生魚",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/rito/01",
+    "character-gallery/rito/02",
+    "character-gallery/rito/03"
+   ]
   },
   {
    "id": "minasesuzuka",
@@ -394,7 +521,12 @@
    "dislikes": "後輩",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/rito/01",
+    "character-gallery/minasesuzuka/01",
+    "character-gallery/minasesuzuka/02"
+   ]
   },
   {
    "id": "desire",
@@ -410,7 +542,15 @@
    "dislikes": "人",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/desire/01",
+    "character-gallery/yuyuyu/12",
+    "character-gallery/desire/02",
+    "character-gallery/desire/03",
+    "character-gallery/desire/04",
+    "character-gallery/desire/05"
+   ]
   },
   {
    "id": "chen",
@@ -426,7 +566,14 @@
    "dislikes": "ファストフード",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/rito/01",
+    "character-gallery/chen/01",
+    "character-gallery/chen/02",
+    "character-gallery/yuyuyu/08",
+    "character-gallery/chen/03"
+   ]
   },
   {
    "id": "noah",
@@ -442,7 +589,12 @@
    "dislikes": "太陽",
    "birthday": "unknown",
    "created": "unknown",
-   "detail": ""
+   "detail": "",
+   "gallery": [
+    "character-gallery/rito/01",
+    "character-gallery/noah/01",
+    "character-gallery/noah/02"
+   ]
   },
   {
    "id": "yueru",
@@ -458,7 +610,8 @@
    "dislikes": "",
    "birthday": "",
    "created": "",
-   "detail": ""
+   "detail": "",
+   "gallery": []
   }
  ]
 }
