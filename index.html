@@ -56,6 +56,15 @@ h3{font-size:17px;margin:20px 0 4px}
 .card h3{margin:0;font-size:16px}.card p{margin:0;font-size:14px;color:var(--sub)}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .tags a{font-size:13px;padding:2px 10px;border:1px solid var(--line);text-decoration:none}
+.chars{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 8px}
+.chars>*{display:block;color:var(--ink);text-decoration:none;font-size:13px;line-height:1.5}
+.prof{display:grid;grid-template-columns:119px 1fr;gap:16px;align-items:start;margin:8px 0 16px}
+.prof img,.prof .ph{width:100%;aspect-ratio:119/303;object-fit:contain;object-position:top;background:none}
+.prof dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px}
+.prof dt{color:var(--sub)}.prof dd{margin:0;white-space:pre-line;overflow-wrap:anywhere}
+.chlinks{display:flex;flex-wrap:wrap;gap:6px 18px;margin:28px 0 0}
+.chars img,.chars .ph{width:100%;aspect-ratio:119/303;object-fit:contain;object-position:top;background:none;display:block;margin-bottom:8px}
+@media (max-width:420px){.chars{gap:20px 6px}.chars>*{font-size:12px}}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
 .tabs a{padding:8px 18px;border:3px solid var(--btn);border-radius:999px;color:var(--btn);text-decoration:none;font-weight:700;font-size:15px;line-height:1.2}
 .tabs a.on{background:var(--btn);color:#fff}
@@ -116,10 +125,15 @@ const DOWNLOADS = [
 ];
 const TERMS_URL = 'https://nanashie.wixsite.com/sazyou/blank-27'; /* TODO: 利用規約ページを移行したら '#terms' 等に */
 
-const CHARS = [['でんでん','denden'],['佐藤一花','satouichika'],['所長','syotyo'],['裏目シオン','urameshion'],['メイドちゃん','pinkmeido'],['めいどちゃん','mizuiromeido'],['注寝ととと','tototo'],['注与とと','toto']];
-const CHAR_TABS = [['創作キャラ','#character'],['LoopBackDream','https://nanashie.wixsite.com/sazyou/character-lbd'],['探索者','https://nanashie.wixsite.com/sazyou/character-trpg'],['魔法創作','https://nanashie.wixsite.com/sazyou/character-dol']]; /* TODO: 移行したら内部リンクに */
+/* キャラクターのデータは characters.json（groups / characters）に入っています */
+let CH = null, CHERR = false;
+const F = [['gender','性別'],['age','年齢'],['firstPerson','一人称'],['secondPerson','二人称'],['likes','好きなもの'],['dislikes','苦手なもの'],['birthday','誕生日'],['created','作成日']];
+const hasProfile = c => F.some(([k])=>c[k]) || c.detail || (c.extra && c.extra.length);
+const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const bd = c => { const m = /(\d+)\s*[\/月-]\s*(\d+)/.exec(c.birthday||''); return m ? +m[1]*100 + +m[2] : 0; };
 
-const ART = 23, CRAFT = 16;                   // images/gallery/art01…, craft01…
+const DESIGN = 0;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
+const ART = 25, CRAFT = 15;                   // images/gallery/art01…, craft01…
 const MADE = [
   {img:'made-picrew',t:'picrew',d:'着せ替えさせるやつです。2019ごろに作成したため出来は良くない',u:'https://picrew.me/image_maker/19046'},
   {img:'made-vroid',t:'VRoid',d:'Vroid',u:'https://hub.vroid.com/characters/7727200837242838157/models/6460593563660743426'},
@@ -138,7 +152,7 @@ const COMIC = [
 ];
 
 const ABOUT = {
-  intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。地雷も基本はないはず……','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','色のことを考えながら絵をかいたり、不穏なキャラクター設定を作ったり、キャラクターの仕草を落書きしたりするのが好き。','水彩絵具のオタクで、いろんな絵具を持っています。語りたい……','デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。'],
+  intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','水彩絵具のオタクで、いろんな絵具を持っています。<br>デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。'],
   blocks: [
     ['Work','ご依頼で描かせていただいたもの','https://nanashie.wixsite.com/sazyou/portfolio'],
     ['Event','イベント参加記録','https://nanashie.wixsite.com/sazyou/about'],
@@ -201,13 +215,40 @@ const VIEWS = {
   download: () => `
     ${head('ダウンロード可能なコンテンツ','使えそうな物があればご利用ください。'+' '+A('利用規約はこちら',TERMS_URL))}
     ${DOWNLOADS.map(x=>`<div class="box card">${IMG('download',x.img)}<div><h3>${x.t}</h3><p>${x.d}</p><p>${x.l.map(([t,u])=>A(t,u)).join(' / ')}</p></div></div>`).join('')}`,
-  character: () => `
-    ${head('CHARACTER','創作キャラクターの紹介　一部だけ立ち絵がある')}
-    <div class="tags">${CHAR_TABS.map(([t,u])=>A(t,u)).join('')}</div>
-    <h2>創作キャラ</h2>
-    ${CHARS.map(([t,id])=>`<div class="box card">${IMG('character',id,t)}<div><h3>${t}</h3><p>${A('https://nanashie.wixsite.com/sazyou/character/'+id,'https://nanashie.wixsite.com/sazyou/character/'+id)}</p></div></div>`).join('')}
-    <p>${A('デザインのみ','https://nanashie.wixsite.com/sazyou/blank-21')}</p>
-    <!-- TODO: 各キャラの詳細ページ（CHARSに設定を足して #character/denden で表示）-->`,
+  character: () => {
+    if (CHERR) return `${head('CHARACTER')}<div class="box">characters.json を読み込めませんでした。GitHub Pages などに上げて、index.html と同じ場所に characters.json があるか確認してください。</div>`;
+    if (!CH) return `${head('CHARACTER')}<p class="lead">読み込み中…</p>`;
+    const chars = CH.characters, groups = CH.groups;
+    const one = chars.find(c=>c.id===SUB);
+    const grp = one ? groups.find(g=>g.id===one.group) : groups.find(g=>g.id===SUB) || groups[0];
+    const tabs = groups.map(g=>`<a href="#character/${g.id==='main'?'':g.id}" role="tab" aria-selected="${g===grp&&SUB!=='birthday'}" class="${g===grp&&SUB!=='birthday'?'on':''}">${g.tab}</a>`).join('')
+      + `<a href="#character/birthday" role="tab" aria-selected="${SUB==='birthday'}" class="${SUB==='birthday'?'on':''}">誕生日</a>`;
+    const link = c => hasProfile(c) ? '#character/'+c.id : c.link;
+    let body;
+    if (SUB === 'birthday') {
+      const list = chars.filter(bd).sort((a,b)=>bd(a)-bd(b));
+      body = `<h2>誕生日</h2>` + (list.length ? `<ul class="log">${list.map(c=>`<li><time>${esc(c.birthday)}</time><span>${A(esc(c.name),link(c))}</span></li>`).join('')}</ul>` : `<div class="box" style="color:var(--sub)">誕生日が登録されたキャラがここに並びます</div>`);
+    } else if (one) {
+      const rows = F.filter(([k])=>one[k]).map(([k,l])=>`<dt>${l}</dt><dd>${esc(one[k])}</dd>`).join('')
+        + (one.extra||[]).map(([l,v])=>`<dt>${esc(l)}</dt><dd>${/^https?:/.test(v)?A(esc(v),v):esc(v)}</dd>`).join('');
+      const paras = (one.detail||'').split(/\n\s*\n/).filter(Boolean).map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('');
+      body = `<p>${A('← '+grp.tab+'に戻る','#character/'+(grp.id==='main'?'':grp.id))}</p>
+        <h2>${esc(one.name)}</h2>
+        <div class="prof">${IMG('character',one.image,one.name)}<dl>${rows}</dl></div>
+        ${paras?`<h3>詳細</h3>${paras}`:''}`;
+    } else if (SUB === 'design') {
+      body = `<h2>デザインのみ</h2>
+      <p>${A('← 創作キャラに戻る','#character')}</p>
+      ${DESIGN ? `<div class="masonry zoom">${nums('design',DESIGN).map(n=>IMG('character',n)).join('')}</div>` : `<div class="box" style="color:var(--sub)">（画像未設定：DESIGN に枚数を入れて images/character/design01… を置く）</div>`}`;
+    } else {
+      const items = chars.filter(c=>c.group===grp.id);
+      body = `<h2${grp.color?` style="color:${grp.color}"`:''}>${esc(grp.heading)}${grp.song?` <small style="font-size:15px">${A('曲',grp.song)}</small>`:''}</h2>
+      <div class="chars">${items.map(c=>A(IMG('character',c.image,c.name)+esc(c.name),link(c))).join('')}</div>
+      <div class="chlinks">${grp.id==='main'?A('デザインのみ','#character/design'):''}${grp.world?A('世界観説明',grp.world):''}</div>`;
+    }
+    return `${head('CHARACTER','創作キャラクターの紹介　一部だけ立ち絵がある')}
+    <div class="tabs" role="tablist">${tabs}</div>${body}`;
+  },
   gallery: () => {
     const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作']];
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
@@ -228,10 +269,16 @@ const VIEWS = {
     ${head('ABOUT')}<h2>自己紹介</h2>
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
     ${ABOUT.blocks.map(([t,d,u])=>`<h2>${t}</h2><p>${d}</p>${A('見る',u,'btn')}`).join('')}`,
-  contact: () => `
-    ${head('CONTACT','砂上電力の全てにつながるリンク集')}
-    <h2>${CONTACT.mail[0]}</h2><div class="box">${CONTACT.mail[1]}<br><strong>${CONTACT.mail[2]}</strong></div>
-    ${CONTACT.groups.map(([g,items])=>`<h2>${g}</h2>${items.map(linkCard).join('')}`).join('')}`
+  contact: () => {
+    const T = [['mail',CONTACT.mail[0]], ...CONTACT.groups.map((g,i)=>['g'+i,g[0]])];
+    const cur = T.some(t=>t[0]===SUB) ? SUB : 'mail';
+    const body = cur==='mail'
+      ? `<div class="box">${CONTACT.mail[1]}<br><strong>${CONTACT.mail[2]}</strong></div>`
+      : CONTACT.groups[+cur.slice(1)][1].map(linkCard).join('');
+    return `${head('CONTACT','砂上電力の全てにつながるリンク集')}
+    <div class="tabs" role="tablist">${T.map(([k,t])=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${t}</a>`).join('')}</div>
+    ${body}`;
+  }
 };
 
 let SUB = '', LAST = '';
@@ -248,6 +295,9 @@ function route(to) {
 }
 addEventListener('hashchange', () => { if (location.hash.slice(1) !== LAST) route(); });
 route();
+fetch('characters.json').then(r => { if (!r.ok) throw 0; return r.json(); })
+  .then(d => { CH = d; route.keep = true; route(LAST); route.keep = false; })
+  .catch(() => { CHERR = true; route.keep = true; route(LAST); route.keep = false; });
 
 document.addEventListener('click', e => {
   const lk = e.target.closest('a[href^="#"]');
