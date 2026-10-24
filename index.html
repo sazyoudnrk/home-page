@@ -41,9 +41,11 @@ h3{font-size:17px;margin:20px 0 4px}
 .arr{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:52px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 1px 4px rgba(0,0,0,.45))}
 .arr.l{left:8%}.arr.r{right:8%}
 .arr svg{width:100%;height:100%;stroke:#fff;stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:20px 0}
+.btns{display:flex;justify-content:center;gap:8px;margin:12px 0}
+.btns .btn{flex:1 1 0;min-width:0;padding:12px 6px;border-width:4px;font-size:clamp(12px,3.6vw,17px);display:flex;align-items:center;justify-content:center}
 .btn{display:inline-block;padding:14px 22px;border:5px solid var(--btn);border-radius:999px;color:var(--btn);text-decoration:none;font:700 17px/1.2 "Noto Sans JP",sans-serif;text-align:center}
 .btn.sub{border-color:var(--grey);color:var(--grey)}
+.btns .btn.sub{font-size:clamp(11px,3.1vw,15px)}
 .notice{color:var(--link);margin:24px 0}
 .box{border:1px solid var(--line);padding:14px 16px;margin:12px 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
@@ -226,7 +228,8 @@ const VIEWS = {
     <div class="hero"><div class="slides" id="slides">${HOME.top.map(n=>IMG('top',n)).join('')}</div>
       <button class="arr l" data-slide="-1" aria-label="前へ"><svg viewBox="0 0 40 60"><polyline points="30,6 8,30 30,54"/></svg></button>
       <button class="arr r" data-slide="1" aria-label="次へ"><svg viewBox="0 0 40 60"><polyline points="10,6 32,30 10,54"/></svg></button></div>
-    <div class="btns">${HOME.links.map(([t,u],i)=>A(t,u,'btn'+(i>=3?' sub':''))).join('')}</div>
+    <div class="btns">${HOME.links.slice(0,3).map(([t,u])=>A(t,u,'btn')).join('')}</div>
+    <div class="btns">${HOME.links.slice(3).map(([t,u])=>A(t,u,'btn sub')).join('')}</div>
     <h2>サイト説明</h2><p>${HOME.about}</p>
     <h2>更新記録</h2>
     <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>`,
