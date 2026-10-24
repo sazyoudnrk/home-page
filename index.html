@@ -406,7 +406,7 @@ function route(to) {
 addEventListener('hashchange', () => { if (location.hash.slice(1) !== LAST) route(); });
 route();
 fetch('characters.json').then(r => { if (!r.ok) throw 0; return r.json(); })
-  .then(d => { CH = d; route.keep = true; route(LAST); route.keep = false; })
+  .then(d => { d.characters = d.characters.filter(c => !c.hidden); CH = d; route.keep = true; route(LAST); route.keep = false; })
   .catch(() => { CHERR = true; route.keep = true; route(LAST); route.keep = false; });
 
 document.addEventListener('click', e => {
