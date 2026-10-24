@@ -108,6 +108,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
+const IMGV = '20261024b';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -236,12 +237,12 @@ const $ = s => document.querySelector(s);
 const ext = u => /^https?:/.test(u);
 const A = (t,u,c='') => `<a class="${c}" href="${u}"${ext(u)?' target="_blank" rel="noopener"':''}>${t}</a>`;
 // 画像: images/<dir>/<name>.(jpg|png|webp) を順に試し、無ければファイル名入りの枠を出す
-const IMG = (dir,name,alt='',hide=false) => `<img src="images/${dir}/${name}.${EXTS[0]}" alt="${alt}" loading="lazy" data-d="${dir}" data-n="${name}" data-i="0"${hide?' data-hide="1"':''}>`;
+const IMG = (dir,name,alt='',hide=false) => `<img src="images/${dir}/${name}.${EXTS[0]}?v=${IMGV}" alt="${alt}" loading="lazy" data-d="${dir}" data-n="${name}" data-i="0"${hide?' data-hide="1"':''}>`;
 const galImg = p => { const i = p.lastIndexOf('/'); return IMG(p.slice(0,i), p.slice(i+1), '', true).replace(' loading="lazy"',''); };
 document.addEventListener('error', e => {
   const im = e.target; if (im.tagName !== 'IMG' || !im.dataset.n) return;
   const i = +im.dataset.i + 1;
-  if (i < EXTS.length) { im.dataset.i = i; im.src = `images/${im.dataset.d}/${im.dataset.n}.${EXTS[i]}`; return; }
+  if (i < EXTS.length) { im.dataset.i = i; im.src = `images/${im.dataset.d}/${im.dataset.n}.${EXTS[i]}?v=${IMGV}`; return; }
   if (im.dataset.hide) { im.remove(); return; }
   im.outerHTML = `<div class="ph">images/${im.dataset.d}/${im.dataset.n}</div>`;
 }, true);
