@@ -8,7 +8,13 @@
    "world": "",
    "tabBg": "#218ac9",
    "tabFg": "#ffffff",
-   "tabLine": "#218ac9"
+   "tabLine": "#218ac9",
+   "songs": [
+    [
+     "えんえん/可不【オリジナル曲】",
+     "https://youtu.be/ujW48ZPr4sI"
+    ]
+   ]
   },
   {
    "id": "lbd",
