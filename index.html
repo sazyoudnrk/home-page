@@ -318,11 +318,12 @@ const VIEWS = {
     <div class="tabs" role="tablist">${tabs}</div>${body}`;
   },
   gallery: () => {
-    const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作'],['comic','漫画'],['work','依頼実績']];
+    const T = [['art','絵'],['video','動画'],['music','音楽'],['cg','3DCG'],['craft','工作'],['comic','漫画'],['made','制作物'],['app','webAPP'],['work','依頼実績']];
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
     const body = {
       art: () => `<div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>`,
-      made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join('') + `<h2 id="apps">アプリケーション</h2><p class="lead">${A('プロフィールサイト',APPS_BASE)}に置いているアプリです。</p>` + APPS.map(linkCard).join(''),
+      made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join(''),
+      app: () => `<p class="lead">${A('プロフィールサイト',APPS_BASE)}に置いているアプリです。</p>` + APPS.map(linkCard).join(''),
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
       video: () => { const card = v => v.yt ? `<div class="vid"><iframe src="https://www.youtube.com/embed/${v.yt}" title="${v.t}" loading="lazy" allowfullscreen></iframe></div>` : v.x ? `<div class="vidx"><blockquote class="twitter-tweet"><a href="${v.x}"></a></blockquote></div>` : `<div class="vid ph0">${v.t}<br><small>（準備中）</small></div>`;
         return [['original','動画（オリジナル曲）','生きていれば音楽を作ることもある'],['cover','動画（カバー）','自作音源のUTAU（注寝ととと）のカバー動画です'],['cg3d','動画（3DCG）',''],['misc','動画（雑多）','']].map(([k,t,d])=>`<h2>${t}</h2>${d?`<p class="lead">${d}</p>`:''}<div class="vgrid">${VIDEOS[k].map(card).join('')}</div>`).join(''); },
