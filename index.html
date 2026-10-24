@@ -237,7 +237,7 @@ const VIEWS = {
       const paras = (one.detail||'').split(/\n\s*\n/).filter(Boolean).map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('');
       body = `<p>${A('← '+grp.tab+'に戻る','#character/'+(grp.id==='main'?'':grp.id))}</p>
         <h2>${esc(one.name)}</h2>
-        <div class="prof">${IMG('character',one.image,one.name)}<dl>${rows}</dl></div>
+        <div class="prof">${one.portrait?galImg(one.portrait).replace('data-hide','data-x'):IMG('character',one.image,one.name)}<dl>${rows}</dl></div>
         ${paras?`<h3>詳細</h3>${paras}`:''}
         ${(one.gallery||[]).length?`<section class="gal" hidden><h3>ギャラリー</h3><div class="masonry zoom">${one.gallery.map(galImg).join('')}</div></section>`:''}`;
     } else if (SUB === 'design') {

@@ -1,617 +1,612 @@
 {
- "groups": [
-  {
-   "id": "main",
-   "tab": "創作キャラ",
-   "heading": "創作キャラ",
-   "color": "",
-   "song": "",
-   "world": ""
-  },
-  {
-   "id": "lbd",
-   "tab": "LoopBackDream",
-   "heading": "LoopBackDream",
-   "color": "#f06f9d",
-   "song": "https://youtu.be/F06fFl3unLE?si=vwnrwZdy_yNKtSz8",
-   "world": ""
-  },
-  {
-   "id": "trpg",
-   "tab": "探索者",
-   "heading": "探索者",
-   "color": "",
-   "song": "",
-   "world": ""
-  },
-  {
-   "id": "magic",
-   "tab": "魔法創作",
-   "heading": "魔法創作",
-   "color": "#a0386a",
-   "song": "https://soundcloud.com/sazyoudenryoku/6e8gmqv7wooe",
-   "world": "https://nanashie.wixsite.com/sazyou/%E4%B8%96%E7%95%8C%E8%A6%B3%E8%AA%AC%E6%98%8E"
-  }
- ],
- "characters": [
-  {
-   "id": "denden",
-   "group": "main",
-   "name": "でんでん",
-   "image": "denden",
-   "link": "https://nanashie.wixsite.com/sazyou/character/denden",
-   "gender": "女",
-   "age": "17",
-   "firstPerson": "私",
-   "secondPerson": "不定",
-   "likes": "ドーナツ",
-   "dislikes": "不条理",
-   "birthday": "7/27",
-   "created": "2020/2/6",
-   "detail": "元々は女子高生化する診断メーカーで作った子\n\n何かしら嘆いたり苦しんだり悲しんだりしている。\n大体自身の愚かさによるもの。\nフォロワーさんに描いてもらったイラストで初めてドーナツを食べることができたので、ドーナツが大好き。\n\n自分では気づいていないようだが人ではない。",
-   "gallery": [
-    "character-gallery/denden/01",
-    "character-gallery/denden/02",
-    "character-gallery/denden/03",
-    "gallery/art11"
-   ]
-  },
-  {
-   "id": "syotyo",
-   "group": "main",
-   "name": "所長",
-   "image": "syotyo",
-   "link": "https://nanashie.wixsite.com/sazyou/character/syotyo",
-   "gender": "不明",
-   "age": "不明",
-   "firstPerson": "私／僕／自分",
-   "secondPerson": "呼び捨て／あいつ／あれ／君／お前",
-   "likes": "塩分",
-   "dislikes": "不明",
-   "birthday": "不明",
-   "created": "2020/11/26",
-   "detail": "",
-   "gallery": [
-    "character-gallery/syotyo/01",
-    "character-gallery/syotyo/02",
-    "character-gallery/syotyo/03",
-    "character-gallery/syotyo/04",
-    "character-gallery/syotyo/05",
-    "gallery/art05",
-    "character-gallery/syotyo/06",
-    "character-gallery/syotyo/07",
-    "gallery/art13",
-    "character-gallery/syotyo/08"
-   ]
-  },
-  {
-   "id": "pinkmeido",
-   "group": "main",
-   "name": "メイドちゃん",
-   "image": "pinkmeido",
-   "link": "https://nanashie.wixsite.com/sazyou/character/pinkmeido",
-   "gender": "インターネットやめろ",
-   "age": "インターネットやめろ",
-   "firstPerson": "インターネットやめろ",
-   "secondPerson": "インターネットやめろ",
-   "likes": "インターネットやめろ",
-   "dislikes": "インターネットやめろ",
-   "birthday": "インターネットやめろ",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/pinkmeido/01",
-    "character-gallery/pinkmeido/02",
-    "character-gallery/pinkmeido/03",
-    "gallery/art20",
-    "character-gallery/pinkmeido/04",
-    "character-gallery/pinkmeido/05",
-    "character-gallery/pinkmeido/06"
-   ]
-  },
-  {
-   "id": "mizuiromeido",
-   "group": "main",
-   "name": "めいどちゃん",
-   "image": "mizuiromeido",
-   "link": "https://nanashie.wixsite.com/sazyou/character/mizuiromeido",
-   "gender": "女",
-   "age": "18",
-   "firstPerson": "私",
-   "secondPerson": "あなた",
-   "likes": "堕落",
-   "dislikes": "しっかりすること",
-   "birthday": "不明",
-   "created": "2022/7/23",
-   "detail": "",
-   "gallery": [
-    "character-gallery/mizuiromeido/01",
-    "character-gallery/mizuiromeido/02"
-   ]
-  },
-  {
-   "id": "tototo",
-   "group": "main",
-   "name": "注寝ととと",
-   "image": "tototo",
-   "link": "https://nanashie.wixsite.com/sazyou/character/tototo",
-   "gender": "女",
-   "age": "17",
-   "firstPerson": "私",
-   "secondPerson": "~ちゃん/~さん、あなた",
-   "likes": "お茶を淹れること、楽しげなもの、とと",
-   "dislikes": "",
-   "birthday": "3/10",
-   "created": "2021/3/10",
-   "detail": "",
-   "gallery": [
-    "character-gallery/tototo/01",
-    "character-gallery/tototo/02"
-   ]
-  },
-  {
-   "id": "toto",
-   "group": "main",
-   "name": "注与とと",
-   "image": "toto",
-   "link": "https://nanashie.wixsite.com/sazyou/character/toto",
-   "gender": "不明",
-   "age": "17",
-   "firstPerson": "僕",
-   "secondPerson": "~さん、君",
-   "likes": "さみしげなもの、ととと",
-   "dislikes": "銃",
-   "birthday": "9/29",
-   "created": "2022/9/29",
-   "detail": "",
-   "gallery": [
-    "character-gallery/toto/01"
-   ]
-  },
-  {
-   "id": "satouichika",
-   "group": "main",
-   "name": "佐藤一花",
-   "image": "satouichika",
-   "link": "https://nanashie.wixsite.com/sazyou/character/satouichika",
-   "gender": "女",
-   "age": "16",
-   "firstPerson": "私",
-   "secondPerson": "呼び捨て/~ちゃん　おまえ",
-   "likes": "き〇この山",
-   "dislikes": "た〇のこの里過激派",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/satouichika/01",
-    "character-gallery/satouichika/02",
-    "character-gallery/satouichika/03",
-    "character-gallery/satouichika/04",
-    "character-gallery/satouichika/05",
-    "character-gallery/satouichika/06",
-    "character-gallery/satouichika/07",
-    "character-gallery/satouichika/08"
-   ]
-  },
-  {
-   "id": "urameshion",
-   "group": "main",
-   "name": "裏目シオン",
-   "image": "urameshion",
-   "link": "https://nanashie.wixsite.com/sazyou/character/urameshion",
-   "gender": "unknown",
-   "age": "高校生",
-   "firstPerson": "自分/僕",
-   "secondPerson": "呼び捨て　君",
-   "likes": "無し",
-   "dislikes": "無し",
-   "birthday": "unknown",
-   "created": "2020/6/6",
-   "detail": "",
-   "gallery": [
-    "character-gallery/urameshion/01",
-    "gallery/art07",
-    "character-gallery/urameshion/02",
-    "gallery/art09",
-    "character-gallery/urameshion/03"
-   ]
-  },
-  {
-   "id": "nagisa",
-   "group": "lbd",
-   "name": "渚",
-   "image": "nagisa",
-   "link": "https://nanashie.wixsite.com/sazyou/character-lbd/nagisa",
-   "gender": "男",
-   "age": "24",
-   "firstPerson": "俺",
-   "secondPerson": "呼び捨て、君",
-   "likes": "休日",
-   "dislikes": "労働、あのひと",
-   "birthday": "",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/nagisa/01"
-   ]
-  },
-  {
-   "id": "ninini",
-   "group": "lbd",
-   "name": "ににに",
-   "image": "ninini",
-   "link": "https://nanashie.wixsite.com/sazyou/character-lbd/ninini",
-   "gender": "不明",
-   "age": "",
-   "firstPerson": "私",
-   "secondPerson": "呼び捨て、君",
-   "likes": "レアアイテム",
-   "dislikes": "",
-   "birthday": "",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/ninini/01",
-    "gallery/art01",
-    "character-gallery/ninini/02"
-   ]
-  },
-  {
-   "id": "king",
-   "group": "lbd",
-   "name": "王様",
-   "image": "king",
-   "link": "https://nanashie.wixsite.com/sazyou/character-lbd/king",
-   "gender": "",
-   "age": "",
-   "firstPerson": "にゃ",
-   "secondPerson": "にゃ",
-   "likes": "",
-   "dislikes": "",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": []
-  },
-  {
-   "id": "nitoro",
-   "group": "lbd",
-   "name": "にとろ",
-   "image": "nitoro",
-   "link": "https://nanashie.wixsite.com/sazyou/character-lbd/nitoro",
-   "gender": "男",
-   "age": "20",
-   "firstPerson": "おれ",
-   "secondPerson": "あんた、きみ",
-   "likes": "人間",
-   "dislikes": "たくさんある",
-   "birthday": "",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/nitoro/01"
-   ]
-  },
-  {
-   "id": "beneko",
-   "group": "lbd",
-   "name": "べねこ",
-   "image": "beneko",
-   "link": "https://nanashie.wixsite.com/sazyou/character-lbd/beneko",
-   "gender": "女",
-   "age": "18",
-   "firstPerson": "わたし",
-   "secondPerson": "",
-   "likes": "",
-   "dislikes": "",
-   "birthday": "",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/beneko/01"
-   ]
-  },
-  {
-   "id": "yorozuyayuu",
-   "group": "trpg",
-   "name": "萬屋　夕（よろずや　ゆう）",
-   "image": "yorozuyayuu",
-   "link": "https://nanashie.wixsite.com/sazyou/character-trpg/yorozuyayuu",
-   "gender": "男",
-   "age": "24",
-   "firstPerson": "僕",
-   "secondPerson": "呼び捨て/～さん",
-   "likes": "服　油彩",
-   "dislikes": "不明",
-   "birthday": "",
-   "created": "7/20",
-   "detail": "",
-   "extra": [
-    [
-     "職業",
-     "芸術家"
-    ],
-    [
-     "出身",
-     "東京"
-    ],
-    [
-     "髪の色",
-     "赤"
-    ],
-    [
-     "瞳の色",
-     "緑"
-    ],
-    [
-     "肌の色",
-     "肌色"
-    ],
-    [
-     "身長",
-     "156"
-    ],
-    [
-     "体重",
-     "52"
-    ],
-    [
-     "能力値",
-     "HP 11／MP 15／SAN 61/91／STR 14／CON 11／POW 15／DEX 11／APP 11／SIZ 10／INT 11／EDU 17"
-    ],
-    [
-     "通過シナリオ",
-     "8/18-8/23 星へ至る棺（KP：颯斗／PL：自分／PC：萬屋 夕）\n10/21 芸術は今日も首を吊る（KP：颯斗／助っ人KPC：常盤 恭夜／PL：自分／PC：萬屋 夕）"
-    ],
-    [
-     "キャラクターシート",
-     "https://charasheet.vampire-blood.net/4570595"
-    ]
-   ],
-   "gallery": [
-    "character-gallery/yorozuyayuu/01",
-    "character-gallery/yorozuyayuu/02",
-    "character-gallery/yorozuyayuu/03",
-    "character-gallery/yorozuyayuu/04",
-    "character-gallery/yorozuyayuu/05"
-   ]
-  },
-  {
-   "id": "yuyuyu",
-   "group": "magic",
-   "name": "ゆゆゆゆゆゆ",
-   "image": "yuyuyu",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/yuyuyu",
-   "gender": "女",
-   "age": "unknown",
-   "firstPerson": "ゆゆゆ、私",
-   "secondPerson": "~くん/~ちゃん、あなた",
-   "likes": "たのしい娯楽",
-   "dislikes": "破壊してしまうこと",
-   "birthday": "unknown",
-   "created": "2017/8/22",
-   "detail": "",
-   "gallery": [
-    "character-gallery/yuyuyu/01",
-    "character-gallery/yuyuyu/02",
-    "character-gallery/yuyuyu/03",
-    "character-gallery/yuyuyu/04",
-    "character-gallery/yuyuyu/05",
-    "gallery/art15",
-    "character-gallery/yuyuyu/06",
-    "character-gallery/yuyuyu/07",
-    "character-gallery/yuyuyu/08",
-    "character-gallery/yuyuyu/09",
-    "character-gallery/yuyuyu/10",
-    "character-gallery/yuyuyu/11",
-    "character-gallery/yuyuyu/12",
-    "character-gallery/yuyuyu/13",
-    "character-gallery/yuyuyu/14",
-    "character-gallery/yuyuyu/15",
-    "character-gallery/yuyuyu/16",
-    "character-gallery/yuyuyu/17",
-    "character-gallery/yuyuyu/18"
-   ]
-  },
-  {
-   "id": "alice",
-   "group": "magic",
-   "name": "アリス・アルティエ",
-   "image": "alice",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/alice",
-   "gender": "女",
-   "age": "17",
-   "firstPerson": "私",
-   "secondPerson": "呼び捨て/お前",
-   "likes": "海",
-   "dislikes": "集合体",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/alice/01",
-    "gallery/art08",
-    "character-gallery/yuyuyu/08",
-    "character-gallery/alice/02",
-    "character-gallery/alice/03",
-    "character-gallery/yuyuyu/02"
-   ]
-  },
-  {
-   "id": "memo",
-   "group": "magic",
-   "name": "メモ・デルフィニウム",
-   "image": "memo",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/memo",
-   "gender": "男",
-   "age": "17",
-   "firstPerson": "僕",
-   "secondPerson": "呼び捨て/君",
-   "likes": "掃除/お肉",
-   "dislikes": "カエル",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/memo/01",
-    "character-gallery/memo/02",
-    "character-gallery/memo/03",
-    "character-gallery/memo/04",
-    "character-gallery/memo/05",
-    "character-gallery/yuyuyu/02"
-   ]
-  },
-  {
-   "id": "ruido",
-   "group": "magic",
-   "name": "ルイド・ベキア",
-   "image": "ruido",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/ruido",
-   "gender": "男",
-   "age": "17",
-   "firstPerson": "俺/俺様",
-   "secondPerson": "呼び捨て/お前",
-   "likes": "花　光",
-   "dislikes": "人混み",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/ruido/01",
-    "character-gallery/ruido/02",
-    "character-gallery/alice/02",
-    "character-gallery/ruido/03",
-    "character-gallery/yuyuyu/02",
-    "character-gallery/ruido/04"
-   ]
-  },
-  {
-   "id": "rito",
-   "group": "magic",
-   "name": "リト・エルドフォワード",
-   "image": "rito",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/rito",
-   "gender": "男",
-   "age": "38",
-   "firstPerson": "僕",
-   "secondPerson": "~さん/あなた",
-   "likes": "鉱石　酒",
-   "dislikes": "生魚",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/rito/01",
-    "character-gallery/rito/02",
-    "character-gallery/rito/03"
-   ]
-  },
-  {
-   "id": "minasesuzuka",
-   "group": "magic",
-   "name": "水瀬鈴香",
-   "image": "minasesuzuka",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/minasesuzuka",
-   "gender": "女",
-   "age": "15",
-   "firstPerson": "わたし",
-   "secondPerson": "~さん/先輩",
-   "likes": "先輩",
-   "dislikes": "後輩",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/rito/01",
-    "character-gallery/minasesuzuka/01",
-    "character-gallery/minasesuzuka/02"
-   ]
-  },
-  {
-   "id": "desire",
-   "group": "magic",
-   "name": "ディザイア",
-   "image": "desire",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/desire",
-   "gender": "不明",
-   "age": "unknown",
-   "firstPerson": "私　僕　俺",
-   "secondPerson": "呼び捨て　キミ",
-   "likes": "人",
-   "dislikes": "人",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/desire/01",
-    "character-gallery/yuyuyu/12",
-    "character-gallery/desire/02",
-    "character-gallery/desire/03",
-    "character-gallery/desire/04",
-    "character-gallery/desire/05"
-   ]
-  },
-  {
-   "id": "chen",
-   "group": "magic",
-   "name": "陈可馨(チェン・クウシン)",
-   "image": "chen",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/chen",
-   "gender": "不明",
-   "age": "17",
-   "firstPerson": "私",
-   "secondPerson": "呼び捨て　あんた、おまえ",
-   "likes": "師、焼売",
-   "dislikes": "ファストフード",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/rito/01",
-    "character-gallery/chen/01",
-    "character-gallery/chen/02",
-    "character-gallery/yuyuyu/08",
-    "character-gallery/chen/03"
-   ]
-  },
-  {
-   "id": "noah",
-   "group": "magic",
-   "name": "ルベア・ノア・グリニッジ",
-   "image": "noah",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/noah",
-   "gender": "男",
-   "age": "16",
-   "firstPerson": "僕",
-   "secondPerson": "~くん/~さん　君",
-   "likes": "主人公　ゲーム",
-   "dislikes": "太陽",
-   "birthday": "unknown",
-   "created": "unknown",
-   "detail": "",
-   "gallery": [
-    "character-gallery/rito/01",
-    "character-gallery/noah/01",
-    "character-gallery/noah/02"
-   ]
-  },
-  {
-   "id": "yueru",
-   "group": "magic",
-   "name": "ユエル・アルダートン",
-   "image": "yueru",
-   "link": "https://nanashie.wixsite.com/sazyou/character-dol/yueru",
-   "gender": "",
-   "age": "",
-   "firstPerson": "",
-   "secondPerson": "",
-   "likes": "",
-   "dislikes": "",
-   "birthday": "",
-   "created": "",
-   "detail": "",
-   "gallery": []
-  }
- ]
+  "groups": [
+    {
+      "id": "main",
+      "tab": "創作キャラ",
+      "heading": "創作キャラ",
+      "color": "",
+      "song": "",
+      "world": ""
+    },
+    {
+      "id": "lbd",
+      "tab": "LoopBackDream",
+      "heading": "LoopBackDream",
+      "color": "#f06f9d",
+      "song": "https://youtu.be/F06fFl3unLE?si=vwnrwZdy_yNKtSz8",
+      "world": ""
+    },
+    {
+      "id": "trpg",
+      "tab": "探索者",
+      "heading": "探索者",
+      "color": "",
+      "song": "",
+      "world": ""
+    },
+    {
+      "id": "magic",
+      "tab": "魔法創作",
+      "heading": "魔法創作",
+      "color": "#a0386a",
+      "song": "https://soundcloud.com/sazyoudenryoku/6e8gmqv7wooe",
+      "world": "https://nanashie.wixsite.com/sazyou/%E4%B8%96%E7%95%8C%E8%A6%B3%E8%AA%AC%E6%98%8E"
+    }
+  ],
+  "characters": [
+    {
+      "id": "denden",
+      "group": "main",
+      "name": "でんでん",
+      "image": "denden",
+      "link": "https://nanashie.wixsite.com/sazyou/character/denden",
+      "gender": "女",
+      "age": "17",
+      "firstPerson": "私",
+      "secondPerson": "不定",
+      "likes": "ドーナツ",
+      "dislikes": "不条理",
+      "birthday": "7/27",
+      "created": "2020/2/6",
+      "detail": "元々は女子高生化する診断メーカーで作った子\n\n何かしら嘆いたり苦しんだり悲しんだりしている。\n大体自身の愚かさによるもの。\nフォロワーさんに描いてもらったイラストで初めてドーナツを食べることができたので、ドーナツが大好き。\n\n自分では気づいていないようだが人ではない。",
+      "gallery": [
+        "character-gallery/denden/03",
+        "gallery/art11"
+      ],
+      "portrait": "character-gallery/denden/01"
+    },
+    {
+      "id": "syotyo",
+      "group": "main",
+      "name": "所長",
+      "image": "syotyo",
+      "link": "https://nanashie.wixsite.com/sazyou/character/syotyo",
+      "gender": "不明",
+      "age": "不明",
+      "firstPerson": "私／僕／自分",
+      "secondPerson": "呼び捨て／あいつ／あれ／君／お前",
+      "likes": "塩分",
+      "dislikes": "不明",
+      "birthday": "不明",
+      "created": "2020/11/26",
+      "detail": "",
+      "gallery": [
+        "character-gallery/syotyo/02",
+        "character-gallery/syotyo/03",
+        "character-gallery/syotyo/04",
+        "character-gallery/syotyo/05",
+        "gallery/art05",
+        "character-gallery/syotyo/06",
+        "character-gallery/syotyo/07",
+        "gallery/art13",
+        "character-gallery/syotyo/08"
+      ],
+      "portrait": "character-gallery/syotyo/01"
+    },
+    {
+      "id": "pinkmeido",
+      "group": "main",
+      "name": "メイドちゃん",
+      "image": "pinkmeido",
+      "link": "https://nanashie.wixsite.com/sazyou/character/pinkmeido",
+      "gender": "インターネットやめろ",
+      "age": "インターネットやめろ",
+      "firstPerson": "インターネットやめろ",
+      "secondPerson": "インターネットやめろ",
+      "likes": "インターネットやめろ",
+      "dislikes": "インターネットやめろ",
+      "birthday": "インターネットやめろ",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/pinkmeido/02",
+        "character-gallery/pinkmeido/03",
+        "gallery/art20",
+        "character-gallery/pinkmeido/04",
+        "character-gallery/pinkmeido/05",
+        "character-gallery/pinkmeido/06"
+      ],
+      "portrait": "character-gallery/pinkmeido/01"
+    },
+    {
+      "id": "mizuiromeido",
+      "group": "main",
+      "name": "めいどちゃん",
+      "image": "mizuiromeido",
+      "link": "https://nanashie.wixsite.com/sazyou/character/mizuiromeido",
+      "gender": "女",
+      "age": "18",
+      "firstPerson": "私",
+      "secondPerson": "あなた",
+      "likes": "堕落",
+      "dislikes": "しっかりすること",
+      "birthday": "不明",
+      "created": "2022/7/23",
+      "detail": "",
+      "gallery": [
+        "character-gallery/mizuiromeido/02"
+      ],
+      "portrait": "character-gallery/mizuiromeido/01"
+    },
+    {
+      "id": "tototo",
+      "group": "main",
+      "name": "注寝ととと",
+      "image": "tototo",
+      "link": "https://nanashie.wixsite.com/sazyou/character/tototo",
+      "gender": "女",
+      "age": "17",
+      "firstPerson": "私",
+      "secondPerson": "~ちゃん/~さん、あなた",
+      "likes": "お茶を淹れること、楽しげなもの、とと",
+      "dislikes": "",
+      "birthday": "3/10",
+      "created": "2021/3/10",
+      "detail": "",
+      "gallery": [
+        "character-gallery/tototo/02"
+      ],
+      "portrait": "character-gallery/tototo/01"
+    },
+    {
+      "id": "toto",
+      "group": "main",
+      "name": "注与とと",
+      "image": "toto",
+      "link": "https://nanashie.wixsite.com/sazyou/character/toto",
+      "gender": "不明",
+      "age": "17",
+      "firstPerson": "僕",
+      "secondPerson": "~さん、君",
+      "likes": "さみしげなもの、ととと",
+      "dislikes": "銃",
+      "birthday": "9/29",
+      "created": "2022/9/29",
+      "detail": "",
+      "gallery": [],
+      "portrait": "character-gallery/toto/01"
+    },
+    {
+      "id": "satouichika",
+      "group": "main",
+      "name": "佐藤一花",
+      "image": "satouichika",
+      "link": "https://nanashie.wixsite.com/sazyou/character/satouichika",
+      "gender": "女",
+      "age": "16",
+      "firstPerson": "私",
+      "secondPerson": "呼び捨て/~ちゃん　おまえ",
+      "likes": "き〇この山",
+      "dislikes": "た〇のこの里過激派",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/satouichika/02",
+        "character-gallery/satouichika/03",
+        "character-gallery/satouichika/04",
+        "character-gallery/satouichika/05",
+        "character-gallery/satouichika/06",
+        "character-gallery/satouichika/07",
+        "character-gallery/satouichika/08"
+      ],
+      "portrait": "character-gallery/satouichika/01"
+    },
+    {
+      "id": "urameshion",
+      "group": "main",
+      "name": "裏目シオン",
+      "image": "urameshion",
+      "link": "https://nanashie.wixsite.com/sazyou/character/urameshion",
+      "gender": "unknown",
+      "age": "高校生",
+      "firstPerson": "自分/僕",
+      "secondPerson": "呼び捨て　君",
+      "likes": "無し",
+      "dislikes": "無し",
+      "birthday": "unknown",
+      "created": "2020/6/6",
+      "detail": "",
+      "gallery": [
+        "gallery/art07",
+        "character-gallery/urameshion/02",
+        "gallery/art09",
+        "character-gallery/urameshion/03"
+      ],
+      "portrait": "character-gallery/urameshion/01"
+    },
+    {
+      "id": "nagisa",
+      "group": "lbd",
+      "name": "渚",
+      "image": "nagisa",
+      "link": "https://nanashie.wixsite.com/sazyou/character-lbd/nagisa",
+      "gender": "男",
+      "age": "24",
+      "firstPerson": "俺",
+      "secondPerson": "呼び捨て、君",
+      "likes": "休日",
+      "dislikes": "労働、あのひと",
+      "birthday": "",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [],
+      "portrait": "character-gallery/nagisa/01"
+    },
+    {
+      "id": "ninini",
+      "group": "lbd",
+      "name": "ににに",
+      "image": "ninini",
+      "link": "https://nanashie.wixsite.com/sazyou/character-lbd/ninini",
+      "gender": "不明",
+      "age": "",
+      "firstPerson": "私",
+      "secondPerson": "呼び捨て、君",
+      "likes": "レアアイテム",
+      "dislikes": "",
+      "birthday": "",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "gallery/art01",
+        "character-gallery/ninini/02"
+      ],
+      "portrait": "character-gallery/ninini/01"
+    },
+    {
+      "id": "king",
+      "group": "lbd",
+      "name": "王様",
+      "image": "king",
+      "link": "https://nanashie.wixsite.com/sazyou/character-lbd/king",
+      "gender": "",
+      "age": "",
+      "firstPerson": "にゃ",
+      "secondPerson": "にゃ",
+      "likes": "",
+      "dislikes": "",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": []
+    },
+    {
+      "id": "nitoro",
+      "group": "lbd",
+      "name": "にとろ",
+      "image": "nitoro",
+      "link": "https://nanashie.wixsite.com/sazyou/character-lbd/nitoro",
+      "gender": "男",
+      "age": "20",
+      "firstPerson": "おれ",
+      "secondPerson": "あんた、きみ",
+      "likes": "人間",
+      "dislikes": "たくさんある",
+      "birthday": "",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [],
+      "portrait": "character-gallery/nitoro/01"
+    },
+    {
+      "id": "beneko",
+      "group": "lbd",
+      "name": "べねこ",
+      "image": "beneko",
+      "link": "https://nanashie.wixsite.com/sazyou/character-lbd/beneko",
+      "gender": "女",
+      "age": "18",
+      "firstPerson": "わたし",
+      "secondPerson": "",
+      "likes": "",
+      "dislikes": "",
+      "birthday": "",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [],
+      "portrait": "character-gallery/beneko/01"
+    },
+    {
+      "id": "yorozuyayuu",
+      "group": "trpg",
+      "name": "萬屋　夕（よろずや　ゆう）",
+      "image": "yorozuyayuu",
+      "link": "https://nanashie.wixsite.com/sazyou/character-trpg/yorozuyayuu",
+      "gender": "男",
+      "age": "24",
+      "firstPerson": "僕",
+      "secondPerson": "呼び捨て/～さん",
+      "likes": "服　油彩",
+      "dislikes": "不明",
+      "birthday": "",
+      "created": "7/20",
+      "detail": "",
+      "extra": [
+        [
+          "職業",
+          "芸術家"
+        ],
+        [
+          "出身",
+          "東京"
+        ],
+        [
+          "髪の色",
+          "赤"
+        ],
+        [
+          "瞳の色",
+          "緑"
+        ],
+        [
+          "肌の色",
+          "肌色"
+        ],
+        [
+          "身長",
+          "156"
+        ],
+        [
+          "体重",
+          "52"
+        ],
+        [
+          "能力値",
+          "HP 11／MP 15／SAN 61/91／STR 14／CON 11／POW 15／DEX 11／APP 11／SIZ 10／INT 11／EDU 17"
+        ],
+        [
+          "通過シナリオ",
+          "8/18-8/23 星へ至る棺（KP：颯斗／PL：自分／PC：萬屋 夕）\n10/21 芸術は今日も首を吊る（KP：颯斗／助っ人KPC：常盤 恭夜／PL：自分／PC：萬屋 夕）"
+        ],
+        [
+          "キャラクターシート",
+          "https://charasheet.vampire-blood.net/4570595"
+        ]
+      ],
+      "gallery": [
+        "character-gallery/yorozuyayuu/02",
+        "character-gallery/yorozuyayuu/03",
+        "character-gallery/yorozuyayuu/04",
+        "character-gallery/yorozuyayuu/05"
+      ],
+      "portrait": "character-gallery/yorozuyayuu/01"
+    },
+    {
+      "id": "yuyuyu",
+      "group": "magic",
+      "name": "ゆゆゆゆゆゆ",
+      "image": "yuyuyu",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/yuyuyu",
+      "gender": "女",
+      "age": "unknown",
+      "firstPerson": "ゆゆゆ、私",
+      "secondPerson": "~くん/~ちゃん、あなた",
+      "likes": "たのしい娯楽",
+      "dislikes": "破壊してしまうこと",
+      "birthday": "unknown",
+      "created": "2017/8/22",
+      "detail": "",
+      "gallery": [
+        "character-gallery/yuyuyu/02",
+        "character-gallery/yuyuyu/03",
+        "character-gallery/yuyuyu/04",
+        "character-gallery/yuyuyu/05",
+        "gallery/art15",
+        "character-gallery/yuyuyu/06",
+        "character-gallery/yuyuyu/07",
+        "character-gallery/yuyuyu/08",
+        "character-gallery/yuyuyu/09",
+        "character-gallery/yuyuyu/10",
+        "character-gallery/yuyuyu/11",
+        "character-gallery/yuyuyu/12",
+        "character-gallery/yuyuyu/13",
+        "character-gallery/yuyuyu/14",
+        "character-gallery/yuyuyu/15",
+        "character-gallery/yuyuyu/16",
+        "character-gallery/yuyuyu/17",
+        "character-gallery/yuyuyu/18"
+      ],
+      "portrait": "character-gallery/yuyuyu/01"
+    },
+    {
+      "id": "alice",
+      "group": "magic",
+      "name": "アリス・アルティエ",
+      "image": "alice",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/alice",
+      "gender": "女",
+      "age": "17",
+      "firstPerson": "私",
+      "secondPerson": "呼び捨て/お前",
+      "likes": "海",
+      "dislikes": "集合体",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "gallery/art08",
+        "character-gallery/yuyuyu/08",
+        "character-gallery/alice/02",
+        "character-gallery/alice/03",
+        "character-gallery/yuyuyu/02"
+      ],
+      "portrait": "character-gallery/alice/01"
+    },
+    {
+      "id": "memo",
+      "group": "magic",
+      "name": "メモ・デルフィニウム",
+      "image": "memo",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/memo",
+      "gender": "男",
+      "age": "17",
+      "firstPerson": "僕",
+      "secondPerson": "呼び捨て/君",
+      "likes": "掃除/お肉",
+      "dislikes": "カエル",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/memo/02",
+        "character-gallery/memo/03",
+        "character-gallery/memo/04",
+        "character-gallery/memo/05",
+        "character-gallery/yuyuyu/02"
+      ],
+      "portrait": "character-gallery/memo/01"
+    },
+    {
+      "id": "ruido",
+      "group": "magic",
+      "name": "ルイド・ベキア",
+      "image": "ruido",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/ruido",
+      "gender": "男",
+      "age": "17",
+      "firstPerson": "俺/俺様",
+      "secondPerson": "呼び捨て/お前",
+      "likes": "花　光",
+      "dislikes": "人混み",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/ruido/02",
+        "character-gallery/alice/02",
+        "character-gallery/ruido/03",
+        "character-gallery/yuyuyu/02",
+        "character-gallery/ruido/04"
+      ],
+      "portrait": "character-gallery/ruido/01"
+    },
+    {
+      "id": "rito",
+      "group": "magic",
+      "name": "リト・エルドフォワード",
+      "image": "rito",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/rito",
+      "gender": "男",
+      "age": "38",
+      "firstPerson": "僕",
+      "secondPerson": "~さん/あなた",
+      "likes": "鉱石　酒",
+      "dislikes": "生魚",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/rito/02",
+        "character-gallery/rito/03"
+      ],
+      "portrait": "character-gallery/rito/01"
+    },
+    {
+      "id": "minasesuzuka",
+      "group": "magic",
+      "name": "水瀬鈴香",
+      "image": "minasesuzuka",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/minasesuzuka",
+      "gender": "女",
+      "age": "15",
+      "firstPerson": "わたし",
+      "secondPerson": "~さん/先輩",
+      "likes": "先輩",
+      "dislikes": "後輩",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/minasesuzuka/01",
+        "character-gallery/minasesuzuka/02"
+      ],
+      "portrait": "character-gallery/rito/01"
+    },
+    {
+      "id": "desire",
+      "group": "magic",
+      "name": "ディザイア",
+      "image": "desire",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/desire",
+      "gender": "不明",
+      "age": "unknown",
+      "firstPerson": "私　僕　俺",
+      "secondPerson": "呼び捨て　キミ",
+      "likes": "人",
+      "dislikes": "人",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/yuyuyu/12",
+        "character-gallery/desire/02",
+        "character-gallery/desire/03",
+        "character-gallery/desire/04",
+        "character-gallery/desire/05"
+      ],
+      "portrait": "character-gallery/desire/01"
+    },
+    {
+      "id": "chen",
+      "group": "magic",
+      "name": "陈可馨(チェン・クウシン)",
+      "image": "chen",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/chen",
+      "gender": "不明",
+      "age": "17",
+      "firstPerson": "私",
+      "secondPerson": "呼び捨て　あんた、おまえ",
+      "likes": "師、焼売",
+      "dislikes": "ファストフード",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/chen/01",
+        "character-gallery/chen/02",
+        "character-gallery/yuyuyu/08",
+        "character-gallery/chen/03"
+      ],
+      "portrait": "character-gallery/rito/01"
+    },
+    {
+      "id": "noah",
+      "group": "magic",
+      "name": "ルベア・ノア・グリニッジ",
+      "image": "noah",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/noah",
+      "gender": "男",
+      "age": "16",
+      "firstPerson": "僕",
+      "secondPerson": "~くん/~さん　君",
+      "likes": "主人公　ゲーム",
+      "dislikes": "太陽",
+      "birthday": "unknown",
+      "created": "unknown",
+      "detail": "",
+      "gallery": [
+        "character-gallery/noah/01",
+        "character-gallery/noah/02"
+      ],
+      "portrait": "character-gallery/rito/01"
+    },
+    {
+      "id": "yueru",
+      "group": "magic",
+      "name": "ユエル・アルダートン",
+      "image": "yueru",
+      "link": "https://nanashie.wixsite.com/sazyou/character-dol/yueru",
+      "gender": "",
+      "age": "",
+      "firstPerson": "",
+      "secondPerson": "",
+      "likes": "",
+      "dislikes": "",
+      "birthday": "",
+      "created": "",
+      "detail": "",
+      "gallery": []
+    }
+  ]
 }
