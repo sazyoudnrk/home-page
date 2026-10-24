@@ -195,20 +195,23 @@ const CONTACT = {
       ['suzuri','グッズが買えます。シャツ、ステッカーなど。','https://suzuri.jp/sazyou_dnrk'],
       ['LINEスタンプ','LINEスタンプがかえる','https://store.line.me/stickershop/product/12991484/ja'],
       ['みんなのステッカー屋さん','びねつさん運営のステッカーショップに参加しています。デザフェス・ネットショップ・一部店舗でステッカーが買える！','https://stickershop.shopselect.net/search?q=%E7%A0%82%E4%B8%8A%E9%9B%BB%E5%8A%9B']]],
-    ['X（twitter）',[
-      ['砂上電力','メインのアカウントです。絵を書きます','https://x.com/sazyou_dnrk'],
-      ['過剰電力','水彩・音楽・思想・動画・３DCG・UTAU　何でもするよ','https://x.com/kazyou_dnrk']]],
-    ['動画・音楽',[
+    ['作品',[
       ['youtube','音楽とかの動画、UTAUカバー動画など載せてます。','https://www.youtube.com/channel/UC98V2ow4DnlU5SzxHodJ2Bw'],
-      ['soundcloud','音楽ぶん投げどころです。','https://soundcloud.com/sazyoudenryoku']]],
-    ['SNS・その他',[
-      ['マシュマロ','感想、要望、質問、リクエスト等　直接言いにくい方はこちらへ。読んでにこにこして返信しないことが多い。感想とか嬉しすぎて印刷してノートに貼ってます。','https://marshmallow-qa.com/sazyou_dnrk'],
-      ['砂上天獄','別サイト　UTAUとMYCOE配布所','https://nanashie.wixsite.com/sazyouutau'],
+      ['soundcloud','音楽ぶん投げどころです。','https://soundcloud.com/sazyoudenryoku'],
       ['note','文具・画材・備忘録','https://note.com/sazyou_dnrk'],
-      ['jimdo','休止','https://nozomarenai.jimdofree.com/'],
       ['PIXIV','あまりつかってない','https://www.pixiv.net/member.php?id=42903019'],
       ['VRoid hub','3Dモデルが見れるぞ','https://hub.vroid.com/users/26307709'],
-      ['instagram','そのうちpixivより更新するようになるかも','https://www.instagram.com/sazyoudnrk/']]]
+      ['jimdo','休止','https://nozomarenai.jimdofree.com/']
+    ]],
+    ['SNS',[
+      ['砂上電力','メインのアカウントです。絵を書きます','https://x.com/sazyou_dnrk'],
+      ['過剰電力','水彩・音楽・思想・動画・３DCG・UTAU　何でもするよ','https://x.com/kazyou_dnrk'],
+      ['instagram','そのうちpixivより更新するようになるかも','https://www.instagram.com/sazyoudnrk/']
+    ]],
+    ['その他',[
+      ['マシュマロ','感想、要望、質問、リクエスト等　直接言いにくい方はこちらへ。読んでにこにこして返信しないことが多い。感想とか嬉しすぎて印刷してノートに貼ってます。','https://marshmallow-qa.com/sazyou_dnrk'],
+      ['砂上天獄','別サイト　UTAUとMYCOE配布所','https://nanashie.wixsite.com/sazyouutau']
+    ]]
   ]
 };
 
@@ -308,9 +311,9 @@ const VIEWS = {
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
     `,
   contact: () => {
-    const G = Object.fromEntries(CONTACT.groups.map((g,i)=>[['shop','x','media','sns'][i],g]));
-    const T = ['media','x','sns'];
-    const cur = T.includes(SUB) ? SUB : 'media';
+    const G = Object.fromEntries(CONTACT.groups.map((g,i)=>[['shop','works','sns','other'][i],g]));
+    const T = ['works','sns','other'];
+    const cur = T.includes(SUB) ? SUB : 'works';
     const row = ([t,d,u]) => `<div class="crow">${u?A(t,u,'btn'):`<span class="btn">${t}</span>`}<p>${d||''}</p></div>`;
     const m = CONTACT.mail;
     return `${head('CONTACT・LINK','砂上電力の全てにつながるリンク集')}
