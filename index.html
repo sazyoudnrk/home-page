@@ -163,15 +163,12 @@ const bd = c => { const m = /(\d+)\s*[\/月-]\s*(\d+)/.exec(c.birthday||''); ret
 
 const DESIGN = 0;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
 const ART = 25, CRAFT = 13;                   // images/gallery/art01…, craft01…
-const APPS = [  /* 簡易サイト（sazyoudnrk.github.io）に置いているアプリ。u はリンク先 */
-  ['おえかき','パレットを使ってお絵かきするアプリ','https://sazyoudnrk.github.io/color-pallet-draw.html'],
-  ['PATTERN LAB','背景用の幾何学パターンを生成するアプリ','https://sazyoudnrk.github.io/pattern-lab.html'],
-  ['画像リサイズ台','画像の長辺・ファイルサイズ・印刷サイズを指定してリサイズするアプリ','https://sazyoudnrk.github.io/resizer.html'],
-  ['SHAPER','角Rの編集と、PNGの輪郭抽出をするアプリ','https://sazyoudnrk.github.io/shaper.html'],
-  ['PP1 パンチ','画像を刺しゅうミシン用のデータに変換するアプリ','https://sazyoudnrk.github.io/image-to-eps.html'],
-  ['Liminal Dialogue','キャラクターと会話するノベルゲーム風アプリ','https://sazyoudnrk.github.io/'],
-  ['会話JSONエディタ','Liminal Dialogueの会話データを編集するエディタ','https://sazyoudnrk.github.io/talk-editor.html'],
-  ['GitHub Pages 公開リンク作成ツール','GitHub Pagesの公開リンクを作るツール','https://sazyoudnrk.github.io/github-pages-link-generator.html']
+const APPS = [  /* プロフィールサイトの「WEB APPS」に載っているアプリ。u はリンク先 */
+  ['クソ俳句同好会','匿名でクソ俳句を詠もう！','https://sazyoudnrk.github.io/shitty-haiku-club/'],
+  ['Color Cage','ランダムカラーパレットでお絵描き！','https://sazyoudnrk.github.io/color-cage/'],
+  ['Acrylayer（開発中）','多層アクリル印刷シミュレータ','https://sazyoudnrk.github.io/Acrylayer/'],
+  ['Fruitopia（開発中）','ビルドで高得点！フルーツ3マッチパズル','https://sazyoudnrk.github.io/Fruitopia/'],
+  ['STICKER LAB（開発中）','ステッカーデジタルシミュレータ','https://sazyoudnrk.github.io/imagistick-lab/']
 ];
 const MADE = [
   {img:'made-picrew',t:'picrew',d:'着せ替えさせるやつです。2019ごろに作成したため出来は良くない',u:'https://picrew.me/image_maker/19046'},
