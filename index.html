@@ -289,7 +289,8 @@ const $ = s => document.querySelector(s);
 const ext = u => /^https?:/.test(u);
 const A = (t,u,c='') => `<a class="${c}" href="${u}"${ext(u)?' target="_blank" rel="noopener"':''}>${t}</a>`;
 // 画像: images/<dir>/<name>.(jpg|png|webp) を順に試し、無ければファイル名入りの枠を出す
-const IMG = (dir,name,alt='',hide=false) => `<img src="images/${dir}/${name}.${EXTS[0]}?v=${IMGV}" alt="${alt}" loading="lazy" data-d="${dir}" data-n="${name}" data-i="0"${hide?' data-hide="1"':''}>`;
+const thumbSrc = (d,n) => `images/${d}/t/${n}.webp?v=${IMGV}`;
+const IMG = (dir,name,alt='',hide=false) => `<img src="${dir==='top'?`images/top/${name}.${EXTS[0]}?v=${IMGV}`:thumbSrc(dir,name)}" alt="${alt}" loading="lazy" data-d="${dir}" data-n="${name}" data-i="${dir==='top'?0:-1}"${hide?' data-hide="1"':''}>`;
 const galImg = p => { const i = p.lastIndexOf('/'); return IMG(p.slice(0,i), p.slice(i+1), '', true).replace(' loading="lazy"',''); };
 document.addEventListener('error', e => {
   const im = e.target; if (im.tagName !== 'IMG' || !im.dataset.n) return;
@@ -412,6 +413,27 @@ function route(to) {
   if (document.querySelector('.twitter-tweet, .twitter-timeline')) { if (window.twttr && twttr.widgets) twttr.widgets.load($('#main')); else if (!document.getElementById('twjs')) { const sc = document.createElement('script'); sc.id = 'twjs'; sc.async = true; sc.src = 'https://platform.twitter.com/widgets.js'; document.head.appendChild(sc); } }
   if (key === 'home') counter();
   if (!route.keep) scrollTo(0,0);
+  prefetchNext(key);
+}
+/* 次に見そうな画像を、画面が落ち着いたあとに軽いサムネイルだけ1枚ずつ先読みする（通信量節約モードのときはしない） */
+const PF = {done: new Set(), q: [], run: false};
+function prefetchNext(key) {
+  if (navigator.connection && navigator.connection.saveData) return;
+  const th = p => { const i = p.lastIndexOf('/'); return thumbSrc(p.slice(0,i), p.slice(i+1)); };
+  const urls = [];
+  if (CH && key === 'character') {
+    const one = CH.characters.find(c => c.id === SUB);
+    if (one) {                                               // 詳細：前後のキャラの立ち絵とギャラリー
+      const sib = CH.characters.filter(c => c.group === one.group && hasProfile(c)), i = sib.indexOf(one);
+      for (const o of [sib[(i+1)%sib.length], sib[(i-1+sib.length)%sib.length]]) { if (o.portrait) urls.push(th(o.portrait)); (o.gallery||[]).slice(0,4).forEach(g => urls.push(th(g))); }
+    } else CH.characters.filter(hasProfile).forEach(c => { if (c.portrait) urls.push(th(c.portrait)); });   // 一覧：各詳細の立ち絵
+  } else if (key === 'home') {
+    [...ART_NEW, ...nums('art', ART)].slice(0, 8).forEach(n => urls.push(thumbSrc('gallery', n)));
+  }
+  PF.q.push(...urls.filter(u => !PF.done.has(u)));
+  if (PF.run) return; PF.run = true;
+  const step = () => { const u = PF.q.shift(); if (!u) { PF.run = false; return; } PF.done.add(u); const im = new Image(); im.onload = im.onerror = () => setTimeout(step, 60); im.src = u; };
+  (window.requestIdleCallback || (f => setTimeout(f, 1200)))(step, {timeout: 3000});
 }
 addEventListener('hashchange', () => { if (location.hash.slice(1) !== LAST) route(); });
 route();
@@ -449,9 +471,15 @@ document.addEventListener('click', e => {
 }
 /* 拡大表示：＜＞ボタン・左右スワイプ・矢印キーで同じ並びの画像を行き来 */
 const LB = {list: [], i: 0};
+let FULL = null;   // images/full.json：画像名 → 元ファイルの拡張子
+fetch('images/full.json', {cache:'no-cache'}).then(r => r.json()).then(j => FULL = j).catch(() => {});
+const lbFull = (d, n, cb) => { const e = FULL[d + '/' + n]; if (!e) return; const u = `images/${d}/${n}.${e}?v=${IMGV}`, im = new Image(); im.onload = () => cb(u); im.src = u; };
 function lbShow() {
   const n = LB.list.length;
-  $('#lb img').src = LB.list[LB.i].src;
+  const el = LB.list[LB.i], lbi = $('#lb img'), fd = el.dataset.d, fn = el.dataset.n;
+  lbi.src = el.currentSrc || el.src;                       // まず軽い画像を即表示
+  if (fd && FULL) { lbFull(fd, fn, u => { if (LB.list[LB.i] === el) lbi.src = u; }); }
+  for (const k of [1, -1]) { const o = LB.list[(LB.i + k + LB.list.length) % LB.list.length]; if (o && o.dataset.d && FULL) lbFull(o.dataset.d, o.dataset.n, () => {}); }  // 前後の分も先読み
   $('#lb').classList.toggle('one', n < 2);
   $('#lb .ct').textContent = (LB.i + 1) + ' / ' + n;
 }
