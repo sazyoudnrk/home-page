@@ -42,7 +42,8 @@
    "world": "",
    "tabBg": "#e2a135",
    "tabFg": "#ffffff",
-   "tabLine": "#e2a135"
+   "tabLine": "#e2a135",
+   "noMore": true
   }
  ],
  "characters": [
