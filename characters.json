@@ -5,7 +5,7 @@
    "tab": "創作キャラ",
    "heading": "創作キャラ",
    "color": "",
-   "world": "",
+   "world": "#world/main",
    "tabBg": "#218ac9",
    "tabFg": "#ffffff",
    "tabLine": "#218ac9",
