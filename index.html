@@ -153,11 +153,21 @@ const COMIC = [
 ];
 
 /* 依頼で描いたもの（GALLERY の WORK タブ）：images/gallery/work01… を置いて {img:'work01',t:'タイトル',d:'説明',u:'リンク(任意)'} を追加 */
-const WORK = [];
+const WORK = [
+  {t:'Nemurimachi様　ショコラトル　絵・アニメーション',d:'2025年2月' /* TODO: YouTubeのURLが分かれば u に */},
+  {img:'work01',t:'玄武みちる様　卒業配信　サムネイル',d:'2022年12月'},
+  {img:'work02',t:'SLASH様 PRイラスト',d:'2022年10月',u:'https://twitter.com/sazyou_dnrk/status/1585604269956558848'}
+];
 /* イベント：予定は upcoming、参加履歴は past に ['日付','イベント名','内容'] を追加 */
-const EVENTS = { upcoming: [], past: [] };
+const EVENTS = { upcoming: [], past: [], note: '今後更新予定。こうしんできてないぜ去りな！', flyers: ['event01','event02'] };
 /* 受賞記録（フッターの「受賞歴」から開く隠しページ）：['年月','賞名・内容'] */
-const AWARDS = [];
+const AWARDS = [
+  ['2021年6月','ワコム塗りコン','裕さん賞','https://tablet.wacom.co.jp/article/nuricon-2021-result','award01'],
+  ['2021年6月','レッツ！ワンドロゴールデンウィーク!!　4/30（金）','','https://medibang.com/page/f/goldenOneHourDrawing01/','award02'],
+  ['2019年4月','pixiv Sketch × COPIC AWARDイラコン','優秀賞','https://sketch.pixiv.net/specials/%E3%82%B3%E3%83%94%E3%83%83%E3%82%AF%E3%82%A2%E3%83%AF%E3%83%BC%E3%83%89','award03'],
+  ['2018年4-5月','デジタル塗り絵コンテスト『塗りマス！』第四回','佳作','https://www.clip-studio.com/clip_site/mypage/newsdetail?publish=201804&f=2018041701','award04'],
+  ['2017年12月','某交流会イラストコンテスト','最優秀賞','','award05']
+];
 
 const ABOUT = {
   intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','水彩絵具のオタクで、いろんな絵具を持っています。<br>デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。']
@@ -265,7 +275,7 @@ const VIEWS = {
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
       video: () => [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join(''),
       music: () => `<p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}`,
-      work: () => `<p class="lead">ご依頼で描かせていただいたもの</p>${WORK.length?`<div class="grid zoom">${WORK.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>`:`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
+      work: () => `<p class="lead">ご依頼で描かせていただいたものです。多分、skebも該当すると思います。<br>${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}</p>${WORK.length?`<div class="grid zoom">${WORK.map(x=>`<div>${x.img?IMG('gallery',x.img,x.t):''}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>`:`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
     return `${head('GALLERY','気に入らなくなったものは定期的に削除しています。どんなものを作るか　なんとなく知ってもらえたら嬉しいな')}
@@ -276,9 +286,9 @@ const VIEWS = {
     const row = ([d,t,x]) => `<div class="box"><strong>${d}</strong>　${t}${x?'<br><span style="color:var(--sub)">'+x+'</span>':''}</div>`;
     return `${head('EVENT','イベントの参加予定と参加記録')}
     <h2>参加予定</h2>${EVENTS.upcoming.length?EVENTS.upcoming.map(row).join(''):'<div class="box" style="color:var(--sub)">（現在予定はありません）</div>'}
-    <h2>参加記録</h2>${EVENTS.past.length?EVENTS.past.map(row).join(''):'<div class="box" style="color:var(--sub)">（準備中：EVENTS.past に追加）</div>'}`;
+    <h2>参加記録</h2><p class="lead">${EVENTS.note}</p>${EVENTS.past.map(row).join('')}<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`;
   },
-  award: () => `${head('受賞歴')}${AWARDS.length?AWARDS.map(([d,t])=>`<div class="box"><strong>${d}</strong>　${t}</div>`).join(''):'<div class="box" style="color:var(--sub)">（準備中：AWARDS に追加）</div>'}`,
+  award: () => `${head('受賞歴','うれしかったことは忘れないように記録しておきたい')}${AWARDS.map(([d,t,pz,u,img])=>`<div class="box"><strong>${d}</strong><br>${u?A(t,u):t}${pz?'<br>'+pz:''}<div class="zoom" style="margin-top:8px">${IMG('award',img,t)}</div></div>`).join('')}`,
   comic: () => `${head('漫画')}${COMIC.map(linkCard).join('')}`,
   about: () => `
     ${head('ABOUT')}<h2>自己紹介</h2>
