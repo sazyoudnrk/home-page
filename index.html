@@ -113,7 +113,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261024c';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261024d';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -163,6 +163,7 @@ const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 const bd = c => { const m = /(\d+)\s*[\/月-]\s*(\d+)/.exec(c.birthday||''); return m ? +m[1]*100 + +m[2] : 0; };
 
 const DESIGN = 0;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
+const ART_NEW = ['art26'];                    // 新しい絵はここに足すと一番上に出ます（images/gallery/art26.jpg …）
 const ART = 25, CRAFT = 13;                   // images/gallery/art01…, craft01…
 const APPS = [  /* プロフィールサイトの「WEB APPS」に載っているアプリ。u はリンク先 */
   ['クソ俳句同好会','匿名でクソ俳句を詠もう！','https://sazyoudnrk.github.io/shitty-haiku-club/'],
@@ -323,7 +324,7 @@ const VIEWS = {
     const T = [['art','絵'],['video','動画'],['music','音楽'],['cg','3DCG'],['craft','工作'],['comic','漫画'],['made','制作物'],['app','webAPP'],['work','依頼実績']];
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
     const body = {
-      art: () => `<div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>`,
+      art: () => `<div class="masonry zoom">${[...ART_NEW,...nums('art',ART)].map(n=>IMG('gallery',n)).join('')}</div>`,
       made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join(''),
       app: () => `<p class="lead">Claudeを使って作ったアプリ</p>` + APPS.map(linkCard).join(''),
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
