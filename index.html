@@ -317,7 +317,7 @@ const VIEWS = {
     const row = ([t,d,u]) => `<div class="crow">${u?A(t,u,'btn'):`<span class="btn">${t}</span>`}<p>${d||''}</p></div>`;
     const m = CONTACT.mail;
     return `${head('CONTACT・LINK','砂上電力の全てにつながるリンク集')}
-    <div class="crow"><span class="btn">${m[0]}</span><p>${m[1]}<br><strong>${m[2]}</strong></p></div>
+    <div class="crow"><a class="btn" href="#" id="mailbtn">${m[0]}</a><p>${m[1]}<br><strong>${m[2]}</strong></p></div>
     <div class="chead">${G.shop[0]}</div>
     <div class="cpanel">${G.shop[1].map(row).join('')}</div>
     <div class="ctabs" role="tablist">${T.map(k=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${G[k][0]}</a>`).join('')}</div>
@@ -363,6 +363,7 @@ setInterval(() => {
   let x = el.scrollLeft + w; if (x > max + 1) x = 0;
   el.scrollTo({left:x, behavior:'smooth'});
 }, 4500);
+document.addEventListener('click', e => { if (e.target.closest && e.target.closest('#mailbtn')) { e.preventDefault(); e.stopPropagation(); location.href = 'mailto:' + CONTACT.mail[2].replace('●','@'); } }, true);
 addEventListener('keydown', e => { if (e.key === 'Escape') $('#lb').classList.remove('open'); });
 </script>
 </body>
