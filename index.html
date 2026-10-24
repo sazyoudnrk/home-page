@@ -41,6 +41,9 @@ h3{font-size:17px;margin:20px 0 4px}
 .arr{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:52px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 1px 4px rgba(0,0,0,.45))}
 .arr.l{left:8%}.arr.r{right:8%}
 .arr svg{width:100%;height:100%;stroke:#fff;stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.crow{display:grid;grid-template-columns:minmax(0,42%) 1fr;gap:14px;align-items:center;margin:14px 0}
+.crow .btn{overflow-wrap:anywhere;line-height:1.25;display:flex;align-items:center;justify-content:center;padding:10px 6px;border-width:3px;font-size:clamp(12px,3.6vw,16px)}
+.crow p{margin:0;font-size:13px;color:var(--sub);overflow-wrap:anywhere}
 .btns{display:flex;justify-content:center;gap:8px;margin:12px 0}
 .btns .btn{flex:1 1 0;min-width:0;padding:12px 6px;border-width:4px;font-size:clamp(12px,3.6vw,17px);display:flex;align-items:center;justify-content:center}
 .btn{display:inline-block;padding:14px 22px;border:5px solid var(--btn);border-radius:999px;color:var(--btn);text-decoration:none;font:700 17px/1.2 "Noto Sans JP",sans-serif;text-align:center}
@@ -300,14 +303,15 @@ const VIEWS = {
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
     `,
   contact: () => {
-    const T = [['mail',CONTACT.mail[0]], ...CONTACT.groups.map((g,i)=>['g'+i,g[0]])];
-    const cur = T.some(t=>t[0]===SUB) ? SUB : 'mail';
-    const body = cur==='mail'
-      ? `<div class="box">${CONTACT.mail[1]}<br><strong>${CONTACT.mail[2]}</strong></div>`
-      : CONTACT.groups[+cur.slice(1)][1].map(linkCard).join('');
+    const K = ['shop','x','media','sns'];
+    const T = CONTACT.groups.map((g,i)=>[K[i]||'g'+i,g[0]]);
+    const cur = T.some(t=>t[0]===SUB) ? SUB : T[0][0];
+    const row = ([t,d,u]) => `<div class="crow">${u?A(t,u,'btn'):`<span class="btn">${t}</span>`}<p>${d||''}</p></div>`;
+    const m = CONTACT.mail;
     return `${head('CONTACT','砂上電力の全てにつながるリンク集')}
+    <div class="crow"><span class="btn">${m[0]}</span><p>${m[1]}<br><strong>${m[2]}</strong></p></div>
     <div class="tabs" role="tablist">${T.map(([k,t])=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${t}</a>`).join('')}</div>
-    ${body}`;
+    ${CONTACT.groups[T.findIndex(t=>t[0]===cur)][1].map(row).join('')}`;
   }
 };
 
