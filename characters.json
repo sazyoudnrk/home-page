@@ -21,12 +21,22 @@
    "tabLine": "#f478a3",
    "songs": [
     [
-     "君の席 / 注寝ととと",
-     "https://youtu.be/F06fFl3unLE?si=vwnrwZdy_yNKtSz8"
+     "bgm",
+     "https://youtu.be/F06fFl3unLE"
     ],
     [
      "SoundCloudの曲",
      "https://on.soundcloud.com/OH1EJ4ns4Vq2EP1bQ4"
+    ]
+   ],
+   "videos": [
+    [
+     "（無題）ショート動画",
+     "https://youtube.com/shorts/lf_gXZZlbMQ?feature=share"
+    ],
+    [
+     "【LOOP BACK DREAM】テスト",
+     "https://youtu.be/JOGDfqiDaUs"
     ]
    ]
   },
