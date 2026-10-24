@@ -38,6 +38,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
 .slides img,.slides .ph{flex:none;width:100%;aspect-ratio:1.4;object-fit:cover;scroll-snap-align:start;background:#eee}
+@media (max-width:699px){.slides img,.slides .ph{aspect-ratio:1.05}}  /* スマホのときだけ少し縦長 */
 .arr{position:absolute;top:50%;transform:translateY(-50%);width:26px;height:42px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 1px 4px rgba(0,0,0,.45))}
 .arr.l{left:2px}.arr.r{right:2px}
 .arr svg{width:100%;height:100%;stroke:#fff;stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round}
@@ -149,7 +150,7 @@ const HOME = {
     ['プロフィールサイト','https://sazyoudnrk.github.io/profile/']
   ],
   log: [
-    ['26/10/24','サイトの作りを根本から変更しました。旧サイトは<a href="https://nanashie.wixsite.com/sazyou" target="_blank" rel="noopener">こちら</a>。'],
+    ['26/10/24','サイトの作りを根本から変更しました。旧サイトは<a href="https://nanashie.wixsite.com/sazyou" target="_blank" rel="noopener">こちら</a>。<br>あと、次のコミティアに受かりました！'],
     ['25/05/03','URLの見直し、スマホ版のレイアウト崩れ、リンク切れの解消。テストしきれてないので不備があるかも。気が付いたらマシュマロへ。直します。'],
     ['25/04/30','久々に更新。すべてのページを更新、追加、削除。サイトの画像容量の関係で古い絵と漫画を削除。pixivにまとめ直すことを検討中。新しい創作キャラのページ追加。contactページ更新。'],
     ['23/01/21','noteを作りました'],
