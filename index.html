@@ -150,7 +150,7 @@ const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 const bd = c => { const m = /(\d+)\s*[\/月-]\s*(\d+)/.exec(c.birthday||''); return m ? +m[1]*100 + +m[2] : 0; };
 
 const DESIGN = 0;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
-const ART = 25, CRAFT = 15;                   // images/gallery/art01…, craft01…
+const ART = 25, CRAFT = 13;                   // images/gallery/art01…, craft01…
 const MADE = [
   {img:'made-picrew',t:'picrew',d:'着せ替えさせるやつです。2019ごろに作成したため出来は良くない',u:'https://picrew.me/image_maker/19046'},
   {img:'made-vroid',t:'VRoid',d:'Vroid',u:'https://hub.vroid.com/characters/7727200837242838157/models/6460593563660743426'},
@@ -160,6 +160,7 @@ const MADE = [
 /* 動画・音楽の埋め込み（TODO: YouTube等のIDを入れる）例 ['タイトル','動画ID'] */
 const CG3D = [  /* 3DCG作品：img は images/gallery/ 内のファイル名（拡張子なし）、u はリンク（無ければ省略可） */
   /* {img:'cg01', t:'タイトル', d:'説明', u:'https://…'} */
+  {img:'cg01',t:''},{img:'cg02',t:''}
 ];
 const VIDEOS = {original:[],cover:[]};
 const MUSIC_URL = 'https://soundcloud.com/sazyoudenryoku';
