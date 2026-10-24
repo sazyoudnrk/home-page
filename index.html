@@ -54,6 +54,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .vidx{min-width:0}.vidx .twitter-tweet{margin:0!important}
 .counter{margin:34px auto 6px;text-align:center;font-size:13px;color:var(--sub)}
 .counter b{display:inline-block;margin:6px 4px;padding:4px 10px;background:#000;color:#ff2a1a;font:700 24px/1.2 "Courier New",monospace;letter-spacing:.14em;border:2px inset #888}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:8px 0 20px}.facts dt{color:var(--sub)}.facts dd{margin:0}
 .chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
 .cpanel{border:1px solid #ddd;border-radius:26px;padding:6px 12px;margin:2px 0 14px}
 .ctabs{display:flex;gap:3px;margin:14px 0 2px}
@@ -214,7 +215,8 @@ const AWARDS = [
 ];
 
 const ABOUT = {
-  intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','水彩絵具のオタクで、いろんな絵具を持っています。<br>デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。']
+  intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','水彩絵具のオタクで、いろんな絵具を持っています。<br>デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。'],
+  facts: [['アレルギー','無し'],['お仕事','プログラマの一般労働者'],['連絡','平日20時以降と土日は比較的連絡が取りやすいです']]
 };
 
 const CONTACT = {
@@ -345,7 +347,7 @@ const VIEWS = {
   about: () => `
     ${head('ABOUT')}<h2>自己紹介</h2>
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
-    `,
+    <h2>素性</h2><dl class="facts">${ABOUT.facts.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`,
   contact: () => {
     const G = Object.fromEntries(CONTACT.groups.map((g,i)=>[['shop','works','sns','other'][i],g]));
     const T = ['works','sns','other'];
