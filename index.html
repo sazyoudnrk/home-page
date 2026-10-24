@@ -218,6 +218,7 @@ const ABOUT = {
 };
 
 const CONTACT = {
+  price: ['料金表', '' /* 料金表のURL（または '#price' などの内部ページ）が決まったらここに */],
   mail: ['メール','まめに見ているつもりですが、連絡が遅い場合XのDMへ催促をお願いいたします','sazyoden●gmail.com'],
   groups: [
     ['ショップ・コミッション',[
@@ -352,7 +353,7 @@ const VIEWS = {
     const row = ([t,d,u]) => `<div class="crow">${u?A(t,u,'btn'):`<span class="btn">${t}</span>`}<p>${d||''}</p></div>`;
     const m = CONTACT.mail;
     return `${head('CONTACT・LINK','有象無象のリンク集')}
-    <div class="crow"><a class="btn" href="#" id="mailbtn">${m[0]}</a><p>${m[1]}<br><strong>${m[2]}</strong></p></div>
+    <div class="crow"><a class="btn" href="#" id="mailbtn">${m[0]}</a><p>${m[1]}<br><strong>${m[2]}</strong><br>${CONTACT.price[1]?A(CONTACT.price[0],CONTACT.price[1]):`<span>${CONTACT.price[0]}（準備中）</span>`}</p></div>
     <div class="chead">${G.shop[0]}</div>
     <div class="cpanel">${G.shop[1].map(row).join('')}</div>
     <div class="ctabs" role="tablist">${T.map(k=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${G[k][0]}</a>`).join('')}</div>
