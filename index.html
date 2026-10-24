@@ -119,7 +119,15 @@ h3{font-size:17px;margin:20px 0 4px}
 .prof .ph{width:100%;max-width:300px;aspect-ratio:3/4;background:none}
 .prof dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px}
 .prof dt{color:var(--sub)}.prof dd{margin:0;white-space:pre-line;overflow-wrap:anywhere}
-.more{margin:26px 0 0;padding:14px 16px 16px;background:#f4f5f7;border:1px solid #e3e5e8;border-radius:10px}.more h3{margin:0 0 10px;font-size:13px;color:var(--sub);font-weight:700}.mlinks{display:flex;flex-wrap:wrap;gap:8px}.mlinks .btn-back{background:#fff}.mlinks .off{color:var(--sub);background:transparent;border-style:dashed}
+.more{margin:22px 0 0;text-align:center}
+#mm{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:10;padding:12px}
+#mm.open{display:flex}
+@media (min-width:700px){#mm{align-items:center}}
+#mm .sheet{background:#fff;border-radius:16px;width:100%;max-width:420px;padding:16px 16px 18px;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+#mm h3{margin:0 0 10px;font-size:14px;color:var(--sub);display:flex;justify-content:space-between;align-items:center}
+#mm h3 button{border:0;background:none;font-size:22px;line-height:1;color:var(--sub);padding:0 4px;cursor:pointer}
+#mm .mrow{display:block;padding:13px 14px;margin:0 0 8px;border:1px solid #e3e5e8;border-radius:12px;background:#f4f5f7;color:var(--ink);text-decoration:none;font-size:15px;font-weight:700}
+#mm .mrow.off{color:var(--sub);font-weight:400;border-style:dashed;background:#fff}
 .chlinks{display:flex;flex-wrap:wrap;gap:6px 18px;margin:18px 0 0}
 .chars img,.chars a .ph{width:100%;aspect-ratio:119/303;object-fit:cover;object-position:center top;background:none;display:block;margin-bottom:8px}
 .chars a .ph{aspect-ratio:119/303}
@@ -145,6 +153,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 <body>
 <header><div class="in"><a class="logo" href="#home"><b>砂上</b>拠点<b>電力</b>発電場</a><button id="menu" aria-label="メニュー" aria-expanded="false"><i></i><i></i><i></i></button></div><nav id="nav"></nav></header>
 <main id="main"></main>
+<div id="mm" role="dialog" aria-label="more"><div class="sheet"><h3><span>more</span><button type="button" aria-label="閉じる" id="mmx">×</button></h3><div id="mmlist"></div></div></div>
 <div id="lb" role="dialog" aria-label="拡大表示"><img alt=""><button class="nv p" aria-label="前へ">‹</button><button class="nv n" aria-label="次へ">›</button><div class="ct"></div></div>
 <footer>© 砂上電力</footer>
 
@@ -192,7 +201,7 @@ const DOWNLOADS = [
 const TERMS_URL = '#terms';
 
 /* キャラクターのデータは characters.json（groups / characters）に入っています */
-let CH = null, CHERR = false;
+let CH = null, CHERR = false, MOREL = [];
 const F = [['gender','性別'],['age','年齢'],['height','身長'],['firstPerson','一人称'],['secondPerson','二人称'],['likes','好きなもの'],['dislikes','苦手なもの'],['birthday','誕生日'],['created','作成日']];
 const hasProfile = c => F.some(([k])=>c[k]) || c.detail || (c.extra && c.extra.length);
 const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -462,7 +471,8 @@ const VIEWS = {
       const items = chars.filter(c=>c.group===grp.id);
       body = `<h2${grp.color?` style="color:${grp.color}"`:''}>${esc(grp.heading)}</h2>
       <div class="chars">${items.map(c=>A(IMG('character',c.image,c.name)+esc(c.name),link(c))).join('')}${grp.id==='main'?A(IMG('character','design','デザインのみ')+'デザインのみ','#character/design'):''}</div>
-      ${grp.noMore ? '' : `<div class="more"><h3>more</h3><div class="mlinks">${[['世界観',grp.world],['曲',grp.song],...(grp.more||[])].map(([t,u])=>u?A(t,u,'btn-back'):`<span class="btn-back off">${t}（準備中）</span>`).join('')}</div></div>`}`;   // more: [['小話','URL'],['漫画','URL']] をcharacters.jsonのグループに足せば増える
+      ${(()=>{ if (grp.noMore) return ''; MOREL = [['世界観',grp.world],['曲',grp.song],...(grp.more||[])];   // more: [['小話','URL'],['漫画','URL']] をcharacters.jsonのグループに足せば増える
+        return `<div class="more"><button type="button" class="btn-back" id="morebtn" aria-haspopup="dialog">more ＋</button></div>`; })()}`;
     }
     return `${head('CHARACTER','創作キャラクターの紹介　一部だけ立ち絵がある')}
     <div class="gtabs" role="tablist">${tabs}</div>${bdlink}${body}`;
@@ -560,6 +570,11 @@ document.addEventListener('click', e => {
   if (m) { m.setAttribute('aria-expanded', $('#nav').classList.toggle('open')); return; }
   const sl = e.target.closest('[data-slide]');
   if (sl) { const el = $('#slides'), w = el.clientWidth, max = el.scrollWidth - w; let x = el.scrollLeft + (+sl.dataset.slide) * w; if (x > max + 1) x = 0; if (x < 0) x = max; el.scrollTo({left:x, behavior:'smooth'}); return; }
+  if (e.target.closest('#morebtn')) {
+    $('#mmlist').innerHTML = MOREL.map(([t,u])=>u?A(t,u,'mrow'):`<span class="mrow off">${t}（準備中）</span>`).join('');
+    $('#mm').classList.add('open'); return;
+  }
+  if (e.target.closest('#mmx') || e.target.id === 'mm' || e.target.closest('#mmlist a')) $('#mm').classList.remove('open');
   const nv = e.target.closest('#lb .nv');
   if (nv) { lbGo(nv.classList.contains('n') ? 1 : -1); return; }
   const im = e.target.closest('.zoom img');
@@ -626,7 +641,7 @@ setInterval(() => {
   el.scrollTo({left:x, behavior:'smooth'});
 }, 4500);
 document.addEventListener('click', e => { if (e.target.closest && e.target.closest('#mailbtn')) { e.preventDefault(); e.stopPropagation(); location.href = 'mailto:' + CONTACT.mail[2].replace('●','@'); } }, true);
-addEventListener('keydown', e => { const o = $('#lb').classList.contains('open'); const cn = document.querySelector('.cnav'); if (!o && cn && e.key === 'ArrowRight') location.hash = cn.dataset.next; else if (!o && cn && e.key === 'ArrowLeft') location.hash = cn.dataset.prev; else if (e.key === 'Escape') $('#lb').classList.remove('open'); else if (o && e.key === 'ArrowRight') lbGo(1); else if (o && e.key === 'ArrowLeft') lbGo(-1); });
+addEventListener('keydown', e => { const o = $('#lb').classList.contains('open'); const cn = document.querySelector('.cnav'); if (!o && cn && e.key === 'ArrowRight') location.hash = cn.dataset.next; else if (!o && cn && e.key === 'ArrowLeft') location.hash = cn.dataset.prev; else if (e.key === 'Escape') { $('#lb').classList.remove('open'); $('#mm').classList.remove('open'); } else if (o && e.key === 'ArrowRight') lbGo(1); else if (o && e.key === 'ArrowLeft') lbGo(-1); });
 </script>
 </body>
 </html>
