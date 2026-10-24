@@ -41,6 +41,11 @@ h3{font-size:17px;margin:20px 0 4px}
 .arr{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:52px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 1px 4px rgba(0,0,0,.45))}
 .arr.l{left:8%}.arr.r{right:8%}
 .arr svg{width:100%;height:100%;stroke:#fff;stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
+.cpanel{border:1px solid #ddd;border-radius:26px;padding:6px 12px;margin:2px 0 14px}
+.ctabs{display:flex;gap:3px;margin:14px 0 2px}
+.ctabs a{flex:1 1 auto;padding:12px 6px;border:2px solid #ddd;border-radius:999px;text-align:center;text-decoration:none;color:var(--btn);font-weight:700;font-size:clamp(11px,3.3vw,15px);line-height:1.25;display:flex;align-items:center;justify-content:center}
+.ctabs a.on{background:var(--btn);border-color:var(--btn);color:#fff}
 .crow{display:grid;grid-template-columns:minmax(0,42%) 1fr;gap:14px;align-items:center;margin:14px 0}
 .crow .btn{overflow-wrap:anywhere;line-height:1.25;display:flex;align-items:center;justify-content:center;padding:10px 6px;border-width:3px;font-size:clamp(12px,3.6vw,16px)}
 .crow p{margin:0;font-size:13px;color:var(--sub);overflow-wrap:anywhere}
@@ -303,15 +308,17 @@ const VIEWS = {
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
     `,
   contact: () => {
-    const K = ['shop','x','media','sns'];
-    const T = CONTACT.groups.map((g,i)=>[K[i]||'g'+i,g[0]]);
-    const cur = T.some(t=>t[0]===SUB) ? SUB : T[0][0];
+    const G = Object.fromEntries(CONTACT.groups.map((g,i)=>[['shop','x','media','sns'][i],g]));
+    const T = ['media','x','sns'];
+    const cur = T.includes(SUB) ? SUB : 'media';
     const row = ([t,d,u]) => `<div class="crow">${u?A(t,u,'btn'):`<span class="btn">${t}</span>`}<p>${d||''}</p></div>`;
     const m = CONTACT.mail;
     return `${head('CONTACT・LINK','砂上電力の全てにつながるリンク集')}
     <div class="crow"><span class="btn">${m[0]}</span><p>${m[1]}<br><strong>${m[2]}</strong></p></div>
-    <div class="tabs" role="tablist">${T.map(([k,t])=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${t}</a>`).join('')}</div>
-    ${CONTACT.groups[T.findIndex(t=>t[0]===cur)][1].map(row).join('')}`;
+    <div class="chead">${G.shop[0]}</div>
+    <div class="cpanel">${G.shop[1].map(row).join('')}</div>
+    <div class="ctabs" role="tablist">${T.map(k=>`<a href="#contact/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${G[k][0]}</a>`).join('')}</div>
+    <div class="cpanel">${G[cur][1].map(row).join('')}</div>`;
   }
 };
 
