@@ -52,6 +52,8 @@ h3{font-size:17px;margin:20px 0 4px}
 .vid{aspect-ratio:16/9;background:#eee}.vid iframe{width:100%;height:100%;border:0;display:block}
 .vid.ph0{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--sub);font-size:13px;padding:8px}
 .vidx{min-width:0}.vidx .twitter-tweet{margin:0!important}
+.counter{margin:34px auto 6px;text-align:center;font-size:13px;color:var(--sub)}
+.counter b{display:inline-block;margin:6px 4px;padding:4px 10px;background:#000;color:#ff2a1a;font:700 24px/1.2 "Courier New",monospace;letter-spacing:.14em;border:2px inset #888}
 .chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
 .cpanel{border:1px solid #ddd;border-radius:26px;padding:6px 12px;margin:2px 0 14px}
 .ctabs{display:flex;gap:3px;margin:14px 0 2px}
@@ -262,7 +264,8 @@ const VIEWS = {
     <div class="btns">${HOME.links.slice(3).map(([t,u])=>A(t,u,'btn sub')).join('')}</div>
     <h2>サイト説明</h2><p>${HOME.about}</p>
     <h2>更新記録</h2>
-    <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>`,
+    <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>
+    <div id="counter" hidden></div>`,
   download: () => `
     ${head('ダウンロード可能なコンテンツ','使えそうな物があればご利用ください。'+' '+A('利用規約はこちら',TERMS_URL))}
     ${DOWNLOADS.map(x=>`<div class="box card">${IMG('download',x.img)}<div><h3>${x.t}</h3><p>${x.d}</p><p>${x.l.map(([t,u])=>A(t,u)).join(' / ')}</p></div></div>`).join('')}`,
@@ -356,6 +359,7 @@ function route(to) {
   $('#nav').classList.remove('open'); $('#menu').setAttribute('aria-expanded','false');
   document.title = (key==='home'?'':(PAGES.find(p=>p[0]===key)||[0,'受賞歴'])[1]+' | ')+'砂上拠点電力発電所';
   if (document.querySelector('.twitter-tweet')) { if (window.twttr && twttr.widgets) twttr.widgets.load($('#main')); else if (!document.getElementById('twjs')) { const sc = document.createElement('script'); sc.id = 'twjs'; sc.async = true; sc.src = 'https://platform.twitter.com/widgets.js'; document.head.appendChild(sc); } }
+  if (key === 'home') counter();
   if (!route.keep) scrollTo(0,0);
 }
 addEventListener('hashchange', () => { if (location.hash.slice(1) !== LAST) route(); });
@@ -375,6 +379,16 @@ document.addEventListener('click', e => {
   if (im) { $('#lb img').src = im.src; $('#lb').classList.add('open'); return; }
   if (e.target.closest('#lb')) $('#lb').classList.remove('open');
 });
+/* アクセスカウンター（counterapi.dev）。同じブラウザでは最初に付いた番号をずっと表示する */
+const COUNTER_URL = 'https://api.counterapi.dev/v1/sazyoudnrk-home-page/visits';
+async function counter() {
+  const el = $('#counter'); if (!el) return;
+  let n = 0; try { n = +localStorage.getItem('visitorNo') || 0; } catch (e) {}
+  if (!n) { try { const r = await fetch(COUNTER_URL + '/up'); n = +(await r.json()).count || 0; if (n) { try { localStorage.setItem('visitorNo', n); } catch (e) {} } } catch (e) {} }
+  if (!n || !$('#counter')) return;
+  el.className = 'counter'; el.hidden = false;
+  el.innerHTML = `あなたは<br><b>${String(n).padStart(6,'0')}</b><br>人目のお客様です`;
+}
 /* ホームのスライドを自動送り（触っている間と、触ってから6秒は止める） */
 let slideTouch = 0;
 ['pointerdown','touchstart','wheel','mouseover'].forEach(ev => document.addEventListener(ev, e => { if (e.target.closest && e.target.closest('.hero')) slideTouch = Date.now(); }, {passive:true}));
