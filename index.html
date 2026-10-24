@@ -171,7 +171,7 @@ const WORK = [
 /* イベント：予定は upcoming、参加履歴は past に ['日付','イベント名','内容'] を追加 */
 const EVENTS = { upcoming: [['2026年12月13日','COMITIA158']], past: [
   ['2026年6月7日','COMITIA156'],['2026年4月5日','みんなのステッカーフェス2026 in spring（みんなのステッカー屋さん）'],['2026年1月25日','関西コミティア75'],['2025年9月7日','COMITIA153'],['2024年11月17日','COMITIA150'],['2024年8月18日','COMITIA149'],['2023年12月3日','COMITIA146'],['2023年5月5日','COMITIA144'],['2023年2月19日','COMITIA143'],['2022年2月20日','COMITIA139'],['2020年2月9日','COMITIA131（爆発うどん名義・初参加）']
-], flyers: ['event01','event02'] };
+], flyers: [] };
 /* 受賞記録（フッターの「受賞歴」から開く隠しページ）：['年月','賞名・内容'] */
 const AWARDS = [
   ['2021年6月','ワコム塗りコン','裕さん賞','https://tablet.wacom.co.jp/article/nuricon-2021-result','award01'],
@@ -303,7 +303,7 @@ const VIEWS = {
     const row = ([d,t,x]) => `<div class="box">${d?'<strong>'+d+'</strong>　':''}${t}${x?'<br><span style="color:var(--sub)">'+x+'</span>':''}</div>`;
     return `${head('EVENT','イベントの参加予定と参加記録')}
     <h2>参加予定</h2>${EVENTS.upcoming.length?EVENTS.upcoming.map(row).join(''):'<div class="box" style="color:var(--sub)">（現在予定はありません）</div>'}
-    <h2>参加記録</h2>${EVENTS.past.map(row).join('')}<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`;
+    <h2>参加記録</h2>${EVENTS.past.map(row).join('')}${EVENTS.flyers.length?`<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`:''}`;
   },
   award: () => `${head('受賞歴','うれしかったことは忘れないように記録しておきたい')}${AWARDS.map(([d,t,pz,u,img])=>`<div class="box"><strong>${d}</strong><br>${u?A(t,u):t}${pz?'<br>'+pz:''}<div class="zoom" style="margin-top:8px">${IMG('award',img,t)}</div></div>`).join('')}`,
   about: () => `

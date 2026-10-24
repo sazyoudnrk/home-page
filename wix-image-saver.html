@@ -56,7 +56,6 @@ const SECTIONS = [
   { id: 'art', title: 'ギャラリー：絵', items: art.map((f, i) => [J + 'art' + n2(i), P(f)]) },
   { id: 'made', title: 'ギャラリー：制作物', items: [[J + 'made-picrew', P('11fb5f887a3140c68e76ff0e1ac2e6f7~mv2.png')], [J + 'made-vroid', P('56b51f534d70463483d11bad248bad82~mv2_d_1200_1600_s_2.png')], [J + 'made-mmd', P('4b814f7491124facb8f523df276ca81f~mv2.png')], [J + 'made-utau', P('9c5f633adda349f68b22f8eb1b888426~mv2.png')]] },
   { id: 'work', title: 'WORK（依頼）', items: [['images/gallery/work01', P('071c87e48b3a47b7aa82a4f88c29e93b~mv2.png')], ['images/gallery/work02', P('f4dfc31c0e264c5fb465095a2eaec331~mv2.png')]] },
-  { id: 'event', title: 'EVENT（参加歴）', items: [['images/event/event01', P('a1845895f4354ebcbcf63445a2b9bfdc~mv2.png')], ['images/event/event02', P('b3ddfa11669f46d5b653f33a55e66f77~mv2.png')]] },
   { id: 'award', title: '受賞歴', items: [['images/award/award01', P('1136468256fe4996b745190f23ba5e7e~mv2.jpg')], ['images/award/award02', P('14cacffc276e49dd9877c01f18eaa98b~mv2.png')], ['images/award/award03', P('46ba03789f864fbb9507cbe291b2407d~mv2_d_2048_1460_s_2.jpg')], ['images/award/award04', P('a3e5e1b9cc7244ecb931f2e6a07b5ebe~mv2_d_1400_2000_s_2.png')], ['images/award/award05', P('86127275355b40c48da1422c6fa64f5f~mv2_d_2000_1420_s_2.jpg')]] },
   { id: 'craft', title: 'ギャラリー：工作', items: craft.map((f, i) => [J + 'craft' + n2(i), P(f)]) },
   ...[0, 1, 2].map(i => ({ id: 'chargal' + (i + 1), title: 'キャラクターページの画像（' + (i + 1) + '/3）', items: CHARGAL.slice(Math.ceil(CHARGAL.length / 3) * i, Math.ceil(CHARGAL.length / 3) * (i + 1)) })),
