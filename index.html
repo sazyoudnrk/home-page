@@ -302,7 +302,7 @@ const VIEWS = {
     <div class="tabs" role="tablist">${tabs}</div>${body}`;
   },
   gallery: () => {
-    const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作'],['comic','漫画'],['work','WORK']];
+    const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作'],['comic','漫画'],['work','依頼実績']];
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
     const body = {
       art: () => `<div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>`,
