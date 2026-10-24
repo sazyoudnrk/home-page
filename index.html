@@ -83,12 +83,12 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 <header><div class="in"><a class="logo" href="#home"><b>砂上</b>拠点<b>電力</b>発電場</a><button id="menu" aria-label="メニュー" aria-expanded="false"><i></i><i></i><i></i></button></div><nav id="nav"></nav></header>
 <main id="main"></main>
 <div id="lb" role="dialog" aria-label="拡大表示"><img alt=""></div>
-<footer>© 砂上電力</footer>
+<footer>© 砂上電力　<a href="#award" style="color:inherit">受賞歴</a></footer>
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
-const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['comic','COMIC'],['about','ABOUT'],['contact','CONTACT']];
+const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['event','EVENT'],['comic','COMIC'],['about','ABOUT'],['contact','CONTACT']];
 
 const HOME = {
   top: ['top1','top2','top3'],               // images/top/top1.(jpg|png|webp)
@@ -152,13 +152,15 @@ const COMIC = [
   ['2291（PIXIV）','昔出した同人誌　めちゃくちゃ漫画集','' /* TODO: pixivのURLに差し替え */]
 ];
 
+/* 依頼で描いたもの（GALLERY の WORK タブ）：images/gallery/work01… を置いて {img:'work01',t:'タイトル',d:'説明',u:'リンク(任意)'} を追加 */
+const WORK = [];
+/* イベント：予定は upcoming、参加履歴は past に ['日付','イベント名','内容'] を追加 */
+const EVENTS = { upcoming: [], past: [] };
+/* 受賞記録（フッターの「受賞歴」から開く隠しページ）：['年月','賞名・内容'] */
+const AWARDS = [];
+
 const ABOUT = {
-  intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','水彩絵具のオタクで、いろんな絵具を持っています。<br>デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。'],
-  blocks: [
-    ['Work','ご依頼で描かせていただいたもの','https://nanashie.wixsite.com/sazyou/portfolio'],
-    ['Event','イベント参加記録','https://nanashie.wixsite.com/sazyou/about'],
-    ['Award','受賞記録','https://nanashie.wixsite.com/sazyou/%E8%A4%87%E8%A3%BD-award-history']
-  ]  /* TODO: Work/Event/Award は移行したら内部ページに */
+  intro: ['砂上電力（さじょうでんりょく）です。','成人済み労働者。3Lなんでも好きです。','絵と音楽と動画と3DCGとUTAUとカフェラテが好きです。なんかつくるのがだいすき！','水彩絵具のオタクで、いろんな絵具を持っています。<br>デジタルだとクリスタとProcreateを主に使っています。','創作キャラの二次創作や交流は大歓迎です。なにか楽しいことがあったら声をかけてください！仲良くしてくれたら嬉しいです。']
 };
 
 const CONTACT = {
@@ -194,7 +196,7 @@ const ext = u => /^https?:/.test(u);
 const A = (t,u,c='') => `<a class="${c}" href="${u}"${ext(u)?' target="_blank" rel="noopener"':''}>${t}</a>`;
 // 画像: images/<dir>/<name>.(jpg|png|webp) を順に試し、無ければファイル名入りの枠を出す
 const IMG = (dir,name,alt='',hide=false) => `<img src="images/${dir}/${name}.${EXTS[0]}" alt="${alt}" loading="lazy" data-d="${dir}" data-n="${name}" data-i="0"${hide?' data-hide="1"':''}>`;
-const galImg = p => { const i = p.lastIndexOf('/'); return IMG(p.slice(0,i), p.slice(i+1), '', true); };
+const galImg = p => { const i = p.lastIndexOf('/'); return IMG(p.slice(0,i), p.slice(i+1), '', true).replace(' loading="lazy"',''); };
 document.addEventListener('error', e => {
   const im = e.target; if (im.tagName !== 'IMG' || !im.dataset.n) return;
   const i = +im.dataset.i + 1;
@@ -255,7 +257,7 @@ const VIEWS = {
     <div class="tabs" role="tablist">${tabs}</div>${body}`;
   },
   gallery: () => {
-    const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作']];
+    const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作'],['work','WORK']];
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
     const body = {
       art: () => `<div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>`,
@@ -263,17 +265,25 @@ const VIEWS = {
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
       video: () => [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join(''),
       music: () => `<p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}`,
+      work: () => `<p class="lead">ご依頼で描かせていただいたもの</p>${WORK.length?`<div class="grid zoom">${WORK.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>`:`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
     return `${head('GALLERY','気に入らなくなったものは定期的に削除しています。どんなものを作るか　なんとなく知ってもらえたら嬉しいな')}
     <div class="tabs" role="tablist">${T.map(([k,t])=>`<a href="#gallery/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${t}</a>`).join('')}</div>
     ${body}`;
   },
+  event: () => {
+    const row = ([d,t,x]) => `<div class="box"><strong>${d}</strong>　${t}${x?'<br><span style="color:var(--sub)">'+x+'</span>':''}</div>`;
+    return `${head('EVENT','イベントの参加予定と参加記録')}
+    <h2>参加予定</h2>${EVENTS.upcoming.length?EVENTS.upcoming.map(row).join(''):'<div class="box" style="color:var(--sub)">（現在予定はありません）</div>'}
+    <h2>参加記録</h2>${EVENTS.past.length?EVENTS.past.map(row).join(''):'<div class="box" style="color:var(--sub)">（準備中：EVENTS.past に追加）</div>'}`;
+  },
+  award: () => `${head('受賞歴')}${AWARDS.length?AWARDS.map(([d,t])=>`<div class="box"><strong>${d}</strong>　${t}</div>`).join(''):'<div class="box" style="color:var(--sub)">（準備中：AWARDS に追加）</div>'}`,
   comic: () => `${head('漫画')}${COMIC.map(linkCard).join('')}`,
   about: () => `
     ${head('ABOUT')}<h2>自己紹介</h2>
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
-    ${ABOUT.blocks.map(([t,d,u])=>`<h2>${t}</h2><p>${d}</p>${A('見る',u,'btn')}`).join('')}`,
+    `,
   contact: () => {
     const T = [['mail',CONTACT.mail[0]], ...CONTACT.groups.map((g,i)=>['g'+i,g[0]])];
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'mail';
@@ -295,7 +305,7 @@ function route(to) {
   $('#main').innerHTML = VIEWS[key]();
   $('#nav').innerHTML = PAGES.map(([k,t])=>`<a href="#${k}" class="${k===key?'on':''}">${t}</a>`).join('');
   $('#nav').classList.remove('open'); $('#menu').setAttribute('aria-expanded','false');
-  document.title = (key==='home'?'':PAGES.find(p=>p[0]===key)[1]+' | ')+'砂上拠点電力発電所';
+  document.title = (key==='home'?'':(PAGES.find(p=>p[0]===key)||[0,'受賞歴'])[1]+' | ')+'砂上拠点電力発電所';
   if (!route.keep) scrollTo(0,0);
 }
 addEventListener('hashchange', () => { if (location.hash.slice(1) !== LAST) route(); });
