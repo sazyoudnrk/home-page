@@ -61,6 +61,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .gtabs a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:8px 10px;border:2px solid var(--line);border-radius:999px;background:var(--bg);color:var(--fg);text-decoration:none;font-weight:700;font-size:clamp(13px,3.8vw,16px);line-height:1.2;letter-spacing:.06em;text-align:center;box-shadow:0 0 0 3px #fff,0 0 0 4px var(--line);opacity:.85}
 .gtabs a.on{opacity:1;box-shadow:0 0 0 3px #fff,0 0 0 6px var(--line)}
 @media (min-width:700px){.gtabs{grid-template-columns:repeat(4,1fr);gap:18px}}
+.btn-back{display:inline-block;padding:7px 18px;border:1px solid #bbb;border-radius:999px;background:#f4f4f4;color:var(--ink);text-decoration:none;font-size:14px}
 .bdrow{text-align:right;margin:4px 0 18px}
 .bdrow a{display:inline-block;padding:5px 14px;border:1px solid #bbb;border-radius:999px;color:var(--sub);text-decoration:none;font-size:13px}
 .bdrow a.on{background:#eee;color:var(--ink)}
@@ -327,14 +328,14 @@ const VIEWS = {
       const rows = F.filter(([k])=>one[k]).map(([k,l])=>`<dt>${l}</dt><dd>${esc(one[k])}</dd>`).join('')
         + (one.extra||[]).map(([l,v])=>`<dt>${esc(l)}</dt><dd>${/^https?:/.test(v)?A(esc(v),v):esc(v)}</dd>`).join('');
       const paras = (one.detail||'').split(/\n\s*\n/).filter(Boolean).map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('');
-      body = `<p>${A('← '+grp.tab+'に戻る','#character/'+(grp.id==='main'?'':grp.id))}</p>
+      body = `<p>${A('← 戻る','#character/'+(grp.id==='main'?'':grp.id),'btn-back')}</p>
         <h2>${esc(one.name)}</h2>
         <div class="prof zoom">${one.portrait?galImg(one.portrait).replace('data-hide','data-x'):IMG('character',one.image,one.name)}<dl>${rows}</dl></div>
         ${paras?`<h3>詳細</h3>${paras}`:''}
         ${(one.gallery||[]).length?`<section class="gal" hidden><h3>ギャラリー</h3><div class="masonry zoom">${one.gallery.map(galImg).join('')}</div></section>`:''}`;
     } else if (SUB === 'design') {
       body = `<h2>デザインのみ</h2>
-      <p>${A('← 創作キャラに戻る','#character')}</p>
+      <p>${A('← 戻る','#character','btn-back')}</p>
       ${DESIGN ? `<div class="masonry zoom">${nums('design',DESIGN).map(n=>IMG('character',n)).join('')}</div>` : `<div class="box" style="color:var(--sub)">（画像未設定：DESIGN に枚数を入れて images/character/design01… を置く）</div>`}`;
     } else {
       const items = chars.filter(c=>c.group===grp.id);
