@@ -90,7 +90,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
-const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['event','EVENT'],['comic','COMIC'],['about','ABOUT'],['contact','CONTACT']];
+const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT']];
 
 const HOME = {
   top: ['top1','top2','top3'],               // images/top/top1.(jpg|png|webp)
@@ -272,7 +272,7 @@ const VIEWS = {
     <div class="tabs" role="tablist">${tabs}</div>${body}`;
   },
   gallery: () => {
-    const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作'],['work','WORK']];
+    const T = [['art','絵'],['made','制作物'],['cg','3DCG'],['video','動画'],['music','音楽'],['craft','工作'],['comic','漫画'],['work','WORK']];
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
     const body = {
       art: () => `<div class="masonry zoom">${nums('art',ART).map(n=>IMG('gallery',n)).join('')}</div>`,
@@ -281,6 +281,7 @@ const VIEWS = {
       video: () => [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join(''),
       music: () => `<p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}`,
       work: () => `<p class="lead">ご依頼で描かせていただいたものです。多分、skebも該当すると思います。<br>${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}</p>${WORK.length?`<div class="grid zoom">${WORK.map(x=>`<div${x.yt?' style="grid-column:1/-1"':''}>${x.yt?`<div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?IMG('gallery',x.img,x.t):''}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>`:`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
+      comic: () => COMIC.map(linkCard).join(''),
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
     return `${head('GALLERY','気に入らなくなったものは定期的に削除しています。どんなものを作るか　なんとなく知ってもらえたら嬉しいな')}
@@ -294,7 +295,6 @@ const VIEWS = {
     <h2>参加記録</h2><p class="lead">${EVENTS.note}</p>${EVENTS.past.map(row).join('')}<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`;
   },
   award: () => `${head('受賞歴','うれしかったことは忘れないように記録しておきたい')}${AWARDS.map(([d,t,pz,u,img])=>`<div class="box"><strong>${d}</strong><br>${u?A(t,u):t}${pz?'<br>'+pz:''}<div class="zoom" style="margin-top:8px">${IMG('award',img,t)}</div></div>`).join('')}`,
-  comic: () => `${head('漫画')}${COMIC.map(linkCard).join('')}`,
   about: () => `
     ${head('ABOUT')}<h2>自己紹介</h2>
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
