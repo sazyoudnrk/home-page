@@ -119,6 +119,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .prof .ph{width:100%;max-width:300px;aspect-ratio:3/4;background:none}
 .prof dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px}
 .prof dt{color:var(--sub)}.prof dd{margin:0;white-space:pre-line;overflow-wrap:anywhere}
+.more{margin:26px 0 0;padding:14px 16px 16px;background:#f4f5f7;border:1px solid #e3e5e8;border-radius:10px}.more h3{margin:0 0 10px;font-size:13px;color:var(--sub);font-weight:700}.mlinks{display:flex;flex-wrap:wrap;gap:8px}.mlinks .btn-back{background:#fff}
 .chlinks{display:flex;flex-wrap:wrap;gap:6px 18px;margin:18px 0 0}
 .chars img,.chars .ph{width:100%;aspect-ratio:119/303;object-fit:cover;object-position:center top;background:none;display:block;margin-bottom:8px}
 @media (max-width:420px){.chars{gap:20px 6px}.chars>*{font-size:12px}}
@@ -458,9 +459,10 @@ const VIEWS = {
       ${DESIGN ? `<div class="masonry zoom">${nums('design',DESIGN).map(n=>IMG('character',n)).join('')}</div>` : `<div class="box" style="color:var(--sub)">（画像未設定：DESIGN に枚数を入れて images/character/design01… を置く）</div>`}`;
     } else {
       const items = chars.filter(c=>c.group===grp.id);
-      body = `<h2${grp.color?` style="color:${grp.color}"`:''}>${esc(grp.heading)}${grp.song?` <small style="font-size:15px">${A('曲',grp.song)}</small>`:''}</h2>
+      body = `<h2${grp.color?` style="color:${grp.color}"`:''}>${esc(grp.heading)}</h2>
       <div class="chars">${items.map(c=>A(IMG('character',c.image,c.name)+esc(c.name),link(c))).join('')}</div>
-      <div class="chlinks">${grp.id==='main'?A('デザインのみ','#character/design'):''}${grp.world?A('世界観説明',grp.world==='#world'?'#world':grp.world):''}</div>`;
+      ${(()=>{ const ml = [...(grp.id==='main'?[['デザインのみ','#character/design']]:[]), ...(grp.song?[['曲',grp.song]]:[]), ...(grp.world?[['世界観説明',grp.world]]:[]), ...(grp.more||[])];   // more: [['小話','URL'],['漫画','URL']] をcharacters.jsonのグループに足せば増える
+        return ml.length ? `<div class="more"><h3>もっと知りたい人へ</h3><div class="mlinks">${ml.map(([t,u])=>A(t,u,'btn-back')).join('')}</div></div>` : ''; })()}`;
     }
     return `${head('CHARACTER','創作キャラクターの紹介　一部だけ立ち絵がある')}
     <div class="gtabs" role="tablist">${tabs}</div>${bdlink}${body}`;
