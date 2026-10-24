@@ -85,7 +85,9 @@ h3{font-size:17px;margin:20px 0 4px}
 .masonry{column-count:2;column-gap:8px}
 @media (min-width:700px){.masonry{column-count:4}}
 .masonry img,.masonry .ph{width:100%;margin-bottom:8px;display:block;background:#f3f3f3}
-.ph{display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--sub);padding:6px;text-align:center;word-break:break-all;min-height:90px}
+/* 画像が無いときの仮の枠：透明を示す格子（文字は出さない） */
+.ph{display:block;font-size:0;color:transparent;padding:0;min-height:90px;aspect-ratio:3/4;background:#fff conic-gradient(#d8d8d8 25%,#fff 0 50%,#d8d8d8 0 75%,#fff 0) 0 0/16px 16px !important;outline:1px solid #e2e2e2;outline-offset:-1px}
+.grid .ph,.card .ph,.slides .ph{aspect-ratio:auto}
 .card{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center}
 .card img,.card .ph{width:96px;height:96px;object-fit:cover}
 .card h3{margin:0;font-size:16px}.card p{margin:0;font-size:14px;color:var(--sub)}
@@ -287,7 +289,7 @@ document.addEventListener('error', e => {
   const i = +im.dataset.i + 1;
   if (i < EXTS.length) { im.dataset.i = i; im.src = `images/${im.dataset.d}/${im.dataset.n}.${EXTS[i]}?v=${IMGV}`; return; }
   if (im.dataset.hide) { im.remove(); return; }
-  im.outerHTML = `<div class="ph">images/${im.dataset.d}/${im.dataset.n}</div>`;
+  im.outerHTML = `<div class="ph" title="images/${im.dataset.d}/${im.dataset.n}"></div>`;
 }, true);
 document.addEventListener('load', e => { const g = e.target.closest && e.target.closest('.gal'); if (g) g.hidden = false; }, true);
 const nums = (p,n) => Array.from({length:n},(_,i)=>p+String(i+1).padStart(2,'0'));
