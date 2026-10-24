@@ -84,6 +84,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .tags a{font-size:13px;padding:2px 10px;border:1px solid var(--line);text-decoration:none}
 .chars{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 8px}
+@media (min-width:700px){.chars{grid-template-columns:repeat(6,1fr)}}  /* スマホ=4列、PC=6列 */
 .chars>*{display:block;color:var(--ink);text-decoration:none;font-size:13px;line-height:1.5}
 .prof{display:grid;grid-template-columns:minmax(0,46%) 1fr;gap:16px;align-items:start;margin:8px 0 16px}
 .prof img{width:100%;max-width:300px;height:auto;display:block}
