@@ -38,8 +38,8 @@ h3{font-size:17px;margin:20px 0 4px}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
 .slides img,.slides .ph{flex:none;width:100%;aspect-ratio:1.4;object-fit:cover;scroll-snap-align:start;background:#eee}
-.arr{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:52px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 1px 4px rgba(0,0,0,.45))}
-.arr.l{left:8%}.arr.r{right:8%}
+.arr{position:absolute;top:50%;transform:translateY(-50%);width:26px;height:42px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 1px 4px rgba(0,0,0,.45))}
+.arr.l{left:2px}.arr.r{right:2px}
 .arr svg{width:100%;height:100%;stroke:#fff;stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
 .cpanel{border:1px solid #ddd;border-radius:26px;padding:6px 12px;margin:2px 0 14px}
@@ -351,6 +351,15 @@ document.addEventListener('click', e => {
   if (im) { $('#lb img').src = im.src; $('#lb').classList.add('open'); return; }
   if (e.target.closest('#lb')) $('#lb').classList.remove('open');
 });
+/* ホームのスライドを自動送り（触っている間と、触ってから6秒は止める） */
+let slideTouch = 0;
+['pointerdown','touchstart','wheel','mouseover'].forEach(ev => document.addEventListener(ev, e => { if (e.target.closest && e.target.closest('.hero')) slideTouch = Date.now(); }, {passive:true}));
+setInterval(() => {
+  const el = $('#slides'); if (!el || document.hidden || Date.now() - slideTouch < 6000) return;
+  const w = el.clientWidth, max = el.scrollWidth - w; if (max <= 0) return;
+  let x = el.scrollLeft + w; if (x > max + 1) x = 0;
+  el.scrollTo({left:x, behavior:'smooth'});
+}, 4500);
 addEventListener('keydown', e => { if (e.key === 'Escape') $('#lb').classList.remove('open'); });
 </script>
 </body>
