@@ -17,7 +17,7 @@
    "heading": "LoopBackDream",
    "color": "#f06f9d",
    "song": "https://youtu.be/F06fFl3unLE?si=vwnrwZdy_yNKtSz8",
-   "world": "",
+   "world": "#world/lbd",
    "tabBg": "#f478a3",
    "tabFg": "#ffffff",
    "tabLine": "#f478a3"
@@ -28,7 +28,7 @@
    "heading": "魔法創作",
    "color": "#a0386a",
    "song": "https://soundcloud.com/sazyoudenryoku/6e8gmqv7wooe",
-   "world": "#world",
+   "world": "#world/magic",
    "tabBg": "#808080",
    "tabFg": "#ffffff",
    "tabLine": "#808080"

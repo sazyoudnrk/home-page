@@ -360,7 +360,7 @@ const TERMS = {
 };
 
 /* 世界観説明（旧サイトから移植。h=見出し、p=段落（\n は改行）。tail は末尾の補足） */
-const WORLD = [
+const WORLD_MAGIC = [
  {
   "h": "ディレクロード",
   "p": [
@@ -410,6 +410,11 @@ const WORLD = [
  }
 ];
 
+const WORLDS = {
+  magic: {t:'魔法創作', back:'#character/magic', s: WORLD_MAGIC},
+  lbd: {t:'LoopBackDream', back:'#character/lbd', s: [{"h": "", "p": ["目が覚めたら作りの粗雑なベッドだらけの空間で目が覚めた渚。延々と不可解な部屋の続く空間で、にににと王様に出会う。\nどこに行っても意味がないまま、自分を思い出すために空間を徘徊する。", "空間は延々と続いている。\nシンボルのある象徴的空間と、入るたび構造がかわる乱数空間のに種類がある。", "渚は記憶を失っている。\n最後に何か大量に飲んだのは覚えていて、おそらく死後の世界ではないかと思っている。", "死んだものは葬儀箱という黒い箱になり、蘇生箱という機械にかけると生き返ることができる。\n乱数区間で葬儀箱になり、空間が書き換わると復元不可能となる。", "復元不可能になった葬儀箱はドルチェという黒い生き物になる。直接刺激されなければ反応は鈍くうごかない。"]}]}
+};
+
 const VIEWS = {
   home: () => `
     <div class="hero"><div class="slides" id="slides">${HOME.top.map(n=>IMG('top',n)).join('')}</div>
@@ -421,9 +426,10 @@ const VIEWS = {
     <div id="counter" hidden></div>
     <h2>更新記録</h2>
     <ul class="log">${HOME.log.map(([d,t])=>`<li><time>${d}</time><span>${t}</span></li>`).join('')}</ul>`,
-  world: () => `${head('世界観説明','魔法創作（ディレクロード）の設定')}
-    <p>${A('← 戻る','#character/magic','btn-back')}</p>
-    ${WORLD.map(w=>`${w.tail?'<hr style="border:0;border-top:1px solid var(--line);margin:28px 0">':''}${w.h?`<h2>${esc(w.h)}</h2>`:''}${w.p.map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('')}`).join('')}`,
+  world: () => { const W = WORLDS[SUB] || WORLDS.magic;
+    return `${head('世界観説明', W.t)}
+    <p>${A('← 戻る',W.back,'btn-back')}</p>
+    ${W.s.map(w=>`${w.tail?'<hr style="border:0;border-top:1px solid var(--line);margin:28px 0">':''}${w.h?`<h2>${esc(w.h)}</h2>`:''}${w.p.map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('')}`).join('')}`; },
   terms: () => `${head('利用規約')}
     <p>${A('← 戻る','#download','btn-back')}</p>
     ${TERMS.intro.map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('')}
