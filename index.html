@@ -169,9 +169,9 @@ const WORK = [
   {img:'work02',t:'SLASH様 PRイラスト',d:'2022年10月',u:'https://twitter.com/sazyou_dnrk/status/1585604269956558848'}
 ];
 /* イベント：予定は upcoming、参加履歴は past に ['日付','イベント名','内容'] を追加 */
-const EVENTS = { upcoming: [['申込完了','COMITIA158','' /* 開催日が分かったら3つ目に */]], past: [
-  ['','COMITIA156'],['','名古屋COMITIA68'],['','関西コミティア75'],['','COMITIA153'],['','COMITIA150'],['','COMITIA149'],['','COMITIA146'],['','COMITIA144'],['','COMITIA143'],['','COMITIA139'],['','COMITIA131（爆発うどん名義・初参加）']
-], note: '今後更新予定。こうしんできてないぜ去りな！', flyers: ['event01','event02'] };
+const EVENTS = { upcoming: [['2026年12月','COMITIA158']], past: [
+  ['2026年6月','COMITIA156'],['','名古屋COMITIA68' /* 年月が分かったら先頭に */],['','関西コミティア75' /* 年月が分かったら先頭に */],['2025年9月','COMITIA153'],['2024年11月','COMITIA150'],['2024年8月','COMITIA149'],['2023年12月','COMITIA146'],['2023年5月','COMITIA144'],['2023年2月','COMITIA143'],['2022年2月','COMITIA139'],['2020年2月','COMITIA131（爆発うどん名義・初参加）']
+], flyers: ['event01','event02'] };
 /* 受賞記録（フッターの「受賞歴」から開く隠しページ）：['年月','賞名・内容'] */
 const AWARDS = [
   ['2021年6月','ワコム塗りコン','裕さん賞','https://tablet.wacom.co.jp/article/nuricon-2021-result','award01'],
@@ -303,7 +303,7 @@ const VIEWS = {
     const row = ([d,t,x]) => `<div class="box">${d?'<strong>'+d+'</strong>　':''}${t}${x?'<br><span style="color:var(--sub)">'+x+'</span>':''}</div>`;
     return `${head('EVENT','イベントの参加予定と参加記録')}
     <h2>参加予定</h2>${EVENTS.upcoming.length?EVENTS.upcoming.map(row).join(''):'<div class="box" style="color:var(--sub)">（現在予定はありません）</div>'}
-    <h2>参加記録</h2><p class="lead">${EVENTS.note}</p>${EVENTS.past.map(row).join('')}<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`;
+    <h2>参加記録</h2>${EVENTS.past.map(row).join('')}<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`;
   },
   award: () => `${head('受賞歴','うれしかったことは忘れないように記録しておきたい')}${AWARDS.map(([d,t,pz,u,img])=>`<div class="box"><strong>${d}</strong><br>${u?A(t,u):t}${pz?'<br>'+pz:''}<div class="zoom" style="margin-top:8px">${IMG('award',img,t)}</div></div>`).join('')}`,
   about: () => `
