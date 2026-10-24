@@ -127,6 +127,7 @@ h3{font-size:17px;margin:20px 0 4px}
 #mm h3{margin:0 0 10px;font-size:14px;color:var(--sub);display:flex;justify-content:space-between;align-items:center}
 #mm h3 button{border:0;background:none;font-size:22px;line-height:1;color:var(--sub);padding:0 4px;cursor:pointer}
 #mm .mrow{display:block;padding:13px 14px;margin:0 0 8px;border:1px solid #e3e5e8;border-radius:12px;background:#f4f5f7;color:var(--ink);text-decoration:none;font-size:15px;font-weight:700}
+#mm .mrow small{display:block;margin-top:2px;font-size:12px;font-weight:400;color:var(--sub);line-height:1.5}
 #mm .mrow.off{color:var(--sub);font-weight:400;border-style:dashed;background:#fff}
 .chlinks{display:flex;flex-wrap:wrap;gap:6px 18px;margin:18px 0 0}
 .chars img,.chars a .ph{width:100%;aspect-ratio:119/303;object-fit:cover;object-position:center top;background:none;display:block;margin-bottom:8px}
@@ -479,7 +480,7 @@ const VIEWS = {
       <div class="chars">${items.map(c=>A(IMG('character',c.image,c.name)+esc(c.name),link(c))).join('')}${grp.id==='main'?A(IMG('character','design','デザインのみ')+'デザインのみ','#character/design'):''}</div>
       ${(()=>{ if (grp.noMore) return ''; MOREL = grp.songs || [];
         const sg = MOREL.length > 1 ? `<button type="button" class="btn-back" id="songbtn">曲 ＋</button>` : MOREL.length === 1 ? A('曲',MOREL[0][1],'btn-back') : `<span class="btn-back off">曲（準備中）</span>`;
-        const wd = grp.world ? A('世界観',grp.world,'btn-back') : `<span class="btn-back off">世界観（準備中）</span>`;   // 曲が複数ならgroupsのsongsに [['曲名','URL'],…] を足すと、押したときポップアップで選べる
+        const wd = grp.world ? A('世界観',grp.world,'btn-back') : `<span class="btn-back off">世界観（準備中）</span>`;   // 曲が複数ならgroupsのsongsに [['曲名','URL','説明（省略可）'],…] を足すと、押したときポップアップで選べる
         return `<div class="more"><h3>more</h3><div class="mlinks">${wd}${sg}${(grp.more||[]).map(([t,u])=>A(t,u,'btn-back')).join('')}</div></div>`; })()}`;
     }
     return `${head('CHARACTER','創作キャラクターの紹介　一部だけ立ち絵がある')}
@@ -580,7 +581,7 @@ document.addEventListener('click', e => {
   if (sl) { const el = $('#slides'), w = el.clientWidth, max = el.scrollWidth - w; let x = el.scrollLeft + (+sl.dataset.slide) * w; if (x > max + 1) x = 0; if (x < 0) x = max; el.scrollTo({left:x, behavior:'smooth'}); return; }
   if (e.target.closest('#songbtn')) {
     $('#mmt').textContent = '曲';
-    $('#mmlist').innerHTML = MOREL.map(([t,u])=>A(t,u,'mrow')).join('');
+    $('#mmlist').innerHTML = MOREL.map(([t,u,d])=>A(esc(t)+(d?`<small>${esc(d)}</small>`:''),u,'mrow')).join('');
     $('#mm').classList.add('open'); return;
   }
   if (e.target.closest('#mmx') || e.target.id === 'mm' || e.target.closest('#mmlist a')) $('#mm').classList.remove('open');
