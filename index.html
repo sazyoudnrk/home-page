@@ -67,7 +67,7 @@ h3{font-size:17px;margin:20px 0 4px}
 .chrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .cnav{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--sub)}
 .cnav .btn-back{padding:7px 16px;font-size:18px;line-height:1}
-.bdrow{text-align:right;margin:4px 0 18px}
+.bdrow{text-align:right;margin:4px 0 18px}.lpills{text-align:left;display:flex;gap:8px;flex-wrap:wrap}
 .bdrow a{display:inline-block;padding:5px 14px;border:1px solid #bbb;border-radius:999px;color:var(--sub);text-decoration:none;font-size:13px}
 .bdrow a.on{background:#eee;color:var(--ink)}
 .chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
@@ -177,9 +177,13 @@ const TERMS_URL = 'https://nanashie.wixsite.com/sazyou/blank-27'; /* TODO: 利�
 
 /* キャラクターのデータは characters.json（groups / characters）に入っています */
 let CH = null, CHERR = false;
-const F = [['gender','性別'],['age','年齢'],['firstPerson','一人称'],['secondPerson','二人称'],['likes','好きなもの'],['dislikes','苦手なもの'],['birthday','誕生日'],['created','作成日']];
+const F = [['gender','性別'],['age','年齢'],['height','身長'],['firstPerson','一人称'],['secondPerson','二人称'],['likes','好きなもの'],['dislikes','苦手なもの'],['birthday','誕生日'],['created','作成日']];
 const hasProfile = c => F.some(([k])=>c[k]) || c.detail || (c.extra && c.extra.length);
 const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const noval = v => !v || /^(unknown|不明|未設定|不詳)$/i.test(String(v).trim());   // 作成日・身長は無いとき表示しない
+const LISTS = {birthday:'誕生日順', created:'作成日順', height:'身長順'};
+const cdate = c => { const m = /^(\d{2,4})\s*\/\s*(\d+)\s*\/\s*(\d+)/.exec(c.created||''); return m ? ((+m[1]<100?2000+ +m[1]:+m[1])*10000 + +m[2]*100 + +m[3]) : 0; };
+const hgt = c => { const m = /(\d+(?:\.\d+)?)/.exec(c.height||''); return m ? +m[1] : 0; };
 const bd = c => { const m = /(\d+)\s*[\/月-]\s*(\d+)/.exec(c.birthday||''); return m ? +m[1]*100 + +m[2] : 0; };
 
 const DESIGN = 0;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
@@ -325,15 +329,18 @@ const VIEWS = {
     const chars = CH.characters, groups = CH.groups;
     const one = chars.find(c=>c.id===SUB);
     const grp = one ? groups.find(g=>g.id===one.group) : groups.find(g=>g.id===SUB) || groups[0];
-    const tabs = groups.map(g=>{ const on = g===grp&&SUB!=='birthday'; return `<a href="#character/${g.id==='main'?'':g.id}" role="tab" aria-selected="${on}" class="${on?'on':''}" style="--bg:${g.tabBg||'#fff'};--fg:${g.tabFg||'#333'};--line:${g.tabLine||'#333'}">${g.tab}</a>`; }).join('');
-    const bdlink = `<div class="bdrow"><a href="#character/birthday" class="${SUB==='birthday'?'on':''}">🎂 誕生日一覧</a></div>`;
+    const tabs = groups.map(g=>{ const on = g===grp&&!LISTS[SUB]; return `<a href="#character/${g.id==='main'?'':g.id}" role="tab" aria-selected="${on}" class="${on?'on':''}" style="--bg:${g.tabBg||'#fff'};--fg:${g.tabFg||'#333'};--line:${g.tabLine||'#333'}">${g.tab}</a>`; }).join('');
+    const isList = !!LISTS[SUB];
+    const bdlink = `<div class="bdrow"><a href="#character/birthday" class="${isList?'on':''}">📋 一覧</a></div>`;
     const link = c => hasProfile(c) ? '#character/'+c.id : c.link;
     let body;
-    if (SUB === 'birthday') {
-      const list = chars.filter(bd).sort((a,b)=>bd(a)-bd(b));
-      body = `<h2>誕生日</h2>` + (list.length ? `<ul class="log">${list.map(c=>`<li><time>${esc(c.birthday)}</time><span>${A(esc(c.name),link(c))}</span></li>`).join('')}</ul>` : `<div class="box" style="color:var(--sub)">誕生日が登録されたキャラがここに並びます</div>`);
+    if (LISTS[SUB]) {
+      const ex = {birthday:[bd,c=>c.birthday], created:[cdate,c=>c.created], height:[hgt,c=>c.height]}[SUB];
+      const list = chars.filter(c=>ex[0](c)>0 && (SUB==='birthday'||!noval(ex[1](c)))).sort((a,b)=>ex[0](a)-ex[0](b));
+      const pills = Object.entries(LISTS).map(([k,t])=>`<a href="#character/${k}" class="${k===SUB?'on':''}">${t}</a>`).join('');
+      body = `<h2>一覧</h2><div class="bdrow lpills">${pills}</div>` + (list.length ? `<ul class="log">${list.map(c=>`<li><time>${esc(ex[1](c))}</time><span>${A(esc(c.name),link(c))}</span></li>`).join('')}</ul>` : `<div class="box" style="color:var(--sub)">登録されたキャラがここに並びます</div>`);
     } else if (one) {
-      const rows = F.filter(([k])=>one[k]).map(([k,l])=>`<dt>${l}</dt><dd>${esc(one[k])}</dd>`).join('')
+      const rows = F.filter(([k])=>one[k] && !((k==='created'||k==='height') && noval(one[k]))).map(([k,l])=>`<dt>${l}</dt><dd>${esc(one[k])}</dd>`).join('')
         + (one.extra||[]).map(([l,v])=>`<dt>${esc(l)}</dt><dd>${/^https?:/.test(v)?A('開く',v):esc(v)}</dd>`).join('');
       const paras = (one.detail||'').split(/\n\s*\n/).filter(Boolean).map(t=>`<p>${esc(t).replace(/\n/g,'<br>')}</p>`).join('');
       const sib = chars.filter(c=>c.group===one.group && hasProfile(c)), si = sib.indexOf(one);
