@@ -41,6 +41,12 @@ h3{font-size:17px;margin:20px 0 4px}
 .arr{position:absolute;top:50%;transform:translateY(-50%);width:26px;height:42px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 1px 4px rgba(0,0,0,.45))}
 .arr.l{left:2px}.arr.r{right:2px}
 .arr svg{width:100%;height:100%;stroke:#fff;stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.wk{margin:0 0 34px}
+.wk time{display:block;font-size:14px;color:var(--sub)}
+.wk h3{margin:2px 0 8px;font-size:16px;font-weight:400;line-height:1.5}
+.wk p{margin:0 0 8px}
+.wk img{display:block;width:auto;max-width:100%;max-height:520px;height:auto}
+.wkv{aspect-ratio:16/9;max-width:560px}.wkv iframe{width:100%;height:100%;border:0}
 .chead{margin:22px 0 0;padding:14px 10px;border-radius:999px;background:var(--btn);color:#fff;text-align:center;font-weight:700;font-size:18px;letter-spacing:.08em}
 .cpanel{border:1px solid #ddd;border-radius:26px;padding:6px 12px;margin:2px 0 14px}
 .ctabs{display:flex;gap:3px;margin:14px 0 2px}
@@ -291,7 +297,7 @@ const VIEWS = {
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
       video: () => [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です']].map(([k,t,d])=>`<h3>${t}</h3><p class="lead">${d}</p>${VIDEOS[k].length?VIDEOS[k].map(([n,id])=>`<div class="box"><div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${id}" title="${n}" loading="lazy" allowfullscreen></iframe></div>${n}</div>`).join(''):`<div class="box" style="color:var(--sub)">（動画未設定：VIDEOS.${k} にYouTube IDを追加）</div>`}`).join(''),
       music: () => `<p class="lead">自作音源のUTAUカバーが多め</p>${A('SoundCloudで聴く',MUSIC_URL,'btn')}`,
-      work: () => `<p class="lead">ご依頼で描かせていただいたものです。多分、skebも該当すると思います。<br>${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}</p>${WORK.length?`<div class="grid zoom">${WORK.map(x=>`<div${x.yt?' style="grid-column:1/-1"':''}>${x.yt?`<div style="aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:0" src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?IMG('gallery',x.img,x.t):''}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>`:`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
+      work: () => `<p class="lead">ご依頼で描かせていただいたものです。<br>多分、skebも該当すると思います。${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}</p>${WORK.length?WORK.map(x=>`<div class="wk"><time>${x.d||''}</time><h3>■${x.u?A(x.t,x.u):x.t}</h3>${x.yt?`<div class="wkv"><iframe src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?`<div class="zoom">${IMG('gallery',x.img,x.t)}</div>`:''}</div>`).join(''):`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}`,
       comic: () => COMIC.map(linkCard).join(''),
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
@@ -305,7 +311,7 @@ const VIEWS = {
     <h2>参加予定</h2>${EVENTS.upcoming.length?EVENTS.upcoming.map(row).join(''):'<div class="box" style="color:var(--sub)">（現在予定はありません）</div>'}
     <h2>参加記録</h2>${EVENTS.past.map(row).join('')}${EVENTS.flyers.length?`<div class="grid zoom">${EVENTS.flyers.map(n=>IMG('event',n)).join('')}</div>`:''}`;
   },
-  award: () => `${head('受賞歴','うれしかったことは忘れないように記録しておきたい')}${AWARDS.map(([d,t,pz,u,img])=>`<div class="box"><strong>${d}</strong><br>${u?A(t,u):t}${pz?'<br>'+pz:''}<div class="zoom" style="margin-top:8px">${IMG('award',img,t)}</div></div>`).join('')}`,
+  award: () => `${head('受賞歴','うれしかったことは忘れないように記録しておきたい')}${AWARDS.map(([d,t,pz,u,img])=>`<div class="wk"><time>${d}</time><h3>■${u?A(t,u):t}</h3>${pz?`<p>${pz}</p>`:''}<div class="zoom">${IMG('award',img,t)}</div></div>`).join('')}`,
   about: () => `
     ${head('ABOUT')}<h2>自己紹介</h2>
     ${ABOUT.intro.map(t=>`<p>${t}</p>`).join('')}
