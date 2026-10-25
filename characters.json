@@ -297,7 +297,11 @@
       "birthday": "",
       "created": "unknown",
       "detail": "ゲームづくりが趣味だった\n一般労働者として心をすり減らして生きていた\n夢は叶わなかった\nあの人に勝ちたかった\n\n\n外面を取り繕うために胡散臭く笑うことがある\n面白い催しには積極的に首を突っ込む性格\n大体の物事に好意的に取り組む。正直に文句も言う\n運がない",
-      "gallery": [],
+      "gallery": [
+        "character-gallery/nagisa/02",
+        "character-gallery/nagisa/03",
+        "character-gallery/nagisa/04"
+      ],
       "portrait": "character-gallery/nagisa/01",
       "height": "170cm"
     },
