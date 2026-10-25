@@ -408,7 +408,10 @@
       "birthday": "",
       "created": "",
       "detail": "",
-      "gallery": [],
+      "gallery": [
+        "character-gallery/cakechi/02",
+        "character-gallery/cakechi/03"
+      ],
       "portrait": null
     },
     {
@@ -444,7 +447,9 @@
       "birthday": "",
       "created": "",
       "detail": "",
-      "gallery": [],
+      "gallery": [
+        "character-gallery/ragna/02"
+      ],
       "portrait": null
     },
     {

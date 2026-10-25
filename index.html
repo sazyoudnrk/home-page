@@ -215,7 +215,7 @@ const TERMS_URL = '#terms';
 /* キャラクターのデータは characters.json（groups / characters）に入っています */
 let CH = null, CHERR = false, POP = {};
 const F = [['gender','性別'],['age','年齢'],['height','身長'],['firstPerson','一人称'],['secondPerson','二人称'],['likes','好きなもの'],['dislikes','苦手なもの'],['birthday','誕生日'],['created','作成日']];
-const hasProfile = c => F.some(([k])=>c[k]) || c.detail || (c.extra && c.extra.length);
+const hasProfile = c => F.some(([k])=>c[k]) || c.detail || (c.extra && c.extra.length) || (c.gallery && c.gallery.length);
 const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const noval = v => !v || /^(unknown|不明|未設定|不詳)$/i.test(String(v).trim());   // 作成日・身長は無いとき表示しない
 const LISTS = {birthday:'誕生日順', created:'作成日順', height:'身長順'};
