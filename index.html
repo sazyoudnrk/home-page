@@ -226,6 +226,7 @@ const bd = c => { const m = /(\d+)\s*[\/月-]\s*(\d+)/.exec(c.birthday||''); ret
 const DESIGN_BASE = 9;                          // 元のWixサイトから移した最初の枚数（この並びは固定）
 const DESIGN = 10;                              // 「デザインのみ」の枚数 → images/character/design01…（0のうちは未設定表示）
 const ART_NEW = ['art26'];                    // 新しい絵はここに足すと一番上に出ます（images/gallery/art26.jpg …）
+const CRAFT_NEW = ['craft14','craft15','craft16'];   // 新しい工作はここに足すと一番上に出ます（images/gallery/craft14.jpg …）
 const ART = 25, CRAFT = 13;                   // images/gallery/art01…, craft01…
 const APPS = [  /* プロフィールサイトの「WEB APPS」に載っているアプリ。u はリンク先 */
   ['クソ俳句同好会','匿名でクソ俳句を詠もう！','https://sazyoudnrk.github.io/shitty-haiku-club/'],
@@ -555,7 +556,7 @@ const VIEWS = {
       work: () => `<p class="lead">ご依頼で描かせていただいたものです。</p><p>■コミッション（リンク先に作例）<br>skeb：${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}<br>skeb：${A('https://skeb.jp/@kazyou_dnrk','https://skeb.jp/@kazyou_dnrk')}</p>${WORK.length?WORK.map(x=>`<div class="wk"><time>${x.d||''}</time><h3>■${x.u?A(x.t,x.u):x.t}</h3>${x.yt?`<div class="wkv"><iframe src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?`<div class="zoom">${IMG('gallery',x.img,x.t)}</div>`:''}</div>`).join(''):`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}<h2>受賞歴</h2><p class="lead">うれしかったことは忘れないように記録しておきたい</p>${AWARDS.map(([d,t,pz,u,img])=>`<div class="wk"><time>${d}</time><h3>■${u?A(t,u):t}</h3>${pz?`<p>${pz}</p>`:''}<div class="zoom">${IMG('award',img,t)}</div></div>`).join('')}`,
       comic: () => { const sec = COMIC_SEC.find(c=>c.id===SUB2) || COMIC_SEC[0];
         return `<div class="bdrow lpills" style="margin:6px 0 12px">${COMIC_SEC.map(c=>`<a href="#gallery/comic/${c.id}" class="${c===sec?'on':''}">${c.t}</a>`).join('')}</div>` + (sec.n ? `<div class="masonry zoom">${nums(sec.id,sec.n).reverse().map(n=>IMG('comic',n)).join('')}</div>` : `<div class="box" style="color:var(--sub)">（準備中）</div>`) + `<div style="margin-top:24px">${COMIC.map(linkCard).join('')}</div>`; },
-      craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
+      craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${[...CRAFT_NEW,...nums('craft',CRAFT)].map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
     return `${head('GALLERY','私はこんなものを作ります')}
     <div class="tabs" role="tablist">${T.map(([k,t])=>`<a href="#gallery/${k}" role="tab" aria-selected="${k===cur}" class="${k===cur?'on':''}">${t}</a>`).join('')}</div>
