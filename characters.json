@@ -402,20 +402,21 @@
       "name": "けきち",
       "image": "cakechi",
       "link": "",
-      "gender": "",
-      "age": "",
-      "firstPerson": "",
-      "secondPerson": "",
-      "likes": "",
-      "dislikes": "",
+      "gender": "わかんない！",
+      "age": "わかんない！",
+      "firstPerson": "けき",
+      "secondPerson": "にんげん",
+      "likes": "れいぞう",
+      "dislikes": "じょうおん　ニトロ",
       "birthday": "",
       "created": "",
-      "detail": "",
+      "detail": "けきはけき！\nけきはでっかいケーキなるのゆめ！\nしかしじょうおんはかこく……\n\nニトロに作られた動くケーキ\nニトロ曰く、喋るだけで生きてないから食べても大丈夫とのこと。ほんとだろうか……\n一部が欠けると修復して元に戻る。\n食べられることに肯定的だが、ニトロにだけは食べられたくないと逃げ回る。\n食品衛生のことを考えると食べない方が良さげ。",
       "gallery": [
         "character-gallery/cakechi/02",
         "character-gallery/cakechi/03"
       ],
-      "portrait": null
+      "portrait": null,
+      "height": "50cmくらい"
     },
     {
       "id": "aste",
