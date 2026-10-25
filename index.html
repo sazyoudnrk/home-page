@@ -536,7 +536,7 @@ const VIEWS = {
       ${(()=>{ if (grp.noMore) return ''; POP = {曲: grp.songs || [], 動画: grp.videos || []};
         const pill = (k, always) => { const l = POP[k]; return l.length > 1 ? `<button type="button" class="btn-back" data-pop="${k}">${k} ＋</button>` : l.length === 1 ? A(k,l[0][1],'btn-back') : always ? `<span class="btn-back off">${k}（準備中）</span>` : ''; };
         const wd = grp.world ? A('世界観',grp.world,'btn-back') : `<span class="btn-back off">世界観（準備中）</span>`;   // 曲・動画が複数なら groups の songs / videos に [['名前','URL','説明（省略可）'],…] を足すと、押したときポップアップで選べる
-        return `<div class="more"><h3>more</h3><div class="mlinks">${wd}${pill('曲',true)}${pill('動画',false)}${(grp.more||[]).map(([t,u])=>A(t,u,'btn-back')).join('')}</div></div>`; })()}`;
+        return `<div class="more"><h3>more</h3><div class="mlinks">${wd}${pill('曲',true)}${pill('動画',false)}${grp.comic ? A('漫画',grp.comic,'btn-back') : ''}${(grp.more||[]).map(([t,u])=>A(t,u,'btn-back')).join('')}</div></div>`; })()}`;
     }
     return `${head('CHARACTER','創作キャラクターの紹介　一部だけ立ち絵がある')}
     <div class="gtabs" role="tablist">${tabs}</div>${bdlink}${body}`;
