@@ -254,10 +254,9 @@ const VIDEOS = {
 };
 const MUSIC_URL = 'https://soundcloud.com/sazyoudenryoku';
 
-/* 漫画タブの下に並ぶ、1ページ漫画・落書きの置き場（新しい番号ほど上に表示）。枚数を入れて images/comic/<id>01.jpg … を置く（0のうちは「準備中」表示） */
+/* 漫画タブ内の切り替えタブ。images/comic/<id>01.jpg … を置いて枚数を n に入れる（新しい番号ほど上に表示）。落書きを足すときは {id:'rakugaki', t:'落書き', n:枚数} を追加 */
 const COMIC_SEC = [
   {id:'sozo',     t:'創作キャラ',     n:13},
-  {id:'rakugaki', t:'落書き',         n:0},
   {id:'lbd',      t:'LoopBackDream', n:4}
 ];
 const COMIC = [
@@ -554,7 +553,8 @@ const VIEWS = {
         return [['original','オリジナル曲','生きていれば音楽を作ることもある'],['cover','カバー','自作音源のUTAU（注寝ととと）のカバー動画です'],['cg3d','3DCG',''],['misc','雑多','']].map(([k,t,d])=>`<h2>${t}</h2>${d?`<p class="lead">${d}</p>`:''}<div class="vgrid">${VIDEOS[k].map(card).join('')}</div>`).join(''); },
       music: () => `<p class="lead">自作音源のUTAUカバーが多め　音楽が聴ける</p><iframe class="sc" title="SoundCloud" loading="lazy" allow="autoplay" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(MUSIC_URL)}&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe><p style="font-size:12px">${A('SoundCloudで開く',MUSIC_URL)}</p>`,
       work: () => `<p class="lead">ご依頼で描かせていただいたものです。</p><p>■コミッション（リンク先に作例）<br>skeb：${A('https://skeb.jp/@sazyou_dnrk','https://skeb.jp/@sazyou_dnrk')}<br>skeb：${A('https://skeb.jp/@kazyou_dnrk','https://skeb.jp/@kazyou_dnrk')}</p>${WORK.length?WORK.map(x=>`<div class="wk"><time>${x.d||''}</time><h3>■${x.u?A(x.t,x.u):x.t}</h3>${x.yt?`<div class="wkv"><iframe src="https://www.youtube.com/embed/${x.yt}" title="${x.t}" loading="lazy" allowfullscreen></iframe></div>`:x.img?`<div class="zoom">${IMG('gallery',x.img,x.t)}</div>`:''}</div>`).join(''):`<div class="box" style="color:var(--sub)">（準備中：WORK に作品を追加）</div>`}<h2>受賞歴</h2><p class="lead">うれしかったことは忘れないように記録しておきたい</p>${AWARDS.map(([d,t,pz,u,img])=>`<div class="wk"><time>${d}</time><h3>■${u?A(t,u):t}</h3>${pz?`<p>${pz}</p>`:''}<div class="zoom">${IMG('award',img,t)}</div></div>`).join('')}`,
-      comic: () => COMIC.map(linkCard).join('') + COMIC_SEC.map(c=>`<h2>${c.t}</h2>${c.n?`<div class="masonry zoom">${nums(c.id,c.n).reverse().map(n=>IMG('comic',n)).join('')}</div>`:`<div class="box" style="color:var(--sub)">（準備中）</div>`}`).join(''),
+      comic: () => { const sec = COMIC_SEC.find(c=>c.id===SUB2) || COMIC_SEC[0];
+        return COMIC.map(linkCard).join('') + `<div class="bdrow lpills" style="margin:6px 0 12px">${COMIC_SEC.map(c=>`<a href="#gallery/comic/${c.id}" class="${c===sec?'on':''}">${c.t}</a>`).join('')}</div>` + (sec.n ? `<div class="masonry zoom">${nums(sec.id,sec.n).reverse().map(n=>IMG('comic',n)).join('')}</div>` : `<div class="box" style="color:var(--sub)">（準備中）</div>`); },
       craft: () => `<p class="lead">色々やるよ</p><div class="grid zoom">${nums('craft',CRAFT).map(n=>IMG('gallery',n)).join('')}</div>`
     }[cur]();
     return `${head('GALLERY','私はこんなものを作ります')}
@@ -586,10 +586,10 @@ const VIEWS = {
   }
 };
 
-let SUB = '', LAST = '';
+let SUB = '', SUB2 = '', LAST = '';
 function route(to) {
-  const [id, sub] = (to || location.hash.slice(1) || 'home').split('/');
-  SUB = sub || '';
+  const [id, sub, sub2] = (to || location.hash.slice(1) || 'home').split('/');
+  SUB = sub || ''; SUB2 = sub2 || '';
   LAST = (to || location.hash.slice(1) || 'home');
   const key = VIEWS[id] ? id : 'home';
   $('#main').innerHTML = VIEWS[key]();
