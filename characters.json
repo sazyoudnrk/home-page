@@ -445,19 +445,20 @@
       "name": "ラグナ",
       "image": "ragna",
       "link": "",
-      "gender": "",
-      "age": "",
-      "firstPerson": "",
-      "secondPerson": "",
-      "likes": "",
-      "dislikes": "",
-      "birthday": "",
-      "created": "",
-      "detail": "",
+      "gender": "女",
+      "age": "不明",
+      "firstPerson": "私",
+      "secondPerson": "お前",
+      "likes": "かわいいもの",
+      "dislikes": "どうでもいい",
+      "birthday": "不明",
+      "created": "不明",
+      "detail": "桃源郷の入り口にいる\n王様のことが好き　渚のことが嫌い\n渚を桃源郷に入れたくない\n\n敵対的だが、武器を使うことはない。\nつたえたいことを話すのが苦手なように見える。",
       "gallery": [
         "character-gallery/ragna/02"
       ],
-      "portrait": null
+      "portrait": null,
+      "height": "不明"
     },
     {
       "id": "yorozuyayuu",
