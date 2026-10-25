@@ -10,11 +10,13 @@
 <meta property="og:url" content="https://sazyoudnrk.github.io/home-page/">
 <meta property="og:site_name" content="砂上拠点電力発電所">
 <meta property="og:description" content="砂上電力のホームページ。絵・音楽・動画・3DCGなど、創作キャラの紹介と作品を載せています。">
-<meta property="og:image" content="https://sazyoudnrk.github.io/home-page/images/top/top1.jpg">
+<meta property="og:image" content="https://sazyoudnrk.github.io/home-page/images/ogp.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="砂上拠点電力発電所">
 <meta name="twitter:description" content="砂上電力のホームページ。絵・音楽・動画・3DCGなど、創作キャラの紹介と作品を載せています。">
-<meta name="twitter:image" content="https://sazyoudnrk.github.io/home-page/images/top/top1.jpg">
+<meta name="twitter:image" content="https://sazyoudnrk.github.io/home-page/images/ogp.jpg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
@@ -676,11 +678,11 @@ function lbGo(d) { const n = LB.list.length; if (n < 2) return; LB.i = (LB.i + d
   lb.addEventListener('click', e => { if (lb.dataset.sw) e.stopImmediatePropagation(); }, true);
 }
 /* アクセスカウンター（abacus.jasoncameron.dev・認証なし）。ページを開くたびに加算 */
-const COUNTER_URLS = ['https://abacus.jsn.cam/hit/sazyoudnrk.github.io-home-page/visits','https://abacus.jasoncameron.dev/hit/sazyoudnrk.github.io-home-page/visits','https://api.counterapi.dev/v1/sazyoudnrk-home-page/visits/up'];   // 上から順に試す
-let counterN = 0;   // 読み込みごとに1回だけ加算（ホームに戻っても増やさない）
+var counterN = 0, counterBusy = false;   // 読み込みごとに1回だけ加算（ホームに戻っても増やさない）
 async function counter() {
   const el = $('#counter'); if (!el) return;
-  if (!counterN) { for (const u of COUNTER_URLS) { try { const c = new AbortController(); setTimeout(() => c.abort(), 6000); const r = await fetch(u, {signal:c.signal}); const j = await r.json(); counterN = +(j.value ?? j.count) || 0; if (counterN) break; } catch (e) {} } }
+  const COUNTER_URLS = ['https://abacus.jsn.cam/hit/sazyoudnrk.github.io-home-page/visits','https://abacus.jasoncameron.dev/hit/sazyoudnrk.github.io-home-page/visits','https://api.counterapi.dev/v1/sazyoudnrk-home-page/visits/up'];   // 上から順に試す
+  if (!counterN && !counterBusy) { counterBusy = true; for (const u of COUNTER_URLS) { try { const c = new AbortController(); setTimeout(() => c.abort(), 6000); const r = await fetch(u, {signal:c.signal}); const j = await r.json(); counterN = +(j.value ?? j.count) || 0; if (counterN) break; } catch (e) {} } counterBusy = false; }
   if (!counterN || !$('#counter')) return;
   el.className = 'counter'; el.hidden = false;
   el.innerHTML = `あなたは<b>${String(counterN).padStart(6,'0')}</b>人目のお客様です`;
