@@ -1,4 +1,5 @@
 {
+"./ogp": "jpg",
 "comic/lbd01": "jpg",
 "comic/lbd02": "jpg",
 "comic/lbd03": "jpg",
@@ -84,6 +85,10 @@
 "character-gallery/Deluca/02": "jpg",
 "character-gallery/denden/01": "png",
 "character-gallery/denden/03": "jpg",
+"character-gallery/denden/04": "jpg",
+"character-gallery/denden/05": "jpg",
+"character-gallery/denden/06": "jpg",
+"character-gallery/denden/07": "jpg",
 "character-gallery/satouichika/01": "png",
 "character-gallery/satouichika/02": "jpg",
 "character-gallery/satouichika/03": "jpg",
