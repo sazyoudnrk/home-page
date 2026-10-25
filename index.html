@@ -532,7 +532,7 @@ const VIEWS = {
     } else {
       const items = chars.filter(c=>c.group===grp.id);
       body = `<h2${grp.color?` style="color:${grp.color}"`:''}>${esc(grp.heading)}</h2>
-      <div class="chars">${items.map(c=>A(IMG('character',c.image,c.name)+esc(c.name),link(c))).join('')}${grp.id==='main'?A(IMG('character','design','デザインのみ')+'デザインのみ','#character/design'):''}</div>
+      <div class="chars">${items.map(c=>link(c)?A(IMG('character',c.image,c.name)+esc(c.name),link(c)):`<a style="cursor:default">${IMG('character',c.image,c.name)}${esc(c.name)}</a>`).join('')}${grp.id==='main'?A(IMG('character','design','デザインのみ')+'デザインのみ','#character/design'):''}</div>
       ${(()=>{ if (grp.noMore) return ''; POP = {曲: grp.songs || [], 動画: grp.videos || []};
         const pill = (k, always) => { const l = POP[k]; return l.length > 1 ? `<button type="button" class="btn-back" data-pop="${k}">${k} ＋</button>` : l.length === 1 ? A(k,l[0][1],'btn-back') : always ? `<span class="btn-back off">${k}（準備中）</span>` : ''; };
         const wd = grp.world ? A('世界観',grp.world,'btn-back') : `<span class="btn-back off">世界観（準備中）</span>`;   // 曲・動画が複数なら groups の songs / videos に [['名前','URL','説明（省略可）'],…] を足すと、押したときポップアップで選べる
