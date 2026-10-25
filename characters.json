@@ -126,6 +126,7 @@
       "created": "2020/11/26",
       "detail": "自称”所長”\n名前、性別、年齢、がすべて不明。\n人のようにコミュニケーションが取れる。\n夢の中で見た人のように、古い友人のようにも知らない人のようにも感じられる。\n人のように振る舞うが、実際にそうでないことは自分でも分かっている。\n\n物言いは柔らかく、態度も親しみやすい雰囲気だが、内面が高圧的。少々押しに弱い。\n何を考えているのかよくわからず、突拍子もないことを言い始めたり、常識的になったりする。\n精神が安定しておらず、道徳心があまりない。\n\n人ではなく現象。\n人のように振る舞うし感情もある、痛みもある、体もあるのに、現象のためいなくなることができない。\nもともと人間だった。不死身の体で、いろんなことをためすうちに、体の中のものは赤いゲルになってしまった。\n\n研究室と呼ばれるところに住んでいる\nこの研究室の異常性は街全体へ影響しているようだ。\n白衣が気に入っている。\n戻る方法を探している。",
       "gallery": [
+        "character-gallery/syotyo/09",
         "character-gallery/syotyo/02",
         "character-gallery/syotyo/03",
         "character-gallery/syotyo/04",
@@ -134,8 +135,7 @@
         "character-gallery/syotyo/06",
         "character-gallery/syotyo/07",
         "gallery/art13",
-        "character-gallery/syotyo/08",
-        "character-gallery/syotyo/09"
+        "character-gallery/syotyo/08"
       ],
       "portrait": "character-gallery/syotyo/01",
       "height": "169cm"
@@ -156,13 +156,13 @@
       "created": "unknown",
       "detail": "彼女は現象である。\n人間のような姿をしていて、接触もできるが、人間ではない。\n基本的に自発的な行動はしないが、話しかければ応えてくれる。\n容姿は猫耳としっぽが生えたピンクの髪の毛のメイドで、普通の人間同様に会話ができる。\n若い女の子のような声をしているが、その音は耳を経由して聞こえていないことがわかっている。\n\nインターネット依存症と見られる対象の前に頻繁に現れる。\n町中、パソコンの中、ポスターの中、家の中、駅の中\nどこにでも居るが、メイドちゃんかもしれないし幻覚かもしれない。\n\nメイドちゃんは対象が見たものに映り込む性質がある。\n対象が眠るときにはベッドの横で立っている。\n対象がご飯を食べるときは向かいの席に居る。\n対象がトイレにいくときも前で立っている。\nでもメイドちゃんはただの現象で、存在はあっても実在はしていない。\n実害があってもなくても現象であって人ではない。\n\n人の形をした対象を見ているときの表情はとても嬉しそうだ。",
       "gallery": [
+        "character-gallery/pinkmeido/07",
         "character-gallery/pinkmeido/02",
         "character-gallery/pinkmeido/03",
         "gallery/art20",
         "character-gallery/pinkmeido/04",
         "character-gallery/pinkmeido/05",
-        "character-gallery/pinkmeido/06",
-        "character-gallery/pinkmeido/07"
+        "character-gallery/pinkmeido/06"
       ],
       "portrait": "character-gallery/pinkmeido/01"
     },
