@@ -424,19 +424,20 @@
       "name": "アステ",
       "image": "aste",
       "link": "",
-      "gender": "",
-      "age": "",
-      "firstPerson": "",
-      "secondPerson": "",
-      "likes": "",
-      "dislikes": "",
+      "gender": "女",
+      "age": "不明",
+      "firstPerson": "私",
+      "secondPerson": "お客様",
+      "likes": "シンボル",
+      "dislikes": "閑古鳥",
       "birthday": "",
       "created": "",
-      "detail": "",
+      "detail": "アステロイドランドと呼ばれる遊園地にいる案内人\n好きな場所だったから、閑古鳥の鳴くこの場所がシンボルとなるまで再興したいと思っている。\n口調は拙いが友好的。\nモーニングスターで他から来たドルチェを排除している。魔法のようなパフォーマンスをすることができる。",
       "gallery": [
         "character-gallery/aste/02"
       ],
-      "portrait": null
+      "portrait": null,
+      "height": "167cm"
     },
     {
       "id": "ragna",
