@@ -247,6 +247,14 @@ const CG3D = [  /* 3DCG作品：img は images/gallery/ 内のファイル名（
   {img:'cg06',t:''},{img:'cg04',t:''},{img:'cg05',t:''},{img:'cg03',t:''},{img:'cg01',t:''},{img:'cg02',t:''}
 ];
 /* 動画：yt は YouTube の動画ID（watch?v= の後ろ11文字）、x は X(Twitter) の投稿URL。IDが空のものは「準備中」表示 */
+// いただいた絵（Xの投稿URL。消したいときはこの行を消す）
+const GIFT = [
+  'https://x.com/11ses_logg/status/1684412315846971392',
+  'https://x.com/hadukinainai/status/1669295696799989760',
+  'https://x.com/sloqr/status/1304752855136399360',
+  'https://x.com/ippnzn_/status/2104238919462298108',
+  'https://x.com/logg_2/status/1670339641126572035'
+];
 const VIDEOS = {
   original: [{t:'黎明脳/IA',yt:'jeLzF_K7AUA'},{t:'君の席/注寝ととと-UTAUオリジナル曲＆音源配布',yt:'rxbhb6tHXXo'},{t:'えんえん/可不【オリジナル曲】',yt:'ujW48ZPr4sI'},{t:'bgm',yt:'F06fFl3unLE'},{t:'まよいみち',x:'https://x.com/kazyou_dnrk/status/1895915125921759286'}],
   cover: [{t:'【UTAU Cover】イガク//注寝ととと',yt:'34NxAIFQ2Sw'},{t:'【UTAU Cover】±0//注寝ととと ほたび',yt:'_F4A_x7GHeQ'}],
@@ -543,11 +551,12 @@ const VIEWS = {
     <div class="gtabs" role="tablist">${tabs}</div>${bdlink}${body}`;
   },
   gallery: () => {
-    const T = [['art','絵'],['video','動画'],['music','音楽'],['cg','3DCG'],['craft','工作'],['comic','漫画'],['made','制作物'],['app','webAPP'],['work','依頼実績']];
+    const T = [['art','絵'],['video','動画'],['music','音楽'],['cg','3DCG'],['craft','工作'],['comic','漫画'],['made','制作物'],['app','webAPP'],['work','依頼実績'],['gift','いただいた絵']];
     const cur = T.some(t=>t[0]===SUB) ? SUB : 'art';
     const body = {
       art: () => `<div class="masonry zoom">${[...ART_NEW,...nums('art',ART)].map(n=>IMG('gallery',n)).join('')}</div>`,
       made: () => MADE.map(x=>`<div class="box card">${IMG('gallery',x.img)}<div><h3>${A(x.t,x.u)}</h3><p>${x.d}</p></div></div>`).join(''),
+      gift: () => `<p class="lead">描いていただいた絵です。ありがとうございます！</p><div class="vgrid">${GIFT.map(u=>`<div class="vidx"><blockquote class="twitter-tweet"><a href="${u}"></a></blockquote></div>`).join('')}</div>`,
       app: () => `<p class="lead">Claudeを使って作ったアプリ</p>` + APPS.map(linkCard).join(''),
       cg: () => CG3D.length ? `<div class="grid zoom">${CG3D.map(x=>`<div>${IMG('gallery',x.img,x.t)}<p style="margin:4px 0 0;font-size:13px">${x.u?A(x.t,x.u):x.t}${x.d?'<br><span style="color:var(--sub)">'+x.d+'</span>':''}</p></div>`).join('')}</div>` : `<div class="box" style="color:var(--sub)">（3DCG未設定：CG3D に作品を追加）</div>`,
       video: () => { const card = v => v.yt ? `<div class="vid"><iframe src="https://www.youtube.com/embed/${v.yt}" title="${v.t}" loading="lazy" allowfullscreen></iframe></div>` : v.x ? `<div class="vidx"><blockquote class="twitter-tweet"><a href="${v.x}"></a></blockquote></div>` : `<div class="vid ph0">${v.t}<br><small>（準備中）</small></div>`;
