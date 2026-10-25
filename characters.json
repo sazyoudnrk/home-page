@@ -432,7 +432,9 @@
       "birthday": "",
       "created": "",
       "detail": "",
-      "gallery": [],
+      "gallery": [
+        "character-gallery/aste/02"
+      ],
       "portrait": null
     },
     {
