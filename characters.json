@@ -933,7 +933,7 @@
         "character-gallery/Deluca/01",
         "character-gallery/Deluca/02"
       ],
-      "portrait": null
+      "portrait": "character-gallery/Deluca/01"
     }
   ]
 }
