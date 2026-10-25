@@ -666,15 +666,15 @@ function lbGo(d) { const n = LB.list.length; if (n < 2) return; LB.i = (LB.i + d
   }, {passive:true});
   lb.addEventListener('click', e => { if (lb.dataset.sw) e.stopImmediatePropagation(); }, true);
 }
-/* アクセスカウンター（abacus.jasoncameron.dev・認証なし）。同じブラウザでは最初に付いた番号をずっと表示する */
+/* アクセスカウンター（abacus.jasoncameron.dev・認証なし）。ページを開くたびに加算 */
 const COUNTER_URLS = ['https://abacus.jsn.cam/hit/sazyoudnrk.github.io-home-page/visits','https://abacus.jasoncameron.dev/hit/sazyoudnrk.github.io-home-page/visits','https://api.counterapi.dev/v1/sazyoudnrk-home-page/visits/up'];   // 上から順に試す
+let counterN = 0;   // 読み込みごとに1回だけ加算（ホームに戻っても増やさない）
 async function counter() {
   const el = $('#counter'); if (!el) return;
-  let n = 0; try { n = +localStorage.getItem('visitorNo') || 0; } catch (e) {}
-  if (!n) { for (const u of COUNTER_URLS) { try { const c = new AbortController(); setTimeout(() => c.abort(), 6000); const r = await fetch(u, {signal:c.signal}); const j = await r.json(); n = +(j.value ?? j.count) || 0; if (n) { try { localStorage.setItem('visitorNo', n); } catch (e) {} break; } } catch (e) {} } }
-  if (!n || !$('#counter')) return;
+  if (!counterN) { for (const u of COUNTER_URLS) { try { const c = new AbortController(); setTimeout(() => c.abort(), 6000); const r = await fetch(u, {signal:c.signal}); const j = await r.json(); counterN = +(j.value ?? j.count) || 0; if (counterN) break; } catch (e) {} } }
+  if (!counterN || !$('#counter')) return;
   el.className = 'counter'; el.hidden = false;
-  el.innerHTML = `あなたは<b>${String(n).padStart(6,'0')}</b>人目のお客様です`;
+  el.innerHTML = `あなたは<b>${String(counterN).padStart(6,'0')}</b>人目のお客様です`;
 }
 /* ホームのスライドを自動送り（触っている間と、触ってから6秒は止める） */
 let slideTouch = 0;
