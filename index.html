@@ -161,6 +161,22 @@ h3{font-size:17px;margin:20px 0 4px}
 footer{text-align:center;color:var(--sub);font-size:12px;padding:20px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offset:2px}
+/* お絵かき掲示板 */
+#okcv{display:block;width:100%;max-width:600px;aspect-ratio:4/3;border:3px solid var(--btn);background:#fff;touch-action:none;margin:0 auto;cursor:crosshair}
+.oktools{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:10px 0}
+.oktools button{font:700 14px/1 inherit;padding:9px 12px;border:2px solid var(--btn);background:#fff;color:var(--btn);border-radius:999px;cursor:pointer}
+.oktools button.on{background:var(--btn);color:#fff}
+.oktools input[type=color]{width:38px;height:34px;border:2px solid var(--btn);padding:0;background:#fff;border-radius:6px}
+.oksw{width:26px;height:26px;border-radius:50%;border:2px solid #999;padding:0;cursor:pointer}
+.okform{display:grid;gap:8px;max-width:600px;margin:12px auto}
+.okform input,.okform textarea{font:inherit;padding:9px 10px;border:2px solid var(--line);border-radius:6px;width:100%;box-sizing:border-box}
+#okmsg{min-height:1.6em;font-size:14px;color:var(--red);text-align:center;margin:4px 0}
+.okgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.okcard{border:1px solid #e3e5e8;background:#f4f5f7;padding:10px}
+.okcard img{width:100%;display:block;background:#fff}
+.okmeta{display:flex;flex-direction:column;font-size:14px;line-height:1.5;margin-top:6px}.okmeta span{color:var(--sub);font-size:12px}
+.okcard p{margin:4px 0;font-size:14px;line-height:1.6}
+.okrep{font:12px/1 inherit;border:0;background:none;color:var(--sub);text-decoration:underline;cursor:pointer;padding:4px 0}
 </style>
 </head>
 <body>
@@ -172,9 +188,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261027d';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261027e';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
-const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
+const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['oekaki','OEKAKI'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
 const HOME = {
   top: ['top1','top2','top3'],               // images/top/top1.(jpg|png|webp)
@@ -484,7 +500,121 @@ const WORLDS = {
   lbd: {t:'LoopBackDream', back:'#character/lbd', s: [{"h": "", "p": ["目が覚めたら作りの粗雑なベッドだらけの空間で目が覚めた渚。延々と不可解な部屋の続く空間で、にににと王様に出会う。\nどこに行っても意味がないまま、自分を思い出すために空間を徘徊する。", "空間は延々と続いている。\nシンボルのある象徴的空間と、入るたび構造がかわる乱数空間の2種類がある。", "渚は記憶を失っている。\n最後に何か大量に飲んだのは覚えていて、おそらく死後の世界ではないかと思っている。", "死んだものは葬儀箱という黒い箱になり、蘇生箱という機械にかけると生き返ることができる。\n乱数区間で葬儀箱になり、空間が書き換わると復元不可能となる。", "復元不可能になった葬儀箱はドルチェという黒い生き物になる。直接刺激されなければ反応は鈍くうごかない。"]}]}
 };
 
+/* ===== お絵かき掲示板 =====
+   OEKAKI_FB に Firebase の設定（firebaseConfig の中身）を入れると、みんなで共有する掲示板になる。
+   null のあいだは「プレビュー」：自分のこの端末にだけ保存される。 */
+const OEKAKI_FB = null;   // 例 {apiKey:'…', authDomain:'…', projectId:'…', appId:'…'}
+const OEKAKI_COL = 'oekaki', OK_W = 600, OK_H = 450, OK_COOL = 30, OK_MAXKB = 220;
+const OK = {fs:null, db:null, ctx:null, cv:null, hist:[], tool:'pen', color:'#222222', size:4, drawing:false, last:null};
+async function okInit() {
+  if (!OEKAKI_FB || OK.fs) return;
+  const base = 'https://www.gstatic.com/firebasejs/10.12.2/';
+  const [app, fs] = await Promise.all([import(base+'firebase-app.js'), import(base+'firebase-firestore.js')]);
+  OK.fs = fs; OK.db = fs.getFirestore(app.initializeApp(OEKAKI_FB));
+}
+const okLocal = () => { try { return JSON.parse(localStorage.getItem('okLocal')||'[]'); } catch(e) { return []; } };
+async function okList() {
+  if (!OEKAKI_FB) return okLocal();
+  await okInit(); const fs = OK.fs;
+  const s = await fs.getDocs(fs.query(fs.collection(OK.db,OEKAKI_COL), fs.orderBy('createdAt','desc'), fs.limit(40)));
+  return s.docs.map(d => { const x = d.data(); return {id:d.id, ...x, t:(x.createdAt&&x.createdAt.toMillis)?x.createdAt.toMillis():Date.now()}; });
+}
+async function okPost(p) {
+  if (!OEKAKI_FB) {
+    const a = okLocal(); a.unshift({...p, id:String(Date.now()), t:Date.now()});
+    try { localStorage.setItem('okLocal', JSON.stringify(a.slice(0,8))); } catch(e) { throw new Error('この端末に保存できませんでした（容量）'); }
+    return;
+  }
+  await okInit(); const fs = OK.fs;
+  await fs.addDoc(fs.collection(OK.db,OEKAKI_COL), {...p, createdAt:fs.serverTimestamp()});
+}
+async function okReport(id) {
+  if (!OEKAKI_FB) return;
+  await okInit(); const fs = OK.fs;
+  await fs.addDoc(fs.collection(OK.db,'oekaki_reports'), {postId:id, createdAt:fs.serverTimestamp()});
+}
+function okCard(x) {
+  const d = new Date(x.t||0), ds = x.t ? `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}` : '';
+  return `<div class="okcard"><div class="zoom">${`<img src="${esc(x.img)}" alt="${esc(x.title||'お絵かき')}" loading="lazy">`}</div>
+    <div class="okmeta"><b>${esc(x.title||'無題')}</b><span>${esc(x.name||'名無し')}　${ds}</span></div>
+    ${x.comment?`<p>${esc(x.comment).replace(/\n/g,'<br>')}</p>`:''}
+    <button type="button" class="okrep" data-rep="${esc(x.id)}">通報</button></div>`;
+}
+async function okRefresh() {
+  const box = $('#oklist'); if (!box) return;
+  try { const a = await okList(); box.innerHTML = a.length ? a.map(okCard).join('') : '<p class="lead">まだ投稿がありません。最初の1枚をどうぞ。</p>'; }
+  catch(e) { box.innerHTML = '<div class="box">読み込めませんでした。時間をおいてもう一度開いてください。</div>'; }
+}
+function okSnap() { OK.hist.push(OK.ctx.getImageData(0,0,OK_W,OK_H)); if (OK.hist.length > 25) OK.hist.shift(); }
+function okClear() { OK.ctx.fillStyle = '#fff'; OK.ctx.fillRect(0,0,OK_W,OK_H); }
+function okPos(e) { const r = OK.cv.getBoundingClientRect(); return [(e.clientX-r.left)*OK_W/r.width, (e.clientY-r.top)*OK_H/r.height]; }
+function okLine(a, b) {
+  const c = OK.ctx; c.strokeStyle = OK.tool==='eraser' ? '#fff' : OK.color; c.lineWidth = OK.size*(OK.tool==='eraser'?3:1);
+  c.lineCap = c.lineJoin = 'round'; c.beginPath(); c.moveTo(a[0],a[1]); c.lineTo(b[0],b[1]); c.stroke();
+}
+function okBlank() { const d = OK.ctx.getImageData(0,0,OK_W,OK_H).data; for (let i = 0; i < d.length; i += 4) if (d[i] < 250 || d[i+1] < 250 || d[i+2] < 250) return false; return true; }
+function okExport() {
+  for (const [type,q] of [['image/webp',.8],['image/webp',.6],['image/jpeg',.7],['image/jpeg',.5]]) {
+    const u = OK.cv.toDataURL(type,q); if (u.startsWith('data:'+type) && u.length < OK_MAXKB*1370) return u;
+  }
+  return null;
+}
+function okInitPage() {
+  const cv = $('#okcv'); if (!cv) return;
+  OK.cv = cv; OK.ctx = cv.getContext('2d'); OK.hist = []; okClear();
+  const down = e => { e.preventDefault(); okSnap(); OK.drawing = true; OK.last = okPos(e); okLine(OK.last, [OK.last[0]+.01, OK.last[1]]); try { cv.setPointerCapture(e.pointerId); } catch(_) {} };
+  const move = e => { if (!OK.drawing) return; e.preventDefault(); const p = okPos(e); okLine(OK.last, p); OK.last = p; };
+  const up = () => { OK.drawing = false; };
+  cv.addEventListener('pointerdown', down); cv.addEventListener('pointermove', move);
+  ['pointerup','pointercancel','pointerleave'].forEach(n => cv.addEventListener(n, up));
+  okRefresh();
+}
+document.addEventListener('click', async e => {
+  const t = e.target.closest('[data-ok],[data-rep],[data-oksw]'); if (!t || (!t.dataset.rep && !OK.ctx)) return;
+  if (t.dataset.oksw) { OK.color = t.dataset.oksw; OK.tool = 'pen'; $('#okcolor').value = OK.color; okTool(); return; }
+  if (t.dataset.rep) { if (confirm('この投稿を通報しますか？')) { try { await okReport(t.dataset.rep); t.textContent = '通報しました'; t.disabled = true; } catch(_) { t.textContent = '失敗'; } } return; }
+  const k = t.dataset.ok;
+  if (k === 'pen' || k === 'eraser') { OK.tool = k; okTool(); }
+  else if (k === 'undo') { const h = OK.hist.pop(); if (h) OK.ctx.putImageData(h,0,0); }
+  else if (k === 'clear') { if (confirm('全部消しますか？')) { okSnap(); okClear(); } }
+  else if (k === 'post') okSubmit(t);
+});
+function okTool() { document.querySelectorAll('[data-ok="pen"],[data-ok="eraser"]').forEach(b => b.classList.toggle('on', b.dataset.ok === OK.tool)); }
+async function okSubmit(btn) {
+  const msg = $('#okmsg'), say = s => { msg.textContent = s; };
+  const last = +localStorage.getItem('okLast')||0, wait = Math.ceil(OK_COOL - (Date.now()-last)/1000);
+  if (wait > 0) return say(`連続投稿はできません。あと${wait}秒お待ちください。`);
+  if (okBlank()) return say('まだ何も描かれていません。');
+  const img = okExport(); if (!img) return say('絵のデータが大きすぎます。少し簡単な絵にしてください。');
+  btn.disabled = true; say('投稿中…');
+  try {
+    await okPost({img, name:$('#okname').value.trim().slice(0,20), title:$('#oktitle').value.trim().slice(0,30), comment:$('#okcomment').value.trim().slice(0,100)});
+    try { localStorage.setItem('okLast', String(Date.now())); } catch(_) {}
+    say('投稿しました！'); okSnap(); okClear(); $('#oktitle').value = ''; $('#okcomment').value = ''; okRefresh();
+  } catch(e) { say('投稿できませんでした：' + (e.message||'')); }
+  btn.disabled = false;
+}
+addEventListener('input', e => { if (e.target.id === 'okcolor') { OK.color = e.target.value; OK.tool = 'pen'; okTool(); } if (e.target.id === 'oksize') OK.size = +e.target.value; });
+
 const VIEWS = {
+  oekaki: () => `${head('OEKAKI','指でお絵かきして投稿できます')}
+    ${OEKAKI_FB?'':'<div class="box" style="color:var(--sub)">プレビュー中：投稿はこの端末にだけ保存されます（公開前の動作確認用）。</div>'}
+    <canvas id="okcv" width="${OK_W}" height="${OK_H}"></canvas>
+    <div class="oktools">
+      <button type="button" data-ok="pen" class="on">ペン</button><button type="button" data-ok="eraser">消しゴム</button>
+      <input type="color" id="okcolor" value="#222222" aria-label="色">
+      ${['#222222','#d9382b','#3f86d6','#2f9e5b','#f2b400','#e86aa6'].map(c=>`<button type="button" class="oksw" data-oksw="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}
+      <input type="range" id="oksize" min="1" max="24" value="4" aria-label="太さ" style="width:100px">
+      <button type="button" data-ok="undo">元に戻す</button><button type="button" data-ok="clear">全消し</button>
+    </div>
+    <div class="okform">
+      <input id="oktitle" maxlength="30" placeholder="タイトル（任意）"><input id="okname" maxlength="20" placeholder="名前（任意）">
+      <textarea id="okcomment" maxlength="100" rows="2" placeholder="ひとこと（任意・100文字まで）"></textarea>
+      <button type="button" class="btn" data-ok="post" style="font-family:inherit;cursor:pointer">投稿する</button>
+    </div>
+    <div id="okmsg" role="status"></div>
+    <p style="font-size:12px;color:var(--sub);text-align:center">他人を傷つける絵・著作権を侵害する絵・R-18は投稿しないでください。通報があった投稿は削除することがあります。</p>
+    <h2>みんなの絵</h2><div id="oklist" class="okgrid"><p class="lead">読み込み中…</p></div>`,
   home: () => `
     <div class="hero"><div class="slides" id="slides">${HOME.top.map(n=>IMG('top',n)).join('')}</div>
       <button class="arr l" data-slide="-1" aria-label="前へ"><svg viewBox="0 0 40 60"><polyline points="30,6 8,30 30,54"/></svg></button>
@@ -616,6 +746,7 @@ function route(to) {
   document.title = (key==='home'?'':(PAGES.find(p=>p[0]===key)||[0,key==='terms'?'利用規約':key==='world'?'世界観説明':'受賞歴'])[1]+' | ')+'砂上拠点電力発電所';
   if (document.querySelector('.twitter-tweet, .twitter-timeline')) { if (window.twttr && twttr.widgets) twttr.widgets.load($('#main')); else if (!document.getElementById('twjs')) { const sc = document.createElement('script'); sc.id = 'twjs'; sc.async = true; sc.src = 'https://platform.twitter.com/widgets.js'; document.head.appendChild(sc); } }
   if (key === 'home') counter();
+  if (key === 'oekaki') okInitPage();
   if (!route.keep) scrollTo(0,0);
   const ont = document.querySelector('.gtabs a.on, .tabs a.on'); if (ont) { const g = ont.parentElement; g.scrollLeft = ont.offsetLeft - (g.clientWidth - ont.offsetWidth) / 2; }
   prefetchNext(key);
