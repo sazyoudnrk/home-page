@@ -176,6 +176,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 .okcard img{width:100%;display:block;background:#fff}
 .okmeta{display:flex;flex-direction:column;font-size:14px;line-height:1.5;margin-top:6px}.okmeta span{color:var(--sub);font-size:12px}
 .okcard p{margin:4px 0;font-size:14px;line-height:1.6}
+.okdel{color:var(--red);margin-right:12px}
 .okrep{font:12px/1 inherit;border:0;background:none;color:var(--sub);text-decoration:underline;cursor:pointer;padding:4px 0}
 </style>
 </head>
@@ -188,7 +189,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261027e';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261028a';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['oekaki','OEKAKI'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -505,19 +506,21 @@ const WORLDS = {
    null のあいだは「プレビュー」：自分のこの端末にだけ保存される。 */
 const OEKAKI_FB = null;   // 例 {apiKey:'…', authDomain:'…', projectId:'…', appId:'…'}
 const OEKAKI_COL = 'oekaki', OK_W = 600, OK_H = 450, OK_COOL = 30, OK_MAXKB = 220;
-const OK = {fs:null, db:null, ctx:null, cv:null, hist:[], tool:'pen', color:'#222222', size:4, drawing:false, last:null};
+const OK = {uid:'', fs:null, db:null, ctx:null, cv:null, hist:[], tool:'pen', color:'#222222', size:4, drawing:false, last:null};
 async function okInit() {
   if (!OEKAKI_FB || OK.fs) return;
   const base = 'https://www.gstatic.com/firebasejs/10.12.2/';
-  const [app, fs] = await Promise.all([import(base+'firebase-app.js'), import(base+'firebase-firestore.js')]);
-  OK.fs = fs; OK.db = fs.getFirestore(app.initializeApp(OEKAKI_FB));
+  const [app, fs, au] = await Promise.all([import(base+'firebase-app.js'), import(base+'firebase-firestore.js'), import(base+'firebase-auth.js')]);
+  const a = app.initializeApp(OEKAKI_FB); OK.fs = fs; OK.db = fs.getFirestore(a);
+  const auth = au.getAuth(a);   // 匿名ログイン（自分の投稿を1分以内に取り消すため）
+  try { OK.uid = (auth.currentUser || (await au.signInAnonymously(auth)).user).uid; } catch(e) { OK.uid = ''; }
 }
 const okLocal = () => { try { return JSON.parse(localStorage.getItem('okLocal')||'[]'); } catch(e) { return []; } };
 async function okList() {
-  if (!OEKAKI_FB) return okLocal();
+  if (!OEKAKI_FB) return okLocal().map(x => ({...x, mine:true}));
   await okInit(); const fs = OK.fs;
   const s = await fs.getDocs(fs.query(fs.collection(OK.db,OEKAKI_COL), fs.orderBy('createdAt','desc'), fs.limit(40)));
-  return s.docs.map(d => { const x = d.data(); return {id:d.id, ...x, t:(x.createdAt&&x.createdAt.toMillis)?x.createdAt.toMillis():Date.now()}; });
+  return s.docs.map(d => { const x = d.data(); return {id:d.id, ...x, t:(x.createdAt&&x.createdAt.toMillis)?x.createdAt.toMillis():Date.now(), mine:!!OK.uid && x.uid===OK.uid}; });
 }
 async function okPost(p) {
   if (!OEKAKI_FB) {
@@ -526,7 +529,16 @@ async function okPost(p) {
     return;
   }
   await okInit(); const fs = OK.fs;
-  await fs.addDoc(fs.collection(OK.db,OEKAKI_COL), {...p, createdAt:fs.serverTimestamp()});
+  if (!OK.uid) throw new Error('匿名ログインに失敗しました');
+  await fs.addDoc(fs.collection(OK.db,OEKAKI_COL), {...p, uid:OK.uid, createdAt:fs.serverTimestamp()});
+}
+async function okDelete(id) {
+  if (!OEKAKI_FB) { localStorage.setItem('okLocal', JSON.stringify(okLocal().filter(x => x.id !== id))); return; }
+  await okInit(); await OK.fs.deleteDoc(OK.fs.doc(OK.db, OEKAKI_COL, id));
+}
+function okTick() {   // 取り消しボタンの残り秒数を更新（1分たつと消える）
+  const bs = document.querySelectorAll('[data-del]'); if (!bs.length) { clearInterval(OK.timer); OK.timer = 0; return; }
+  bs.forEach(b => { const left = Math.ceil(60 - (Date.now() - +b.dataset.t)/1000); if (left <= 0) b.remove(); else b.textContent = `取り消す（あと${left}秒）`; });
 }
 async function okReport(id) {
   if (!OEKAKI_FB) return;
@@ -538,12 +550,14 @@ function okCard(x) {
   return `<div class="okcard"><div class="zoom">${`<img src="${esc(x.img)}" alt="${esc(x.title||'お絵かき')}" loading="lazy">`}</div>
     <div class="okmeta"><b>${esc(x.title||'無題')}</b><span>${esc(x.name||'名無し')}　${ds}</span></div>
     ${x.comment?`<p>${esc(x.comment).replace(/\n/g,'<br>')}</p>`:''}
+    ${x.mine && Date.now()-x.t < 60000 ? `<button type="button" class="okrep okdel" data-del="${esc(x.id)}" data-t="${x.t}">取り消す</button>` : ''}
     <button type="button" class="okrep" data-rep="${esc(x.id)}">通報</button></div>`;
 }
 async function okRefresh() {
   const box = $('#oklist'); if (!box) return;
   try { const a = await okList(); box.innerHTML = a.length ? a.map(okCard).join('') : '<p class="lead">まだ投稿がありません。最初の1枚をどうぞ。</p>'; }
   catch(e) { box.innerHTML = '<div class="box">読み込めませんでした。時間をおいてもう一度開いてください。</div>'; }
+  if (box.querySelector('[data-del]') && !OK.timer) { okTick(); OK.timer = setInterval(okTick, 1000); }
 }
 function okSnap() { OK.hist.push(OK.ctx.getImageData(0,0,OK_W,OK_H)); if (OK.hist.length > 25) OK.hist.shift(); }
 function okClear() { OK.ctx.fillStyle = '#fff'; OK.ctx.fillRect(0,0,OK_W,OK_H); }
@@ -570,7 +584,8 @@ function okInitPage() {
   okRefresh();
 }
 document.addEventListener('click', async e => {
-  const t = e.target.closest('[data-ok],[data-rep],[data-oksw]'); if (!t || (!t.dataset.rep && !OK.ctx)) return;
+  const t = e.target.closest('[data-ok],[data-rep],[data-oksw],[data-del]'); if (!t || (!t.dataset.rep && !t.dataset.del && !OK.ctx)) return;
+  if (t.dataset.del) { if (!confirm('この投稿を取り消しますか？')) return; t.disabled = true; try { await okDelete(t.dataset.del); okRefresh(); } catch(_) { t.textContent = '取り消せませんでした（1分を過ぎた可能性があります）'; } return; }
   if (t.dataset.oksw) { OK.color = t.dataset.oksw; OK.tool = 'pen'; $('#okcolor').value = OK.color; okTool(); return; }
   if (t.dataset.rep) { if (confirm('この投稿を通報しますか？')) { try { await okReport(t.dataset.rep); t.textContent = '通報しました'; t.disabled = true; } catch(_) { t.textContent = '失敗'; } } return; }
   const k = t.dataset.ok;
