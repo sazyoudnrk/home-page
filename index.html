@@ -195,7 +195,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261028i';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261029a';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['oekaki','OEKAKI'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -553,8 +553,27 @@ async function okReport(id) {
   await fs.addDoc(fs.collection(OK.db,'oekaki_reports'), {postId:id, createdAt:fs.serverTimestamp()});
 }
 const OK_IMG = /^data:image\/(webp|jpeg);base64,[A-Za-z0-9+\/=]+$/;   // 画像として表示してよいデータの形（これ以外は表示しない）
+function okDims(u) {   // 画像のヘッダーだけ読んで縦横サイズを調べる（巨大な画像でブラウザを重くされないため）
+  try {
+    const b = atob(u.slice(u.indexOf(',')+1).slice(0,4000)), g = i => b.charCodeAt(i);
+    if (b.startsWith('RIFF') && b.slice(8,12) === 'WEBP') {
+      const k = b.slice(12,16);
+      if (k === 'VP8 ') return [(g(26)|g(27)<<8)&0x3fff, (g(28)|g(29)<<8)&0x3fff];
+      if (k === 'VP8L') { const v = (g(21)|g(22)<<8|g(23)<<16|g(24)*16777216)>>>0; return [(v&0x3fff)+1, ((v>>>14)&0x3fff)+1]; }
+      if (k === 'VP8X') return [1+(g(24)|g(25)<<8|g(26)<<16), 1+(g(27)|g(28)<<8|g(29)<<16)];
+    } else if (g(0) === 0xFF && g(1) === 0xD8) {
+      for (let i = 2; i + 9 < b.length && g(i) === 0xFF; ) {
+        const m = g(i+1);
+        if (m >= 0xC0 && m <= 0xCF && m !== 0xC4 && m !== 0xC8 && m !== 0xCC) return [g(i+7)<<8|g(i+8), g(i+5)<<8|g(i+6)];
+        i += 2 + (g(i+2)<<8|g(i+3));
+      }
+    }
+  } catch(e) {}
+  return null;
+}
 function okCard(x) {
   if (typeof x.img !== 'string' || !OK_IMG.test(x.img) || x.img.length > 400000) return '';
+  const wh = okDims(x.img); if (!wh || wh[0] < 1 || wh[1] < 1 || wh[0] > 1000 || wh[1] > 1000) return '';
   x = {...x, id:String(x.id).replace(/[^\w-]/g,''), t:Number(x.t)||0};
   const d = new Date(x.t||0), ds = x.t ? `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}` : '';
   return `<div class="okcard"><div class="zoom">${`<img src="${esc(x.img)}" alt="お絵かき" loading="lazy">`}</div>
