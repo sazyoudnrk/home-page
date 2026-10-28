@@ -189,7 +189,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261028a';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261028b';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['oekaki','OEKAKI'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -503,8 +503,8 @@ const WORLDS = {
 
 /* ===== お絵かき掲示板 =====
    OEKAKI_FB に Firebase の設定（firebaseConfig の中身）を入れると、みんなで共有する掲示板になる。
-   null のあいだは「プレビュー」：自分のこの端末にだけ保存される。 */
-const OEKAKI_FB = null;   // 例 {apiKey:'…', authDomain:'…', projectId:'…', appId:'…'}
+   空（null）のあいだは「プレビュー」：自分のこの端末にだけ保存される。 */
+const OEKAKI_FB = {apiKey:'AIzaSyBKDKSCbAxEWi65Xfx8bNb5c_rkGY_s6sg', authDomain:'sazyouden-oekaki.firebaseapp.com', projectId:'sazyouden-oekaki', storageBucket:'sazyouden-oekaki.firebasestorage.app', messagingSenderId:'120770222207', appId:'1:120770222207:web:db5f7025443008a398874a'};   // 例 {apiKey:'…', authDomain:'…', projectId:'…', appId:'…'}
 const OEKAKI_COL = 'oekaki', OK_W = 600, OK_H = 450, OK_COOL = 30, OK_MAXKB = 220;
 const OK = {uid:'', fs:null, db:null, ctx:null, cv:null, hist:[], tool:'pen', color:'#222222', size:4, drawing:false, last:null};
 async function okInit() {
