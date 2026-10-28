@@ -169,6 +169,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 .okpage .okcard img{-webkit-touch-callout:default}
 .oktools{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:10px 0}
 .oktools button{font:700 14px/1 inherit;padding:9px 12px;border:2px solid var(--btn);background:#fff;color:var(--btn);border-radius:999px;cursor:pointer}
+.oklayers{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0}.oklayers>div{display:flex;gap:6px;width:min(100%,280px)}
+.oklayers button{font:700 14px/1 inherit;padding:9px 12px;border:2px solid var(--btn);background:#fff;color:var(--btn);border-radius:999px;cursor:pointer}.oklayers button[data-ok^=l]{flex:1}.oklayers button.on{background:var(--btn);color:#fff}
 .oktools button.on{background:var(--btn);color:#fff}
 .oktools input[type=color]{width:38px;height:34px;border:2px solid var(--btn);padding:0;background:#fff;border-radius:6px}
 .oksw{width:26px;height:26px;border-radius:50%;border:2px solid #999;padding:0;cursor:pointer}
@@ -193,7 +195,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261028g';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261028h';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['oekaki','OEKAKI'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -648,9 +650,9 @@ const VIEWS = {
       <input type="range" id="oksize" min="1" max="40" value="4" aria-label="太さ" style="width:100px">
       <button type="button" data-ok="undo">元に戻す</button><button type="button" data-ok="clear">全消し</button>
     </div>
-    <div class="oktools">
-      <button type="button" data-ok="l0">レイヤー1</button><button type="button" data-ok="v0" class="on">👁️</button>
-      <button type="button" data-ok="l1" class="on">レイヤー2</button><button type="button" data-ok="v1" class="on">👁️</button>
+    <div class="oklayers">
+      <div><button type="button" data-ok="l1" class="on">レイヤー2</button><button type="button" data-ok="v1" class="on">👁️</button></div>
+      <div><button type="button" data-ok="l0">レイヤー1</button><button type="button" data-ok="v0" class="on">👁️</button></div>
       <span style="font-size:12px;color:var(--sub)">投稿すると1枚に合わさります</span>
     </div>
     <div class="okform">
