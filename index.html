@@ -193,7 +193,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261028f';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261028g';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['oekaki','OEKAKI'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -658,7 +658,7 @@ const VIEWS = {
     </div>
     <div id="okmsg" role="status"></div>
     <p style="font-size:12px;color:var(--sub);text-align:center">他人を傷つける絵・著作権を侵害する絵・R-18は投稿しないでください。通報があった投稿は削除することがあります。</p>
-    <h2>みんなの絵</h2><div id="oklist" class="okgrid"><p class="lead">読み込み中…</p></div></div>`,
+    <h2>掲示板</h2><div id="oklist" class="okgrid"><p class="lead">読み込み中…</p></div></div>`,
   home: () => `
     <div class="hero"><div class="slides" id="slides">${HOME.top.map(n=>IMG('top',n)).join('')}</div>
       <button class="arr l" data-slide="-1" aria-label="前へ"><svg viewBox="0 0 40 60"><polyline points="30,6 8,30 30,54"/></svg></button>
