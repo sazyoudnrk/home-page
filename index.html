@@ -193,7 +193,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261028e';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261028f';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['oekaki','OEKAKI'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -511,7 +511,7 @@ const WORLDS = {
    空（null）のあいだは「プレビュー」：自分のこの端末にだけ保存される。 */
 const OEKAKI_FB = {apiKey:'AIzaSyBKDKSCbAxEWi65Xfx8bNb5c_rkGY_s6sg', authDomain:'sazyouden-oekaki.firebaseapp.com', projectId:'sazyouden-oekaki', storageBucket:'sazyouden-oekaki.firebasestorage.app', messagingSenderId:'120770222207', appId:'1:120770222207:web:db5f7025443008a398874a'};   // 例 {apiKey:'…', authDomain:'…', projectId:'…', appId:'…'}
 const OEKAKI_COL = 'oekaki', OK_W = 600, OK_H = 450, OK_COOL = 30, OK_MAXKB = 220;
-const OK = {uid:'', fs:null, db:null, ctx:null, cv:null, L:[], cur:1, vis:[true,true], hist:[], tool:'pen', color:'#222222', size:4, drawing:false, last:null};
+const OK = {uid:'', fs:null, db:null, ctx:null, cv:null, L:[], cur:1, vis:[true,true], sizes:{pen:4, eraser:12}, hist:[], tool:'pen', color:'#222222', size:4, drawing:false, last:null};
 async function okInit() {
   if (!OEKAKI_FB || OK.fs) return;
   const base = 'https://www.gstatic.com/firebasejs/10.12.2/';
@@ -579,7 +579,7 @@ function okPos(e) { const r = OK.cv.getBoundingClientRect(); return [(e.clientX-
 function okLine(a, b) {
   const c = OK.L[OK.cur], er = OK.tool === 'eraser';
   c.globalCompositeOperation = (er && OK.cur === 1) ? 'destination-out' : 'source-over';   // 上のレイヤーの消しゴムは透明に戻す
-  c.strokeStyle = er ? '#fff' : OK.color; c.lineWidth = OK.size*(er?3:1);
+  c.strokeStyle = er ? '#fff' : OK.color; c.lineWidth = OK.sizes[er?'eraser':'pen'];
   c.lineCap = c.lineJoin = 'round'; c.beginPath(); c.moveTo(a[0],a[1]); c.lineTo(b[0],b[1]); c.stroke(); c.globalCompositeOperation = 'source-over';
 }
 function okBlank() { const d = okMerge().getContext('2d').getImageData(0,0,OK_W,OK_H).data; for (let i = 0; i < d.length; i += 4) if (d[i] < 250 || d[i+1] < 250 || d[i+2] < 250) return false; return true; }
@@ -616,8 +616,9 @@ document.addEventListener('click', async e => {
 function okTool() {
   document.querySelectorAll('[data-ok="pen"],[data-ok="eraser"],[data-ok="pick"]').forEach(b => b.classList.toggle('on', b.dataset.ok === OK.tool));
   [0,1].forEach(i => { const l = document.querySelector(`[data-ok="l${i}"]`), v = document.querySelector(`[data-ok="v${i}"]`);
-    if (l) l.classList.toggle('on', OK.cur === i); if (v) { v.classList.toggle('on', OK.vis[i]); v.textContent = OK.vis[i] ? '表示' : '非表示'; }
+    if (l) l.classList.toggle('on', OK.cur === i); if (v) { v.classList.toggle('on', OK.vis[i]); v.textContent = OK.vis[i] ? '👁️' : '🚫'; }
     const c = document.getElementById(i ? 'okcv' : 'okcv0'); if (c) c.style.opacity = OK.vis[i] ? 1 : 0; });
+  const sz = $('#oksize'); if (sz) sz.value = OK.sizes[OK.tool==='eraser'?'eraser':'pen'];   // ペンと消しゴムは別々の太さを覚えている
   if (OK.cv) OK.cv.style.cursor = OK.tool === 'pick' ? 'copy' : 'crosshair';
 }
 async function okSubmit(btn) {
@@ -634,7 +635,7 @@ async function okSubmit(btn) {
   } catch(e) { say('投稿できませんでした：' + (e.message||'')); }
   btn.disabled = false;
 }
-addEventListener('input', e => { if (e.target.id === 'okcolor') { OK.color = e.target.value; OK.tool = 'pen'; okTool(); } if (e.target.id === 'oksize') OK.size = +e.target.value; });
+addEventListener('input', e => { if (e.target.id === 'okcolor') { OK.color = e.target.value; OK.tool = 'pen'; okTool(); } if (e.target.id === 'oksize') OK.sizes[OK.tool==='eraser'?'eraser':'pen'] = +e.target.value; });
 
 const VIEWS = {
   oekaki: () => `<div class="okpage">${head('OEKAKI','指でお絵かきして投稿できます')}
@@ -643,13 +644,13 @@ const VIEWS = {
     <div class="oktools">
       <button type="button" data-ok="pen" class="on">ペン</button><button type="button" data-ok="eraser">消しゴム</button><button type="button" data-ok="pick">スポイト</button>
       <input type="color" id="okcolor" value="#222222" aria-label="色">
-      ${['#222222','#d9382b','#3f86d6','#2f9e5b','#f2b400','#e86aa6'].map(c=>`<button type="button" class="oksw" data-oksw="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}
-      <input type="range" id="oksize" min="1" max="24" value="4" aria-label="太さ" style="width:100px">
+      ${['#222222','#d9382b','#3f86d6','#2f9e5b','#f2b400'].map(c=>`<button type="button" class="oksw" data-oksw="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}
+      <input type="range" id="oksize" min="1" max="40" value="4" aria-label="太さ" style="width:100px">
       <button type="button" data-ok="undo">元に戻す</button><button type="button" data-ok="clear">全消し</button>
     </div>
-    <div class="oktools"><span style="font-size:13px;color:var(--sub)">レイヤー</span>
-      <button type="button" data-ok="l0">下</button><button type="button" data-ok="v0" class="on">表示</button>
-      <button type="button" data-ok="l1" class="on">上</button><button type="button" data-ok="v1" class="on">表示</button>
+    <div class="oktools">
+      <button type="button" data-ok="l0">レイヤー1</button><button type="button" data-ok="v0" class="on">👁️</button>
+      <button type="button" data-ok="l1" class="on">レイヤー2</button><button type="button" data-ok="v1" class="on">👁️</button>
       <span style="font-size:12px;color:var(--sub)">投稿すると1枚に合わさります</span>
     </div>
     <div class="okform">
