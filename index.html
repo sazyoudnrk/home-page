@@ -165,6 +165,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 .okwrap{position:relative;width:100%;max-width:600px;aspect-ratio:4/3;border:3px solid var(--btn);background:#fff;margin:0 auto;box-sizing:border-box}
 .okwrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 #okcv{cursor:crosshair}
+.okpage{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}   /* 描いている最中に文字が選択されないように */
+.okpage .okcard img{-webkit-touch-callout:default}
 .oktools{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:10px 0}
 .oktools button{font:700 14px/1 inherit;padding:9px 12px;border:2px solid var(--btn);background:#fff;color:var(--btn);border-radius:999px;cursor:pointer}
 .oktools button.on{background:var(--btn);color:#fff}
@@ -191,7 +193,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 
 <script>
 /* ============ データ（ここだけ編集すれば更新できます） ============ */
-const IMGV = '20261028d';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
+const IMGV = '20261028e';                     // 画像を差し替えたらこの値を変える（ブラウザのキャッシュ対策）
 const EXTS = ['jpg','png','webp'];           // 画像の拡張子を順に試す
 const PAGES = [['home','HOME'],['download','DOWNLOAD'],['character','CHARACTER'],['gallery','GALLERY'],['oekaki','OEKAKI'],['event','EVENT'],['about','ABOUT'],['contact','CONTACT・LINK']];
 
@@ -635,7 +637,7 @@ async function okSubmit(btn) {
 addEventListener('input', e => { if (e.target.id === 'okcolor') { OK.color = e.target.value; OK.tool = 'pen'; okTool(); } if (e.target.id === 'oksize') OK.size = +e.target.value; });
 
 const VIEWS = {
-  oekaki: () => `${head('OEKAKI','指でお絵かきして投稿できます')}
+  oekaki: () => `<div class="okpage">${head('OEKAKI','指でお絵かきして投稿できます')}
     ${OEKAKI_FB?'':'<div class="box" style="color:var(--sub)">プレビュー中：投稿はこの端末にだけ保存されます（公開前の動作確認用）。</div>'}
     <div class="okwrap"><canvas id="okcv0" width="${OK_W}" height="${OK_H}"></canvas><canvas id="okcv" width="${OK_W}" height="${OK_H}"></canvas></div>
     <div class="oktools">
@@ -655,7 +657,7 @@ const VIEWS = {
     </div>
     <div id="okmsg" role="status"></div>
     <p style="font-size:12px;color:var(--sub);text-align:center">他人を傷つける絵・著作権を侵害する絵・R-18は投稿しないでください。通報があった投稿は削除することがあります。</p>
-    <h2>みんなの絵</h2><div id="oklist" class="okgrid"><p class="lead">読み込み中…</p></div>`,
+    <h2>みんなの絵</h2><div id="oklist" class="okgrid"><p class="lead">読み込み中…</p></div></div>`,
   home: () => `
     <div class="hero"><div class="slides" id="slides">${HOME.top.map(n=>IMG('top',n)).join('')}</div>
       <button class="arr l" data-slide="-1" aria-label="前へ"><svg viewBox="0 0 40 60"><polyline points="30,6 8,30 30,54"/></svg></button>
